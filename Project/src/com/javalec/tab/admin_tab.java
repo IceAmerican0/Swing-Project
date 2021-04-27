@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
 
 public class admin_tab {
 
@@ -22,6 +24,8 @@ public class admin_tab {
 	private JPanel member;
 	private JPanel admin;
 	private JLayeredPane layeredPane;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -75,7 +79,7 @@ public class admin_tab {
 		
 		JLabel lblNewLabel = new JLabel("관리자 프로필");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(248, 167, 424, 138);
+		lblNewLabel.setBounds(6, 6, 97, 26);
 		admin.add(lblNewLabel);
 		
 		member = new JPanel();
@@ -83,9 +87,9 @@ public class admin_tab {
 		member.setLayout(null);
 		
 		JLabel lblNewLabel1 = new JLabel("회원관리");
-		lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel1.setBounds(237, 176, 424, 138);
+		lblNewLabel1.setBounds(6, 6, 104, 36);
 		member.add(lblNewLabel1);
+		lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		closet = new JPanel();
 		layeredPane.add(closet, "name_10028148525053");
@@ -120,8 +124,50 @@ public class admin_tab {
 		
 		JLabel lblNewLabel_5 = new JLabel("권한설정");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(246, 185, 424, 138);
+		lblNewLabel_5.setBounds(6, 6, 107, 36);
 		authority.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_1 = new JLabel("관리자 id");
+		lblNewLabel_1.setBounds(120, 133, 61, 16);
+		authority.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("관리자 이름");
+		lblNewLabel_1_1.setBounds(253, 133, 61, 16);
+		authority.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("관리자 권한");
+		lblNewLabel_1_1_1.setBounds(586, 133, 61, 16);
+		authority.add(lblNewLabel_1_1_1);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("회원관리");
+		chckbxNewCheckBox.setBounds(392, 161, 85, 23);
+		authority.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("옷장관리");
+		chckbxNewCheckBox_1.setBounds(489, 161, 85, 23);
+		authority.add(chckbxNewCheckBox_1);
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("게시글관리");
+		chckbxNewCheckBox_2.setBounds(586, 161, 100, 23);
+		authority.add(chckbxNewCheckBox_2);
+		
+		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("문의관리");
+		chckbxNewCheckBox_3.setBounds(698, 161, 85, 23);
+		authority.add(chckbxNewCheckBox_3);
+		
+		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("모든권한");
+		chckbxNewCheckBox_4.setBounds(795, 161, 85, 23);
+		authority.add(chckbxNewCheckBox_4);
+		
+		textField = new JTextField();
+		textField.setBounds(84, 161, 130, 26);
+		authority.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(226, 160, 130, 26);
+		authority.add(textField_1);
 		
 		JButton btnAdmin = new JButton("관리자 프로필");
 		btnAdmin.addActionListener(new ActionListener() {
@@ -176,5 +222,9 @@ public class admin_tab {
 		});
 		btnAuthority.setBounds(52, 373, 151, 50);
 		frame.getContentPane().add(btnAuthority);
+		
+		JButton btnlogOut = new JButton("로그아웃");
+		btnlogOut.setBounds(86, 435, 117, 29);
+		frame.getContentPane().add(btnlogOut);
 	}
 }

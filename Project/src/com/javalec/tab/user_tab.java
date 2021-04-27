@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 public class user_tab {
 
@@ -22,6 +24,10 @@ public class user_tab {
 	private JPanel bestitem;
 	private JPanel myprofile;
 	private JLayeredPane layeredPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JPasswordField passwordField;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -75,8 +81,64 @@ public class user_tab {
 		
 		JLabel lblNewLabel = new JLabel("내 프로필");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(248, 167, 424, 138);
+		lblNewLabel.setBounds(6, 6, 97, 26);
 		myprofile.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("이미지 파일을 등록해주세요");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(43, 43, 199, 170);
+		myprofile.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_6 = new JLabel("이름 :");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6.setBounds(522, 86, 61, 16);
+		myprofile.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_6_1 = new JLabel("아이디 :");
+		lblNewLabel_6_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6_1.setBounds(522, 120, 61, 16);
+		myprofile.add(lblNewLabel_6_1);
+		
+		JLabel lblNewLabel_6_1_1 = new JLabel("이메일 :");
+		lblNewLabel_6_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6_1_1.setBounds(522, 154, 61, 16);
+		myprofile.add(lblNewLabel_6_1_1);
+		
+		JLabel lblNewLabel_6_1_1_1 = new JLabel("비밀번호 :");
+		lblNewLabel_6_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6_1_1_1.setBounds(522, 187, 61, 16);
+		myprofile.add(lblNewLabel_6_1_1_1);
+		
+		textField = new JTextField();
+		textField.setBounds(594, 82, 208, 26);
+		myprofile.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(595, 115, 207, 26);
+		myprofile.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(595, 149, 207, 26);
+		myprofile.add(textField_2);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(594, 182, 208, 26);
+		myprofile.add(passwordField);
+		
+		JLabel lblNewLabel_7 = new JLabel("비밀번호를 다시 확인해 주세요!");
+		lblNewLabel_7.setBounds(594, 220, 208, 16);
+		myprofile.add(lblNewLabel_7);
+		
+		JButton btnNewButton = new JButton("비밀번호 변경");
+		btnNewButton.setBounds(594, 248, 117, 29);
+		myprofile.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("탈퇴하기");
+		btnNewButton_1.setBounds(723, 248, 117, 29);
+		myprofile.add(btnNewButton_1);
 		
 		bestitem = new JPanel();
 		layeredPane.add(bestitem, "name_10025409858196");
@@ -176,5 +238,13 @@ public class user_tab {
 		});
 		btnInquiry.setBounds(52, 373, 151, 50);
 		frame.getContentPane().add(btnInquiry);
+		
+		JButton btnlogOut = new JButton("로그아웃");
+		btnlogOut.setBounds(86, 435, 117, 29);
+		frame.getContentPane().add(btnlogOut);
+		
+		JLabel lblNewLabel_8 = new JLabel("김민규 님 환영합니다");
+		lblNewLabel_8.setBounds(52, 36, 151, 16);
+		frame.getContentPane().add(lblNewLabel_8);
 	}
 }
