@@ -15,12 +15,12 @@ import java.awt.event.ActionEvent;
 public class admin_tab {
 
 	private JFrame frame;
+	private JPanel authority;
 	private JPanel inquiry;
-	private JPanel notice;
-	private JPanel mycloset;
-	private JPanel allcloset;
-	private JPanel bestitem;
-	private JPanel adprofile;
+	private JPanel board;
+	private JPanel closet;
+	private JPanel member;
+	private JPanel admin;
 	private JLayeredPane layeredPane;
 
 	//탭 전환하기 (2021.04.27 김민규)
@@ -69,112 +69,112 @@ public class admin_tab {
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		adprofile = new JPanel();
-		layeredPane.add(adprofile, "name_10014477907462");
-		adprofile.setLayout(null);
+		admin = new JPanel();
+		layeredPane.add(admin, "name_10014477907462");
+		admin.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("관리자 프로필");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(248, 167, 424, 138);
-		adprofile.add(lblNewLabel);
+		admin.add(lblNewLabel);
 		
-		bestitem = new JPanel();
-		layeredPane.add(bestitem, "name_10025409858196");
-		bestitem.setLayout(null);
+		member = new JPanel();
+		layeredPane.add(member, "name_10025409858196");
+		member.setLayout(null);
 		
-		JLabel lblBest = new JLabel("Best");
-		lblBest.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBest.setBounds(237, 176, 424, 138);
-		bestitem.add(lblBest);
+		JLabel lblNewLabel1 = new JLabel("회원관리");
+		lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel1.setBounds(237, 176, 424, 138);
+		member.add(lblNewLabel1);
 		
-		allcloset = new JPanel();
-		layeredPane.add(allcloset, "name_10028148525053");
-		allcloset.setLayout(null);
+		closet = new JPanel();
+		layeredPane.add(closet, "name_10028148525053");
+		closet.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("모두의 옷장");
+		JLabel lblNewLabel_2 = new JLabel("옷장관리");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(242, 171, 424, 138);
-		allcloset.add(lblNewLabel_2);
+		closet.add(lblNewLabel_2);
 		
-		mycloset = new JPanel();
-		layeredPane.add(mycloset, "name_10030972904756");
-		mycloset.setLayout(null);
+		board = new JPanel();
+		layeredPane.add(board, "name_10030972904756");
+		board.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("나의 옷장");
+		JLabel lblNewLabel_3 = new JLabel("게시글관리");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(238, 175, 424, 138);
-		mycloset.add(lblNewLabel_3);
-		
-		notice = new JPanel();
-		layeredPane.add(notice, "name_10033259740421");
-		notice.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("공지사항");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(252, 188, 424, 138);
-		notice.add(lblNewLabel_4);
+		board.add(lblNewLabel_3);
 		
 		inquiry = new JPanel();
-		layeredPane.add(inquiry, "name_10036677548749");
+		layeredPane.add(inquiry, "name_10033259740421");
 		inquiry.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("1:1 문의");
+		JLabel lblNewLabel_4 = new JLabel("문의관리");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setBounds(252, 188, 424, 138);
+		inquiry.add(lblNewLabel_4);
+		
+		authority = new JPanel();
+		layeredPane.add(authority, "name_10036677548749");
+		authority.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("권한설정");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(246, 185, 424, 138);
-		inquiry.add(lblNewLabel_5);
+		authority.add(lblNewLabel_5);
 		
-		JButton btnmyProfile = new JButton("관리자 프로필");
-		btnmyProfile.addActionListener(new ActionListener() {
+		JButton btnAdmin = new JButton("관리자 프로필");
+		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(adprofile);
+				switchPanels(admin);
 			}
 		});
-		btnmyProfile.setBounds(52, 63, 151, 50);
-		frame.getContentPane().add(btnmyProfile);
+		btnAdmin.setBounds(52, 63, 151, 50);
+		frame.getContentPane().add(btnAdmin);
 		
-		JButton btnBest = new JButton("Best");
-		btnBest.addActionListener(new ActionListener() {
+		JButton btnMember = new JButton("회원관리");
+		btnMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(bestitem);
+				switchPanels(member);
 			}
 		});
-		btnBest.setBounds(52, 125, 151, 50);
-		frame.getContentPane().add(btnBest);
+		btnMember.setBounds(52, 125, 151, 50);
+		frame.getContentPane().add(btnMember);
 		
-		JButton btnallCloset = new JButton("모두의 옷장");
-		btnallCloset.addActionListener(new ActionListener() {
+		JButton btnCloset = new JButton("옷장관리");
+		btnCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(allcloset);
+				switchPanels(closet);
 			}
 		});
-		btnallCloset.setBounds(52, 187, 151, 50);
-		frame.getContentPane().add(btnallCloset);
+		btnCloset.setBounds(52, 187, 151, 50);
+		frame.getContentPane().add(btnCloset);
 		
-		JButton btnmyCloset = new JButton("나의 옷장");
-		btnmyCloset.addActionListener(new ActionListener() {
+		JButton btnBoard = new JButton("게시글관리");
+		btnBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(mycloset);
+				switchPanels(board);
 			}
 		});
-		btnmyCloset.setBounds(52, 249, 151, 50);
-		frame.getContentPane().add(btnmyCloset);
+		btnBoard.setBounds(52, 249, 151, 50);
+		frame.getContentPane().add(btnBoard);
 		
-		JButton btnNotice = new JButton("공지사항");
-		btnNotice.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(notice);
-			}
-		});
-		btnNotice.setBounds(52, 311, 151, 50);
-		frame.getContentPane().add(btnNotice);
-		
-		JButton btnInquiry = new JButton("1:1 문의");
+		JButton btnInquiry = new JButton("문의관리");
 		btnInquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(inquiry);
 			}
 		});
-		btnInquiry.setBounds(52, 373, 151, 50);
+		btnInquiry.setBounds(52, 311, 151, 50);
 		frame.getContentPane().add(btnInquiry);
+		
+		JButton btnAuthority = new JButton("권한설정");
+		btnAuthority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanels(authority);
+			}
+		});
+		btnAuthority.setBounds(52, 373, 151, 50);
+		frame.getContentPane().add(btnAuthority);
 	}
 }
