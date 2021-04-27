@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NoticeInsert {
+public class InsertNotice {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -33,7 +33,7 @@ public class NoticeInsert {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NoticeInsert window = new NoticeInsert();
+					InsertNotice window = new InsertNotice();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class NoticeInsert {
 	/**
 	 * Create the application.
 	 */
-	public NoticeInsert() {
+	public InsertNotice() {
 		initialize();
 	}
 

@@ -23,7 +23,6 @@ import javax.swing.JButton;
 import java.awt.Panel;
 import javax.swing.JTextArea;
 
-public class WriteReply {
 public class InsertComment {
 
 	private JFrame frame;
@@ -39,7 +38,6 @@ public class InsertComment {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WriteReply window = new WriteReply();
 					InsertComment window = new InsertComment();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -52,7 +50,6 @@ public class InsertComment {
 	/**
 	 * Create the application.
 	 */
-	public WriteReply() {
 	public InsertComment() {
 		initialize();
 	}
@@ -126,14 +123,11 @@ public class InsertComment {
 	}
 	private void insertAction() {
 		String text = textArea.getText();
-		String userid = "null";
 		//작성자 정보 가져오기
 		
 		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
-		boolean aaa = dbaction.InsertReply(userid, text);
 		boolean aaa = dbaction.InsertComment(text);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, userid+" 님의 댓글이 입력 되었습니다.!");                    
 	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
