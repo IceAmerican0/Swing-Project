@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
 
 public class InsertClothes {
 
@@ -76,6 +78,8 @@ public class InsertClothes {
 		frame.getContentPane().add(getBtnCancel());
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getBtnUpload());
+		frame.getContentPane().add(getLblNewLabel_1());
+		frame.getContentPane().add(getClothname());
 }	
 
 	
@@ -90,10 +94,13 @@ public class InsertClothes {
     private JButton btnCancel;
     private JPanel panel;
     private JButton btnUpload;
+    private JLabel lblNewLabel_1;
+    private JTextField clothname;
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(97, 282, 138, 27);
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"모자", "상의", "하의", "원피스", "아우터", "신발"}));
+			comboBox.setBounds(102, 330, 138, 27);
 		}
 		return comboBox;
 	}
@@ -101,7 +108,7 @@ public class InsertClothes {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("종류 :");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblNewLabel.setBounds(35, 286, 50, 16);
+			lblNewLabel.setBounds(40, 334, 50, 16);
 		}
 		return lblNewLabel;
 	}
@@ -122,7 +129,7 @@ public class InsertClothes {
 					check();
 				}
 			});
-			btnOK.setBounds(91, 334, 89, 29);
+			btnOK.setBounds(91, 362, 89, 29);
 		}
 		return btnOK;
 	}
@@ -172,7 +179,7 @@ public class InsertClothes {
 				public void actionPerformed(ActionEvent e) {
 				}
 			});
-			btnCancel.setBounds(178, 334, 89, 29);
+			btnCancel.setBounds(178, 362, 89, 29);
 		}
 		return btnCancel;
 	}
@@ -196,7 +203,79 @@ public class InsertClothes {
 		}
 		return btnUpload;
 	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("이름 :");
+			lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblNewLabel_1.setBounds(38, 293, 50, 16);
+		}
+		return lblNewLabel_1;
+	}
+	private JTextField getClothname() {
+		if (clothname == null) {
+			clothname = new JTextField();
+			clothname.setBounds(105, 290, 130, 26);
+			clothname.setColumns(10);
+		}
+		return clothname;
+	}
 	private void check() {
+		String text = "";
+		if (tfFilePath.getText().length() == 0) {
+			text = "파일을";
+		}
+		if (clothname.getText().trim().length()==0) {
+			text = "이름을";
+		} else {
+			ConditionQuery();			
+		}
+		JOptionPane.showMessageDialog(null, text+" 등록해주세요!");
+	}
+	private void ConditionQuery() {
+		int i = comboBox.getSelectedIndex();
+		String ConditionQueryColumn = "";
+		switch (i) {
+		case 0:
+			ConditionQueryColumn = "모자";
+			break;
+		case 1:
+			ConditionQueryColumn = "상의";
+			break;
+		case 2:
+			ConditionQueryColumn = "하의";
+			break;
+		case 3:
+			ConditionQueryColumn = "원피스";
+			break;
+		case 4:
+			ConditionQueryColumn = "아우터";
+			break;
+		case 5:
+			ConditionQueryColumn = "신발";
+			break;
+		default:
+			break;
+		}
+		ConditionQueryAction(ConditionQueryColumn);
+	}
+	private void ConditionQueryAction(String selection) {
+		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
+		// Image File
+				FileInputStream input = null;
+				File file = new File(tfFilePath.getText());
+				try {
+					input = new FileInputStream(file);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		boolean aaa = dbaction.InsertCloth(selection, clothname.getText(), input);
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "옷 데이터 등록 되었습니다.!");                    
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+		
 
 	}
 }

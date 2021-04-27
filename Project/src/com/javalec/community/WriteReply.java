@@ -9,10 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.javalec.function.DbAction;
+
 import java.awt.BorderLayout;
 import java.awt.TextArea;
 import java.awt.Button;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.Panel;
@@ -107,10 +112,26 @@ public class WriteReply {
 			JOptionPane.showMessageDialog(null, "내용을 입력해주세요!");
 		}
 		if (textArea.getText().length()>=140) {
+			JOptionPane.showMessageDialog(null, "140자 이하로 입력해주세요!");
 		}
 		else {
 			//database input
+			insertAction();
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
+	}
+	private void insertAction() {
+		String text = textArea.getText();
+		String userid = "null";
+		//작성자 정보 가져오기
+		
+		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
+		boolean aaa = dbaction.InsertReply(userid, text);
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, userid+" 님의 댓글이 입력 되었습니다.!");                    
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+
 	}
 }

@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import com.javalec.function.DbAction;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -12,7 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NoticeInput {
+public class NoticeInsert {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -30,7 +33,7 @@ public class NoticeInput {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NoticeInput window = new NoticeInput();
+					NoticeInsert window = new NoticeInsert();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +45,7 @@ public class NoticeInput {
 	/**
 	 * Create the application.
 	 */
-	public NoticeInput() {
+	public NoticeInsert() {
 		initialize();
 	}
 
@@ -123,8 +126,20 @@ public class NoticeInput {
 		if (textArea.getText().trim().length() == 0 || textField.getText().trim().length() == 0) {
 			JOptionPane.showMessageDialog(null, "내용을 채워주세요!");
 		}else {
-			
+			InsertDB();
 		}
 
+	}
+	private void InsertDB() {
+		//
+		String title = textField.getText();
+		String post = textArea.getText();
+		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction(title, post);
+		boolean aaa = dbaction.InsertNotice();
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");                    
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
 	}
 }
