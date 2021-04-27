@@ -1,4 +1,4 @@
-package Question;
+package com.javalec.admin;
 
 import java.awt.EventQueue;
 
@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-public class QuestionMain {
+public class QnaMain {
 
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JFrame frame;
@@ -22,7 +22,7 @@ public class QuestionMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QuestionMain window = new QuestionMain();
+					QnaMain window = new QnaMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class QuestionMain {
 	/**
 	 * Create the application.
 	 */
-	public QuestionMain() {
+	public QnaMain() {
 		initialize();
 	}
 

@@ -1,4 +1,4 @@
-package Question;
+package com.javalec.admin;
 
 import java.awt.EventQueue;
 
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-public class AnswerQ {
+public class QnaComment {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -34,7 +34,7 @@ public class AnswerQ {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AnswerQ window = new AnswerQ();
+					QnaComment window = new QnaComment();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class AnswerQ {
 	/**
 	 * Create the application.
 	 */
-	public AnswerQ() {
+	public QnaComment() {
 		initialize();
 	}
 
