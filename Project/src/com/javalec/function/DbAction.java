@@ -239,7 +239,7 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
-		public boolean InsertReply(String userid, String text) {
+		public boolean InsertComment(String text) {
 			PreparedStatement ps = null;
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -247,12 +247,11 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				
-				String A = "insert into reply (userid, text";
-				String B = ") values (?,?)";
+				String A = "insert into comment (commentcontent";
+				String B = ") values (?)";
 				
 				ps = conn_mysql.prepareStatement(A+B);
-				ps.setString(1, userid);
-				ps.setString(2, text);
+				ps.setString(1, text);
 				
 				ps.executeUpdate();
 				
