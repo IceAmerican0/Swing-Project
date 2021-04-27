@@ -5,9 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class NoticeInput {
 
@@ -99,6 +102,11 @@ public class NoticeInput {
 	private JButton getBtnInsertDB() {
 		if (btnInsertDB == null) {
 			btnInsertDB = new JButton("확인");
+			btnInsertDB.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					check();
+				}
+			});
 			btnInsertDB.setBounds(133, 321, 81, 29);
 		}
 		return btnInsertDB;
@@ -109,5 +117,14 @@ public class NoticeInput {
 			btnCancel.setBounds(226, 321, 81, 29);
 		}
 		return btnCancel;
+	}
+	private void check() {
+		// 공백 확인 메소드
+		if (textArea.getText().trim().length() == 0 || textField.getText().trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "내용을 채워주세요!");
+		}else {
+			
+		}
+
 	}
 }
