@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+//----------------------------------------Notice 테이블없음!!-----------------------------------------
 public class InsertNotice {
 
 	private JFrame frame;

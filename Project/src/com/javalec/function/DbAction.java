@@ -287,6 +287,30 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
+		public boolean InsertQnA(String title, String content) {
+			PreparedStatement ps = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				String A = "insert into qna (qnatitle, qnacontent";
+				String B = ") values (?,?)";
+				
+				ps = conn_mysql.prepareStatement(A+B);
+				ps.setString(1, title);
+				ps.setString(2, content);
+				
+				ps.executeUpdate();
+				
+				conn_mysql.close();
+			} catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
 		
 		//---------------------------------------------- 수정
 		public boolean UpdateAction() {
