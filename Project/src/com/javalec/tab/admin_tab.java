@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class tab {
+public class admin_tab {
 
 	private JFrame frame;
 	private JPanel inquiry;
@@ -20,7 +20,7 @@ public class tab {
 	private JPanel mycloset;
 	private JPanel allcloset;
 	private JPanel bestitem;
-	private JPanel myprofile;
+	private JPanel adprofile;
 	private JLayeredPane layeredPane;
 
 	//탭 전환하기 (2021.04.27 김민규)
@@ -39,7 +39,7 @@ public class tab {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					tab window = new tab();
+					admin_tab window = new admin_tab();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class tab {
 	/**
 	 * Create the application.
 	 */
-	public tab() {
+	public admin_tab() {
 		initialize();
 	}
 
@@ -69,14 +69,14 @@ public class tab {
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		myprofile = new JPanel();
-		layeredPane.add(myprofile, "name_10014477907462");
-		myprofile.setLayout(null);
+		adprofile = new JPanel();
+		layeredPane.add(adprofile, "name_10014477907462");
+		adprofile.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("내 프로필");
+		JLabel lblNewLabel = new JLabel("관리자 프로필");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(248, 167, 424, 138);
-		myprofile.add(lblNewLabel);
+		adprofile.add(lblNewLabel);
 		
 		bestitem = new JPanel();
 		layeredPane.add(bestitem, "name_10025409858196");
@@ -123,10 +123,10 @@ public class tab {
 		lblNewLabel_5.setBounds(246, 185, 424, 138);
 		inquiry.add(lblNewLabel_5);
 		
-		JButton btnmyProfile = new JButton("내 프로필");
+		JButton btnmyProfile = new JButton("관리자 프로필");
 		btnmyProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(myprofile);
+				switchPanels(adprofile);
 			}
 		});
 		btnmyProfile.setBounds(52, 63, 151, 50);

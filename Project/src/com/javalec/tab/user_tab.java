@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class tab {
+public class user_tab {
 
 	private JFrame frame;
 	private JPanel inquiry;
@@ -39,7 +39,7 @@ public class tab {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					tab window = new tab();
+					user_tab window = new user_tab();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class tab {
 	/**
 	 * Create the application.
 	 */
-	public tab() {
+	public user_tab() {
 		initialize();
 	}
 
