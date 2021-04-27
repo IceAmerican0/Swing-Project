@@ -72,12 +72,12 @@ import com.javalec.function.ShareVar;
 			this.post = post;
 		}
 
-		// 검색 결과를 Table로 
-		public ArrayList<Bean> SelectList(){
+		//-------------------검색 결과를 Table로----------------------------
+		public ArrayList<Bean> QnAList(){
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select seqno, name, telno, relation from userinfo2 ";
+			String WhereDefault = "select qnaid, qnatitle, qnacontent, qnatime from qna ";
 			
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -89,11 +89,11 @@ import com.javalec.function.ShareVar;
 	            while(rs.next()){
 	            	
 	            	int wkSeq = rs.getInt(1);
-	            	String wkName = rs.getString(2);
-	            	String wkTelno = rs.getString(3);
-	            	String wkRelation = rs.getString(4);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
+	            	String wktime = rs.getString(4);
 	            	
-	            	Bean bean = new Bean(wkSeq, wkName, wkTelno, wkRelation);
+	            	Bean bean = new Bean(wkSeq, wktitle, wkcontent, wktime);
 	            	BeanList.add(bean);
 	            }
 	            

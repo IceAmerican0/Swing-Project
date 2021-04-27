@@ -141,7 +141,7 @@ public class InsertQnA {
 		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
 		boolean aaa = dbaction.InsertQnA(title, content);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");
+	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다.!");
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
