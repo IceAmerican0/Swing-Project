@@ -1,6 +1,7 @@
 package com.javalec.with;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -18,6 +20,11 @@ import com.javalec.function.Bean;
 import com.javalec.function.DbAction;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class NoticeMain {
 	
@@ -26,6 +33,7 @@ public class NoticeMain {
 	private JButton btnNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
+	private JLabel lblrefresh;
 	
 	/**
 	 * Launch the application.
@@ -68,6 +76,7 @@ public class NoticeMain {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNotice());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getLblrefresh());
 	}
 	private JButton getBtnNotice() {
 		if (btnNotice == null) {
@@ -96,6 +105,25 @@ public class NoticeMain {
 			Inner_Table.setModel(Outer_Table);
 		}
 		return Inner_Table;
+	}
+	private JLabel getLblrefresh() {
+		if (lblrefresh == null) {
+			ImageIcon icon = new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/icons-refresh.png");
+			Image img = icon.getImage();
+			Image changeImage = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			ImageIcon changeIcon = new ImageIcon(changeImage);
+			lblrefresh = new JLabel(changeIcon);
+			lblrefresh.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					refresh();
+				}
+			});
+			lblrefresh.setBackground(Color.WHITE);
+			lblrefresh.setBounds(298, 6, 30, 28);
+			lblrefresh.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblrefresh;
 	}
 	private void TableInit(){
         int i = Outer_Table.getRowCount();
@@ -162,6 +190,11 @@ public class NoticeMain {
 	private void OpenAction() {
 		InsertNotice insertNotice = new InsertNotice();
 		insertNotice.main(null);
+
+	}
+	private void refresh() {
+	TableInit();
+	SearchAction();
 
 	}
 }

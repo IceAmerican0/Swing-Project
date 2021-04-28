@@ -55,7 +55,7 @@ public class InsertNotice {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 455, 390);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getLblNoticeTitle());
@@ -119,7 +119,7 @@ public class InsertNotice {
 			btnCancel = new JButton("취소");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.exit(JFrame.EXIT_ON_CLOSE);
+					frame.dispose();
 				}
 			});
 			btnCancel.setBounds(226, 321, 81, 29);
@@ -143,7 +143,7 @@ public class InsertNotice {
 		boolean aaa = dbaction.InsertDocument(title, post);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");
-	          System.exit(JFrame.EXIT_ON_CLOSE);
+	          frame.dispose();
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
