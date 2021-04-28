@@ -21,6 +21,10 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JTabbedPane;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class user_tab {
 
@@ -36,6 +40,9 @@ public class user_tab {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JPasswordField passwordField;
+	private JPanel in_mypreset;
+	private JPanel in_mycloset;
+	private JLayeredPane inmycloset;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -43,6 +50,15 @@ public class user_tab {
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
+		
+	}
+	
+	//탭 전환하기 (2021.04.27 김민규)
+	public void switchPanels2(JPanel panel2) {
+		inmycloset.removeAll();
+		inmycloset.add(panel2);
+		inmycloset.repaint();
+		inmycloset.revalidate();
 		
 	}
 	
@@ -201,8 +217,252 @@ public class user_tab {
 		
 		JLabel lblNewLabel_3 = new JLabel("나의 옷장");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(238, 175, 424, 138);
+		lblNewLabel_3.setBounds(6, 6, 126, 37);
 		mycloset.add(lblNewLabel_3);
+		
+		JButton btnNewButton_2 = new JButton("옷장");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanels2(in_mycloset);
+			}
+		});
+		btnNewButton_2.setBounds(144, 11, 75, 29);
+		mycloset.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("프리셋");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanels2(in_mypreset);
+			}
+		});
+		btnNewButton_3.setBounds(218, 11, 75, 29);
+		mycloset.add(btnNewButton_3);
+		
+		inmycloset = new JLayeredPane();
+		inmycloset.setBounds(48, 79, 751, 428);
+		mycloset.add(inmycloset);
+		inmycloset.setLayout(new CardLayout(0, 0));
+		
+		in_mycloset = new JPanel();
+		inmycloset.add(in_mycloset, "name_83815068808318");
+		in_mycloset.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("옷장");
+		lblNewLabel_1.setBounds(86, 77, 149, 77);
+		in_mycloset.add(lblNewLabel_1);
+		
+		in_mypreset = new JPanel();
+		inmycloset.add(in_mypreset, "name_83833397636156");
+		in_mypreset.setLayout(null);
+		
+		JLabel lblNewLabel_9 = new JLabel("프리셋");
+		lblNewLabel_9.setBounds(51, 73, 143, 59);
+		in_mypreset.add(lblNewLabel_9);
+		
+		JLabel lblhat = new JLabel("모자 등록하기");
+		lblhat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblhat.getWidth(), lblhat.getHeight(), Image.SCALE_SMOOTH);//이미지 저장 위치 수정 필수
+					
+					lblhat.setIcon(new ImageIcon(image));//이미지저장위치 수정 필수
+				}
+			}
+		});
+		lblhat.setForeground(Color.BLACK);
+		lblhat.setBackground(Color.LIGHT_GRAY);
+		lblhat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblhat.setBounds(324, 6, 100, 100);
+		lblhat.setOpaque(true);
+		in_mypreset.add(lblhat);
+		
+		JLabel lbltop = new JLabel("상의 등록하기");
+		lbltop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lbltop.getWidth(), lbltop.getHeight(), Image.SCALE_SMOOTH);//이미지 저장 위치 수정 필수
+					
+					lbltop.setIcon(new ImageIcon(image));//이미지저장위치 수정 필수
+				}
+			}
+		});
+		lbltop.setBackground(Color.LIGHT_GRAY);
+		lbltop.setForeground(Color.BLACK);
+		lbltop.setHorizontalAlignment(SwingConstants.CENTER);
+		lbltop.setBounds(324, 111, 100, 100);
+		lbltop.setOpaque(true);
+		in_mypreset.add(lbltop);
+		
+		JLabel lblpants = new JLabel("하의 등록하기");
+		lblpants.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblpants.getWidth(), lblpants.getHeight(), Image.SCALE_SMOOTH);//이미지 저장위치 수정 필수
+					
+					lblpants.setIcon(new ImageIcon(image));//이미지 저장위치 수정 필수
+				}
+			}
+		});
+		lblpants.setBackground(Color.LIGHT_GRAY);
+		lblpants.setHorizontalAlignment(SwingConstants.CENTER);
+		lblpants.setBounds(324, 216, 100, 100);
+		lblpants.setOpaque(true);
+		in_mypreset.add(lblpants);
+		
+		JLabel lblshoes = new JLabel("신발 등록하기");
+		lblshoes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblshoes.getWidth(), lblshoes.getHeight(), Image.SCALE_SMOOTH);//이미지 저장위치 수정 필수
+					
+					lblshoes.setIcon(new ImageIcon(image));//이미지 저장위치 수정 필수
+				}
+			}
+		});
+		lblshoes.setBackground(Color.LIGHT_GRAY);
+		lblshoes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblshoes.setBounds(324, 322, 100, 100);
+		lblshoes.setOpaque(true);
+		in_mypreset.add(lblshoes);
+		
+		JLabel lblonepiece = new JLabel("상하의 등록하기");
+		lblonepiece.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblonepiece.getWidth(), lblonepiece.getHeight(), Image.SCALE_SMOOTH);//이미지 저장위치 수정 필수
+					
+					lblonepiece.setIcon(new ImageIcon(image));//이미지 저장위치 수정 필수
+				}
+			}
+		});
+		lblonepiece.setOpaque(true);
+		lblonepiece.setHorizontalAlignment(SwingConstants.CENTER);
+		lblonepiece.setBackground(Color.LIGHT_GRAY);
+		lblonepiece.setBounds(212, 111, 100, 205);
+		in_mypreset.add(lblonepiece);
+		
+		JLabel lblouter = new JLabel("아우터 등록하기");
+		lblouter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblouter.getWidth(), lblouter.getHeight(), Image.SCALE_SMOOTH);//이미지 저장위치 수정 필수
+					
+					lblouter.setIcon(new ImageIcon(image));//이미지 저장위치 수정 필수
+				}
+			}
+		});
+		lblouter.setOpaque(true);
+		lblouter.setHorizontalAlignment(SwingConstants.CENTER);
+		lblouter.setBackground(Color.LIGHT_GRAY);
+		lblouter.setBounds(436, 111, 100, 205);
+		in_mypreset.add(lblouter);
+		
+		JLabel lblbag = new JLabel("가방 등록하기");
+		lblbag.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					//JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblbag.getWidth(), lblbag.getHeight(), Image.SCALE_SMOOTH);//이미지 저장위치 수정 필수
+					
+					lblbag.setIcon(new ImageIcon(image));//이미지 저장위치 수정 필수
+				}
+			}
+		});
+		lblbag.setOpaque(true);
+		lblbag.setHorizontalAlignment(SwingConstants.CENTER);
+		lblbag.setBackground(Color.LIGHT_GRAY);
+		lblbag.setBounds(543, 170, 100, 100);
+		in_mypreset.add(lblbag);
 		
 		notice = new JPanel();
 		layeredPane.add(notice, "name_10033259740421");

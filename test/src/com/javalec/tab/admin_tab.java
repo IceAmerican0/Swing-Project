@@ -213,8 +213,16 @@ public class admin_tab {
 		
 		JLabel lblNewLabel_2 = new JLabel("옷장관리");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(242, 171, 424, 138);
+		lblNewLabel_2.setBounds(6, 6, 142, 41);
 		closet.add(lblNewLabel_2);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(163, 13, 117, 29);
+		closet.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		btnNewButton_2.setBounds(285, 13, 117, 29);
+		closet.add(btnNewButton_2);
 		
 		board = new JPanel();
 		layeredPane.add(board, "name_10030972904756");
