@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLayeredPane;
 
 public class NoticeMain {
 	
@@ -16,6 +17,7 @@ public class NoticeMain {
 	private JButton btnNewNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
+	private JLayeredPane layeredPane;
 	
 	/**
 	 * Launch the application.
@@ -50,6 +52,7 @@ public class NoticeMain {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNewNotice());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getLayeredPane());
 	}
 	private JButton getBtnNewNotice() {
 		if (btnNewNotice == null) {
@@ -75,4 +78,11 @@ public class NoticeMain {
 		return Inner_Table;
 	}
 	//이너테이블과 아우터테이블 연결까ㅣㅈ 완료, 데이터 가져오는 쿼리문 작성 안함
+	private JLayeredPane getLayeredPane() {
+		if (layeredPane == null) {
+			layeredPane = new JLayeredPane();
+			layeredPane.setBounds(0, 0, 1, 1);
+		}
+		return layeredPane;
+	}
 }

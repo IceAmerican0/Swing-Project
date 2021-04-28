@@ -32,23 +32,22 @@ import javax.swing.JPasswordField;
 public class admin_tab {
 
 	private JFrame frame;
-	private JPanel authority;
+	private JPanel notice;
 	private JPanel inquiry;
 	private JPanel board;
 	private JPanel closet;
 	private JPanel member;
 	private JPanel admin;
 	private JLayeredPane layeredPane;
-	private JTextField textField;
-	private JTextField textField_1;
 	private JTable table;
 	private JTextField textField_2;
-	private JTextField textField_3;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JPasswordField passwordField;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -234,38 +233,29 @@ public class admin_tab {
 		board.add(lblNewLabel_3);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(78, 74, 829, 427);
+		scrollPane_1.setBounds(6, 52, 913, 479);
 		board.add(scrollPane_1);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(495, 33, 208, 26);
+		textField_2.setBounds(518, 6, 208, 26);
 		board.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("사용자");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(272, 34, 88, 23);
-		board.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("관리자");
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(196, 33, 88, 23);
-		board.add(rdbtnNewRadioButton_1);
-		
 		JComboBox comboBox_1_1 = new JComboBox();
-		comboBox_1_1.setBounds(367, 34, 116, 27);
+		comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
+		comboBox_1_1.setBounds(390, 7, 116, 27);
 		board.add(comboBox_1_1);
 		
 		JButton btnDelete_1 = new JButton("삭제");
-		btnDelete_1.setBounds(831, 33, 65, 29);
+		btnDelete_1.setBounds(854, 6, 65, 29);
 		board.add(btnDelete_1);
 		
 		JButton btnWrite = new JButton("글쓰기");
-		btnWrite.setBounds(771, 33, 65, 29);
+		btnWrite.setBounds(794, 6, 65, 29);
 		board.add(btnWrite);
 		
 		JButton btnLoad_1 = new JButton("조회");
-		btnLoad_1.setBounds(707, 33, 65, 29);
+		btnLoad_1.setBounds(730, 6, 65, 29);
 		board.add(btnLoad_1);
 		
 		inquiry = new JPanel();
@@ -277,86 +267,66 @@ public class admin_tab {
 		lblNewLabel_4.setBounds(6, 6, 116, 31);
 		inquiry.add(lblNewLabel_4);
 		
-		JButton btnLoad_1_1 = new JButton("조회");
-		btnLoad_1_1.setBounds(705, 41, 117, 29);
-		inquiry.add(btnLoad_1_1);
-		
-		JButton btnDelete_1_1 = new JButton("삭제");
-		btnDelete_1_1.setBounds(821, 41, 65, 29);
-		inquiry.add(btnDelete_1_1);
-		
 		JScrollPane scrollPane_1_1 = new JScrollPane();
-		scrollPane_1_1.setBounds(68, 82, 829, 427);
+		scrollPane_1_1.setBounds(6, 49, 913, 482);
 		inquiry.add(scrollPane_1_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(485, 41, 208, 26);
-		inquiry.add(textField_3);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
-		comboBox_1.setBounds(327, 42, 116, 27);
-		inquiry.add(comboBox_1);
-		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("사용자");
-		rdbtnNewRadioButton_2.setBounds(249, 42, 88, 23);
-		inquiry.add(rdbtnNewRadioButton_2);
-		
-		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton("관리자");
-		rdbtnNewRadioButton_1_1.setBounds(186, 41, 88, 23);
-		inquiry.add(rdbtnNewRadioButton_1_1);
-		
-		authority = new JPanel();
-		layeredPane.add(authority, "name_10036677548749");
-		authority.setLayout(null);
-		
-		JLabel lblNewLabel_5 = new JLabel("권한설정");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(6, 6, 107, 36);
-		authority.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_1 = new JLabel("관리자 id");
-		lblNewLabel_1.setBounds(120, 133, 61, 16);
-		authority.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("관리자 이름");
-		lblNewLabel_1_1.setBounds(253, 133, 61, 16);
-		authority.add(lblNewLabel_1_1);
-		
-		JLabel lblNewLabel_1_1_1 = new JLabel("관리자 권한");
-		lblNewLabel_1_1_1.setBounds(586, 133, 61, 16);
-		authority.add(lblNewLabel_1_1_1);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("회원관리");
-		chckbxNewCheckBox.setBounds(392, 161, 85, 23);
-		authority.add(chckbxNewCheckBox);
-		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("옷장관리");
-		chckbxNewCheckBox_1.setBounds(489, 161, 85, 23);
-		authority.add(chckbxNewCheckBox_1);
-		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("게시글관리");
-		chckbxNewCheckBox_2.setBounds(586, 161, 100, 23);
-		authority.add(chckbxNewCheckBox_2);
-		
-		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("문의관리");
-		chckbxNewCheckBox_3.setBounds(698, 161, 85, 23);
-		authority.add(chckbxNewCheckBox_3);
-		
-		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("모든권한");
-		chckbxNewCheckBox_4.setBounds(795, 161, 85, 23);
-		authority.add(chckbxNewCheckBox_4);
-		
-		textField = new JTextField();
-		textField.setBounds(84, 161, 130, 26);
-		authority.add(textField);
-		textField.setColumns(10);
+		JComboBox comboBox_1_1_1_1 = new JComboBox();
+		comboBox_1_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
+		comboBox_1_1_1_1.setBounds(390, 7, 116, 27);
+		inquiry.add(comboBox_1_1_1_1);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(226, 160, 130, 26);
-		authority.add(textField_1);
+		textField_1.setBounds(518, 6, 208, 26);
+		inquiry.add(textField_1);
+		
+		JButton btnLoad_1_2_1 = new JButton("조회");
+		btnLoad_1_2_1.setBounds(730, 6, 65, 29);
+		inquiry.add(btnLoad_1_2_1);
+		
+		JButton btnWrite_1_1 = new JButton("글쓰기");
+		btnWrite_1_1.setBounds(794, 6, 65, 29);
+		inquiry.add(btnWrite_1_1);
+		
+		JButton btnDelete_1_2_1 = new JButton("삭제");
+		btnDelete_1_2_1.setBounds(854, 6, 65, 29);
+		inquiry.add(btnDelete_1_2_1);
+		
+		notice = new JPanel();
+		layeredPane.add(notice, "name_10036677548749");
+		notice.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("공지관리");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setBounds(6, 6, 107, 36);
+		notice.add(lblNewLabel_5);
+		
+		JScrollPane scrollPane_1_2 = new JScrollPane();
+		scrollPane_1_2.setBounds(6, 54, 913, 477);
+		notice.add(scrollPane_1_2);
+		
+		JComboBox comboBox_1_1_1 = new JComboBox();
+		comboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
+		comboBox_1_1_1.setBounds(390, 7, 116, 27);
+		notice.add(comboBox_1_1_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(518, 6, 208, 26);
+		notice.add(textField);
+		
+		JButton btnLoad_1_2 = new JButton("조회");
+		btnLoad_1_2.setBounds(730, 6, 65, 29);
+		notice.add(btnLoad_1_2);
+		
+		JButton btnWrite_1 = new JButton("글쓰기");
+		btnWrite_1.setBounds(794, 6, 65, 29);
+		notice.add(btnWrite_1);
+		
+		JButton btnDelete_1_2 = new JButton("삭제");
+		btnDelete_1_2.setBounds(854, 6, 65, 29);
+		notice.add(btnDelete_1_2);
 		
 		JButton btnAdmin = new JButton("관리자 프로필");
 		btnAdmin.addActionListener(new ActionListener() {
@@ -403,14 +373,14 @@ public class admin_tab {
 		btnInquiry.setBounds(52, 311, 151, 50);
 		frame.getContentPane().add(btnInquiry);
 		
-		JButton btnAuthority = new JButton("권한설정");
-		btnAuthority.addActionListener(new ActionListener() {
+		JButton btnNotice = new JButton("공지관리");
+		btnNotice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(authority);//탭전환
+				switchPanels(notice);//탭전환
 			}
 		});
-		btnAuthority.setBounds(52, 373, 151, 50);
-		frame.getContentPane().add(btnAuthority);
+		btnNotice.setBounds(52, 373, 151, 50);
+		frame.getContentPane().add(btnNotice);
 		
 		JButton btnlogOut = new JButton("로그아웃");
 		btnlogOut.setBounds(86, 435, 117, 29);

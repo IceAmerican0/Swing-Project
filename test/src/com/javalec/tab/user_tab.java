@@ -248,7 +248,7 @@ public class user_tab {
 		in_mycloset.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("옷장");
-		lblNewLabel_1.setBounds(86, 77, 149, 77);
+		lblNewLabel_1.setBounds(126, 86, 149, 77);
 		in_mycloset.add(lblNewLabel_1);
 		
 		in_mypreset = new JPanel();
