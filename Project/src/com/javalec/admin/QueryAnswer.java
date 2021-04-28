@@ -3,6 +3,11 @@ package com.javalec.admin;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -95,7 +100,7 @@ public class QueryAnswer {
 			titleF = new JTextField();
 			titleF.setEditable(false);
 			titleF.setColumns(10);
-			titleF.setBounds(43, 6, 233, 26);
+			titleF.setBounds(43, 6, 197, 26);
 		}
 		return titleF;
 	}
@@ -168,7 +173,7 @@ public class QueryAnswer {
 		if (dateF == null) {
 			dateF = new JTextField();
 			dateF.setEditable(false);
-			dateF.setBounds(269, 35, 158, 26);
+			dateF.setBounds(283, 8, 158, 26);
 			dateF.setColumns(10);
 		}
 		return dateF;
@@ -176,7 +181,7 @@ public class QueryAnswer {
 	private JLabel getLblDate() {
 		if (lblDate == null) {
 			lblDate = new JLabel("date :");
-			lblDate.setBounds(230, 40, 197, 16);
+			lblDate.setBounds(244, 13, 197, 16);
 		}
 		return lblDate;
 	}
@@ -238,5 +243,8 @@ public class QueryAnswer {
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
 	}
+
+
+		
 	
 }
