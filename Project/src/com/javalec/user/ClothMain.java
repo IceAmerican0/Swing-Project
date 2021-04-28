@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
 
-public class InsertClothes {
+public class ClothMain {
 
 	private JFrame frame;
 
@@ -48,7 +48,7 @@ public class InsertClothes {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InsertClothes window = new InsertClothes();
+					ClothMain window = new ClothMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +60,7 @@ public class InsertClothes {
 	/**
 	 * Create the application.
 	 */
-	public InsertClothes() {
+	public ClothMain() {
 		initialize();
 	}
 
@@ -69,17 +69,15 @@ public class InsertClothes {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("옷장 등록하기");
+		frame.setTitle("옷장");
 		frame.setBounds(100, 100, 368, 427);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getComboBox());
 		frame.getContentPane().add(getLblNewLabel());
-		frame.getContentPane().add(getTfFilePath());
-		frame.getContentPane().add(getBtnOK());
+		frame.getContentPane().add(getBtnUpdate());
 		frame.getContentPane().add(getBtnCancel());
 		frame.getContentPane().add(getPanel());
-		frame.getContentPane().add(getBtnUpload());
 		frame.getContentPane().add(getLblNewLabel_1());
 		frame.getContentPane().add(getClothname());
 }	
@@ -89,20 +87,19 @@ public class InsertClothes {
     FileInputStream fis;
     private JComboBox comboBox;
     private JLabel lblNewLabel;
-    private JTextField tfFilePath;
-    private JButton btnOK;
+    private JButton btnUpdate;
     private JButton btnNewButton_1;
     private JLabel lblImage;
     private JButton btnCancel;
     private JPanel panel;
-    private JButton btnUpload;
     private JLabel lblNewLabel_1;
     private JTextField clothname;
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
+			comboBox.setEditable(true);
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"모자", "상의", "하의", "원피스", "아우터", "신발"}));
-			comboBox.setBounds(102, 330, 138, 27);
+			comboBox.setBounds(86, 284, 138, 27);
 		}
 		return comboBox;
 	}
@@ -110,30 +107,21 @@ public class InsertClothes {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("종류 :");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblNewLabel.setBounds(40, 334, 50, 16);
+			lblNewLabel.setBounds(24, 288, 50, 16);
 		}
 		return lblNewLabel;
 	}
-	private JTextField getTfFilePath() {
-		if (tfFilePath == null) {
-			tfFilePath = new JTextField();
-			tfFilePath.setEditable(false);
-			tfFilePath.setBounds(37, 244, 182, 26);
-			tfFilePath.setColumns(10);
-		}
-		return tfFilePath;
-	}
-	private JButton getBtnOK() {
-		if (btnOK == null) {
-			btnOK = new JButton("작성");
-			btnOK.addActionListener(new ActionListener() {
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton("수정");
+			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					check();
+					change();
 				}
 			});
-			btnOK.setBounds(91, 362, 89, 29);
+			btnUpdate.setBounds(91, 362, 89, 29);
 		}
-		return btnOK;
+		return btnUpdate;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
@@ -150,21 +138,6 @@ public class InsertClothes {
 			lblImage.setBounds(22, 484, 215, 112);
 		}
 		return lblImage;
-	}
-	private void FilePath() {
-		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, PNG, BMP", "jpg","png","bmp");
-		chooser.setFileFilter(filter);
-		
-		int ret = chooser.showOpenDialog(null);
-		if(ret != JFileChooser.APPROVE_OPTION) {
-			JOptionPane.showMessageDialog(null, "파일을 선택하지 않았습니다!", "경고", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		String filePath = chooser.getSelectedFile().getPath();
-		tfFilePath.setText(filePath);
-		lblImage.setIcon(new ImageIcon(filePath));
-		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 	private JLabel getLblImage_1() {
 		if (lblImage == null) {
@@ -193,91 +166,26 @@ public class InsertClothes {
 		}
 		return panel;
 	}
-	private JButton getBtnUpload() {
-		if (btnUpload == null) {
-			btnUpload = new JButton("Upload");
-			btnUpload.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					FilePath();
-				}
-			});
-			btnUpload.setBounds(231, 244, 89, 29);
-		}
-		return btnUpload;
-	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("이름 :");
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblNewLabel_1.setBounds(38, 293, 50, 16);
+			lblNewLabel_1.setBounds(22, 247, 50, 16);
 		}
 		return lblNewLabel_1;
 	}
 	private JTextField getClothname() {
 		if (clothname == null) {
 			clothname = new JTextField();
-			clothname.setBounds(105, 290, 130, 26);
+			clothname.setBounds(89, 244, 130, 26);
 			clothname.setColumns(10);
 		}
 		return clothname;
 	}
-	private void check() {
-		String text = "";
-		if (tfFilePath.getText().length() == 0) {
-			text = "파일을";
-		}
-		if (clothname.getText().trim().length()==0) {
-			text = "이름을";
-		} else {
-			ConditionQuery();			
-		}
-		JOptionPane.showMessageDialog(null, text+" 등록해주세요!");
-	}
-	private void ConditionQuery() {
-		int i = comboBox.getSelectedIndex();
-		String ConditionQueryColumn = "";
-		switch (i) {
-		case 0:
-			ConditionQueryColumn = "모자";
-			break;
-		case 1:
-			ConditionQueryColumn = "상의";
-			break;
-		case 2:
-			ConditionQueryColumn = "하의";
-			break;
-		case 3:
-			ConditionQueryColumn = "원피스";
-			break;
-		case 4:
-			ConditionQueryColumn = "아우터";
-			break;
-		case 5:
-			ConditionQueryColumn = "신발";
-			break;
-		default:
-			break;
-		}
-		ConditionQueryAction(ConditionQueryColumn);
-	}
-	private void ConditionQueryAction(String selection) {
-		UserAction useraction = new UserAction();
-		// Image File
-				FileInputStream input = null;
-				File file = new File(tfFilePath.getText());
-				try {
-					input = new FileInputStream(file);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		boolean aaa = useraction.InsertCloth(selection, clothname.getText(), input);
-		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, "옷 데이터 등록 되었습니다.!");                    
-		}else{
-	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
-		}
-		
+	private void change() {
+		//수정으로 이동
 
 	}
+
+	
 }

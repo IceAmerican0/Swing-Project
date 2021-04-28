@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.user;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -23,7 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class QueryAnswer {
+public class ReadNotice {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -32,14 +32,10 @@ public class QueryAnswer {
 	private JTextArea textArea;
 	private JLabel lblPost;
 	private JButton btnInsertDB;
-	private JButton btnCancel;
 	private JLabel lblUserName;
 	private JTextField userF;
 	private JTextField dateF;
 	private JLabel lblDate;
-	private JLabel Answer;
-	private JPanel paneladmin;
-	private JTextArea textAreaAdmin;
 	private JLabel lblSeq;
 
 	/**
@@ -49,7 +45,7 @@ public class QueryAnswer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QueryAnswer window = new QueryAnswer();
+					ReadNotice window = new ReadNotice();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +58,7 @@ public class QueryAnswer {
 	/**
 	 * Create the application.
 	 */
-	public QueryAnswer() {
+	public ReadNotice() {
 		initialize();
 	}
 
@@ -85,13 +81,10 @@ public class QueryAnswer {
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getLblPost());
 		frame.getContentPane().add(getBtnInsertDB());
-		frame.getContentPane().add(getBtnCancel());
 		frame.getContentPane().add(getLblUserName());
 		frame.getContentPane().add(getUserF());
 		frame.getContentPane().add(getDateF());
 		frame.getContentPane().add(getLblDate());
-		frame.getContentPane().add(getAnswer());
-		frame.getContentPane().add(getPaneladmin());
 		frame.getContentPane().add(getLblSeq());
 	}
 
@@ -114,7 +107,7 @@ public class QueryAnswer {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(6, 82, 424, 187);
+			panel.setBounds(6, 82, 424, 297);
 			panel.add(getTextArea());
 		}
 		return panel;
@@ -136,27 +129,15 @@ public class QueryAnswer {
 	}
 	private JButton getBtnInsertDB() {
 		if (btnInsertDB == null) {
-			btnInsertDB = new JButton("등록");
+			btnInsertDB = new JButton("확인");
 			btnInsertDB.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					check();
+				frame.dispose();
 				}
 			});
-			btnInsertDB.setBounds(126, 395, 81, 29);
+			btnInsertDB.setBounds(187, 395, 81, 29);
 		}
 		return btnInsertDB;
-	}
-	private JButton getBtnCancel() {
-		if (btnCancel == null) {
-			btnCancel = new JButton("취소");
-			btnCancel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					frame.dispose();
-				}
-			});
-			btnCancel.setBounds(219, 395, 81, 29);
-		}
-		return btnCancel;
 	}
 	private JLabel getLblUserName() {
 		if (lblUserName == null) {
@@ -190,28 +171,6 @@ public class QueryAnswer {
 		}
 		return lblDate;
 	}
-	private JLabel getAnswer() {
-		if (Answer == null) {
-			Answer = new JLabel("답변 :");
-			Answer.setBounds(6, 281, 61, 16);
-		}
-		return Answer;
-	}
-	private JPanel getPaneladmin() {
-		if (paneladmin == null) {
-			paneladmin = new JPanel();
-			paneladmin.setBounds(6, 298, 424, 85);
-			paneladmin.add(getTextAreaAdmin());
-		}
-		return paneladmin;
-	}
-	private JTextArea getTextAreaAdmin() {
-		if (textAreaAdmin == null) {
-			textAreaAdmin = new JTextArea(20, 30);
-			textAreaAdmin.setLineWrap(true);
-		}
-		return textAreaAdmin;
-	}
 	private JLabel getLblSeq() {
 		if (lblSeq == null) {
 			lblSeq = new JLabel("");
@@ -230,24 +189,7 @@ public class QueryAnswer {
        dateF.setText(bean.getTime());
 //       qnaComment.getDateF().setText(bean.getTime());
 	}
-	private void check() {
-		if (textAreaAdmin.getText().trim().length() == 0) {
-			JOptionPane.showMessageDialog(null, "답변을 입력해주세요!");
-		}else {
-			InsertAction();
-		}
-	}
-	private void InsertAction() {
-		// TODO Auto-generated method stub
-		String comment = textAreaAdmin.getText();
-		AdminAction adminAction = new AdminAction();
-		boolean aaa = adminAction.InsertQueryComment(comment);
-		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
-		}else{
-	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
-		}
-	}
+	
 
 
 		

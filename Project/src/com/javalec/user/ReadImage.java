@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PullImage {
+public class ReadImage {
 
 	private JFrame frame;
 	private JLabel lblImage0;
@@ -27,7 +27,7 @@ public class PullImage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PullImage window = new PullImage();
+					ReadImage window = new ReadImage();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class PullImage {
 	/**
 	 * Create the application.
 	 */
-	public PullImage() {
+	public ReadImage() {
 		initialize();
 	}
 

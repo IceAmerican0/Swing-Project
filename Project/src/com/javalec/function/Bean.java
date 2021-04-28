@@ -2,7 +2,26 @@ package com.javalec.function;
 
 public class Bean {
 	
-	public static int seqIndex;
+	
+	//Primary key
+	public static int userid;
+	public static int queryid;
+	public static int answerid;
+	public static int clothid;
+	public static int commentid;
+	public static int documentid;
+	
+	int query_queryid;
+	int document_documentid;
+	int User_userid;
+	int Cloth_clothid;
+	int answer_answerid;
+	int answer_query_queryid;
+	int comment_commentid;
+	int comment_document_documentid;
+
+	//
+	
 	
 	int seqno;
 	String name;

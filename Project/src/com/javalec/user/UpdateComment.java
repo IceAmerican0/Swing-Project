@@ -22,13 +22,14 @@ import javax.swing.JButton;
 import java.awt.Panel;
 import javax.swing.JTextArea;
 
-public class InsertComment {
+public class UpdateComment {
 
 	private JFrame frame;
 	private JButton btnOK;
 	private JButton btnCancel;
 	private JPanel panel;
 	private JTextArea textArea;
+	private JButton btndelete;
 
 	/**
 	 * Launch the application.
@@ -37,7 +38,7 @@ public class InsertComment {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InsertComment window = new InsertComment();
+					UpdateComment window = new UpdateComment();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +50,7 @@ public class InsertComment {
 	/**
 	 * Create the application.
 	 */
-	public InsertComment() {
+	public UpdateComment() {
 		initialize();
 	}
 
@@ -65,17 +66,18 @@ public class InsertComment {
 		frame.getContentPane().add(getBtnOK());
 		frame.getContentPane().add(getBtnCancel());
 		frame.getContentPane().add(getPanel());
+		frame.getContentPane().add(getBtndelete());
 		
 	}
 	private JButton getBtnOK() {
 		if (btnOK == null) {
-			btnOK = new JButton("OK");
+			btnOK = new JButton("수정하기");
 			btnOK.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					check();
 				}
 			});
-			btnOK.setBounds(106, 88, 117, 29);
+			btnOK.setBounds(106, 88, 77, 29);
 		}
 		return btnOK;
 	}
@@ -87,7 +89,7 @@ public class InsertComment {
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				}
 			});
-			btnCancel.setBounds(224, 88, 117, 29);
+			btnCancel.setBounds(185, 88, 77, 29);
 		}
 		return btnCancel;
 	}
@@ -121,16 +123,23 @@ public class InsertComment {
 		}
 	}
 	private void insertAction() {
-		String text = textArea.getText();
-		//작성자 정보 가져오기
-		
-		UserAction useraction = new UserAction();
-		boolean aaa = useraction.InsertComment(text);
-		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
-		}else{
-	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+//		String text = textArea.getText();
+//		//작성자 정보 가져오기
+//		
+//		UserAction useraction = new UserAction();
+//		boolean aaa = useraction.Insert(text);
+//		if(aaa == true){
+//	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
+//		}else{
+//	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+//		}
+//
+	}
+	private JButton getBtndelete() {
+		if (btndelete == null) {
+			btndelete = new JButton("삭제");
+			btndelete.setBounds(274, 88, 77, 29);
 		}
-
+		return btndelete;
 	}
 }

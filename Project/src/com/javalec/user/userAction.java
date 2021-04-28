@@ -78,8 +78,8 @@ import com.javalec.function.ShareVar;
 		}
 		return true;
 	}
-	//게시물에 댓글달기
-	public ArrayList<Bean> DocumentComment() {
+	//게시물에 댓글가져오
+	public ArrayList<Bean> DocumentCommentList() {
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
@@ -111,7 +111,7 @@ import com.javalec.function.ShareVar;
 		return BeanList;
 		
 	}
-	public boolean InsertComment(String text) {
+	public boolean InsertDocumentComment(String text) {
 		PreparedStatement ps = null;
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");

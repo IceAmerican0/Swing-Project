@@ -16,8 +16,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.javalec.admin.InsertNotice;
+import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
+import com.javalec.user.ReadNotice;
+
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -102,6 +107,20 @@ public class NoticeMain {
 			Inner_Table = new JTable();
 			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			Inner_Table.setModel(Outer_Table);
+			Inner_Table.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					TableClick();
+				}
+			});
+			Inner_Table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						TableClick();
+					}
+				}
+			});
 		}
 		return Inner_Table;
 	}
@@ -194,6 +213,18 @@ public class NoticeMain {
 	private void refresh() {
 	TableInit();
 	SearchAction();
+	}
+	private void TableClick() {
+		int i = 1; //user
+		if (i == 1) {
+			//어드민일경우
+			UpdateNotice.main(null);
+		}
+		if (i == 0) {
+			//유저일경우
+			ReadNotice.main(null);
+			
+		}
 
 	}
 }

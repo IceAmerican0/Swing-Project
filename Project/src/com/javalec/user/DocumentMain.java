@@ -1,9 +1,10 @@
-package com.javalec.with;
+package com.javalec.user;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Icon;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -246,13 +247,18 @@ public class DocumentMain {
 	private JLabel getLblComment() {
 		if (lblComment == null) {
 			lblComment = new JLabel("댓글 작성하기");
-			lblComment.setBounds(23, 534, 299, 16);
+			lblComment.setBounds(23, 534, 82, 16);
 		}
 		return lblComment;
 	}
 	private JButton getBtnComment() {
 		if (btnComment == null) {
 			btnComment = new JButton("등록");
+			btnComment.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					InsertComment();
+				}
+			});
 			btnComment.setBounds(261, 529, 46, 16);
 		}
 		return btnComment;
@@ -295,8 +301,8 @@ public class DocumentMain {
 
 	}
 	private void SearchAction() {
-		WithAction withAction = new WithAction();
-		ArrayList<Bean> beanList =withAction.DocumentList();
+		UserAction userAction = new UserAction();
+		ArrayList<Bean> beanList =userAction.DocumentCommentList();
 		
 		int listCount = beanList.size();
 		
@@ -312,4 +318,17 @@ public class DocumentMain {
 		// TODO Auto-generated method stub
 
 	}
+	private void InsertComment() {
+		String text = textArea.getText();
+		//작성자 정보 가져오기
+		
+		UserAction useraction = new UserAction();
+		boolean aaa = useraction.InsertDocumentComment(text);
+		if(aaa == true){
+			JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
+		}else{
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}	
+	}
+
 }

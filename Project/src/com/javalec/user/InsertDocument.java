@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class WritePost {
+public class InsertDocument {
 
 	private JFrame frame;
 	private JLabel lblImage;
@@ -36,7 +37,7 @@ public class WritePost {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WritePost window = new WritePost();
+					InsertDocument window = new InsertDocument();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +49,7 @@ public class WritePost {
 	/**
 	 * Create the application.
 	 */
-	public WritePost() {
+	public InsertDocument() {
 		initialize();
 	}
 
@@ -113,17 +114,22 @@ public class WritePost {
 			btnPull = new JButton("불러오기");
 			btnPull.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				PullImage pullImage = new PullImage();
+				ReadImage pullImage = new ReadImage();
 				pullImage.main(null);
 				}
 			});
-			btnPull.setBounds(34, 243, 117, 29);
+			btnPull.setBounds(34, 256, 117, 29);
 		}
 		return btnPull;
 	}
 	private JButton getBtnOK() {
 		if (btnOK == null) {
 			btnOK = new JButton("작성하기");
+			btnOK.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					check();
+				}
+			});
 			btnOK.setBounds(116, 440, 83, 29);
 		}
 		return btnOK;
@@ -149,5 +155,19 @@ public class WritePost {
 			textArea.setLineWrap(true);
 		}
 		return textArea;
+	}
+	private void check() {
+		if (textArea.getText().trim().length() == 0 || textField.getText().trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "빈칸에 정보를 입력해주세요!");
+		}
+		if (lblImage.getIcon()==null) {
+			JOptionPane.showMessageDialog(null, "불러올 사진을 선택해주세요!");
+		}else {
+			InsertAction();
+		}
+
+	}
+	private void InsertAction() {
+		//정보 입력하
 	}
 }
