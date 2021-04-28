@@ -86,7 +86,7 @@ public class NoticeMain {
 					OpenAction();
 				}
 			});
-			btnNotice.setBounds(337, 6, 96, 29);
+			btnNotice.setBounds(336, 19, 96, 29);
 		}
 		return btnNotice;
 	}
@@ -120,7 +120,7 @@ public class NoticeMain {
 				}
 			});
 			lblrefresh.setBackground(Color.WHITE);
-			lblrefresh.setBounds(298, 6, 30, 28);
+			lblrefresh.setBounds(297, 20, 30, 28);
 			lblrefresh.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblrefresh;
