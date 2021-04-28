@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.adminmenu;
 
 import java.awt.EventQueue;
 
@@ -117,6 +117,11 @@ public class InsertNotice {
 	private JButton getBtnCancel() {
 		if (btnCancel == null) {
 			btnCancel = new JButton("취소");
+			btnCancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(JFrame.EXIT_ON_CLOSE);
+				}
+			});
 			btnCancel.setBounds(226, 321, 81, 29);
 		}
 		return btnCancel;
@@ -134,10 +139,11 @@ public class InsertNotice {
 		//
 		String title = textField.getText();
 		String post = textArea.getText();
-		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction(title, post);
-		boolean aaa = dbaction.InsertNotice();
+		DbAction dbaction = new DbAction();
+		boolean aaa = dbaction.InsertDocument(title, post);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");                    
+	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");
+	          System.exit(JFrame.EXIT_ON_CLOSE);
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}

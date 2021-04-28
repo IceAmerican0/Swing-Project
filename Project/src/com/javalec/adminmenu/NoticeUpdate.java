@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.adminmenu;
 
 import java.awt.EventQueue;
 

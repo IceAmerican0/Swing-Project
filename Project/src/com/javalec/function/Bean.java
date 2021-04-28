@@ -8,7 +8,7 @@ public class Bean {
 	String content;
 	String time;
 	
-	public Bean(int seqno, String title, String content, String time) {
+	public Bean(int seqno, String title, String content) {
 		super();
 		this.seqno = seqno;
 		this.title = title;

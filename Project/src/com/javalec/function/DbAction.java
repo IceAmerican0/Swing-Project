@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.javalec.admin.QnaComment;
+import com.javalec.adminmenu.QueryAnswer;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 
@@ -22,15 +22,9 @@ import com.javalec.function.ShareVar;
 	    private final String id_mysql = ShareVar.DBUser;
 	    private final String pw_mysql = ShareVar.DBPass;
 		
-		String name;
-		String telno;
-		String address;
-		String email;
-		String relation;
-		String conname;
-		String condata;
 		
 		int seqno;
+		int loginnumber = 1;
 		String userid;//유저 아이디
 		String title; //공지사항 제목
 		String post; //공지사항 내용
@@ -41,26 +35,6 @@ import com.javalec.function.ShareVar;
 			super();
 		}
 
-		public DbAction(int seqno, String name, String telno, String address, String email, String relation, FileInputStream file) {
-			super();
-			this.seqno = seqno;
-			this.name = name;
-			this.telno = telno;
-			this.address = address;
-			this.email = email;
-			this.relation = relation;
-			this.file = file;
-		}
-		
-		public DbAction(String name, String telno, String address, String email, String relation, FileInputStream file) {
-			super();
-			this.name = name;
-			this.telno = telno;
-			this.address = address;
-			this.email = email;
-			this.relation = relation;
-			this.file = file;
-		}
 
 		public DbAction(int seqno) {
 			super();
@@ -74,11 +48,11 @@ import com.javalec.function.ShareVar;
 		}
 
 		//-------------------검색 결과를 Table로----------------------------
-		public ArrayList<Bean> QnAList(){
+		public ArrayList<Bean> QueryList(){
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select qnaid, qnatitle, qnacontent, qnatime from qna ";
+			String WhereDefault = "select queryid, querytitle, querycontent from query ";
 			
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -92,9 +66,9 @@ import com.javalec.function.ShareVar;
 	            	int wkSeq = rs.getInt(1);
 	            	String wktitle = rs.getString(2);
 	            	String wkcontent = rs.getString(3);
-	            	String wktime = rs.getString(4);
+//	            	String wktime = rs.getString(4);
 	            	
-	            	Bean bean = new Bean(wkSeq, wktitle, wkcontent, wktime);
+	            	Bean bean = new Bean(wkSeq, wktitle, wkcontent);
 	            	BeanList.add(bean);
 	            }
 	            
@@ -104,6 +78,38 @@ import com.javalec.function.ShareVar;
 	            e.printStackTrace();
 	        }
 			return BeanList;
+		}
+		public ArrayList<Bean> DocumentList() {
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+						
+			String WhereDefault = "select documentid, documenttitle, documentcontent from Document";
+			
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+	            while(rs.next()){
+	            	
+	            	int wkSeq = rs.getInt(1);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
+//	            	String wktime = rs.getString(4);
+	            	
+	            	Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+	            	BeanList.add(bean);
+	            }
+	            
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+
 		}
 
 		// QnA Table을 Click하였을 경우
@@ -138,7 +144,7 @@ import com.javalec.function.ShareVar;
 //	                    output.write(buffer);
 //	                }
 	            	
-	            bean = new Bean(wkSeq, wkTitle, wkContent, wkTime);
+	            bean = new Bean(wkSeq, wkTitle, wkContent);
 	            }
 	            conn_mysql.close();
 	        }
@@ -239,7 +245,7 @@ import com.javalec.function.ShareVar;
 			return true;
 
 		}
-		public boolean InsertNotice() {
+		public boolean InsertDocument(String title, String post) {
 			PreparedStatement ps = null;
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -247,12 +253,13 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				
-				String A = "insert into notice (title, post";
+				String A = "insert into Document (documenttitle, documentcontent, documenttype";
 				String B = ") values (?,?,?)";
 				
 				ps = conn_mysql.prepareStatement(A+B);
 				ps.setString(1, title);
 				ps.setString(2, post);
+				ps.setInt(3, loginnumber);
 				
 				ps.executeUpdate();
 				
@@ -311,7 +318,7 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
-		public boolean InsertQnA(String title, String content) {
+		public boolean InsertQuery(String title, String content) {
 			PreparedStatement ps = null;
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -319,7 +326,7 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				
-				String A = "insert into qna (qnatitle, qnacontent";
+				String A = "insert into Query (Querytitle, Querycontent";
 				String B = ") values (?,?)";
 				
 				ps = conn_mysql.prepareStatement(A+B);
@@ -337,58 +344,58 @@ import com.javalec.function.ShareVar;
 		}
 		
 		//---------------------------------------------- 수정
-		public boolean UpdateAction() {
-			  PreparedStatement ps = null;
-			  try{
-			      Class.forName("com.mysql.cj.jdbc.Driver");
-			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			      @SuppressWarnings("unused")
-					Statement stmt_mysql = conn_mysql.createStatement();
-			
-			      String A = "update userinfo2 set name = ?, telno = ?, address = ?, email = ?, relation = ?, file = ? ";
-			      String B = " where seqno = ? ";
-			
-			      ps = conn_mysql.prepareStatement(A+B);
-			      
-			      ps.setString(1, name);
-			      ps.setString(2, telno);
-			      ps.setString(3, address);
-			      ps.setString(4, email);
-			      ps.setString(5, relation);
-			      ps.setBinaryStream(6, file);
-			      ps.setInt(7, seqno);
-			      ps.executeUpdate();
-			
-			      conn_mysql.close();
-			  } catch (Exception e){
-			      e.printStackTrace();
-			      return false;
-			  }
-			
-			  return true;
-		}
-
-		// 삭제
-		public boolean DeleteAction() {
-		      PreparedStatement ps = null;
-		      try{
-		          Class.forName("com.mysql.cj.jdbc.Driver");
-		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-		          @SuppressWarnings("unused")
-					Statement stmt_mysql = conn_mysql.createStatement();
-		
-		          String A = "delete from userinfo2 where seqno = ? ";
-		
-		          ps = conn_mysql.prepareStatement(A);
-		          
-		          ps.setInt(1, seqno);
-		          ps.executeUpdate();
-		
-		          conn_mysql.close();
-		      } catch (Exception e){
-		          e.printStackTrace();
-		          return false;
-		      }
-		      return true;
-		}
+//		public boolean UpdateAction() {
+//			  PreparedStatement ps = null;
+//			  try{
+//			      Class.forName("com.mysql.cj.jdbc.Driver");
+//			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//			      @SuppressWarnings("unused")
+//					Statement stmt_mysql = conn_mysql.createStatement();
+//			
+//			      String A = "update userinfo2 set name = ?, telno = ?, address = ?, email = ?, relation = ?, file = ? ";
+//			      String B = " where seqno = ? ";
+//			
+//			      ps = conn_mysql.prepareStatement(A+B);
+//			      
+//			      ps.setString(1, name);
+//			      ps.setString(2, telno);
+//			      ps.setString(3, address);
+//			      ps.setString(4, email);
+//			      ps.setString(5, relation);
+//			      ps.setBinaryStream(6, file);
+//			      ps.setInt(7, seqno);
+//			      ps.executeUpdate();
+//			
+//			      conn_mysql.close();
+//			  } catch (Exception e){
+//			      e.printStackTrace();
+//			      return false;
+//			  }
+//			
+//			  return true;
+//		}
+//
+//		// 삭제
+//		public boolean DeleteAction() {
+//		      PreparedStatement ps = null;
+//		      try{
+//		          Class.forName("com.mysql.cj.jdbc.Driver");
+//		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//		          @SuppressWarnings("unused")
+//					Statement stmt_mysql = conn_mysql.createStatement();
+//		
+//		          String A = "delete from userinfo2 where seqno = ? ";
+//		
+//		          ps = conn_mysql.prepareStatement(A);
+//		          
+//		          ps.setInt(1, seqno);
+//		          ps.executeUpdate();
+//		
+//		          conn_mysql.close();
+//		      } catch (Exception e){
+//		          e.printStackTrace();
+//		          return false;
+//		      }
+//		      return true;
+//		}
 }

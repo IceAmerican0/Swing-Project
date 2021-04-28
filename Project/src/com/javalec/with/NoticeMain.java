@@ -1,37 +1,32 @@
-package com.javalec.admin;
+package com.javalec.with;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.javalec.adminmenu.InsertNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.DbAction;
-import com.javalec.function.ShareVar;
-import com.javalec.function.Static;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.ArrayList;
-
-public class QnaMain {
-
+public class NoticeMain {
+	
+	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JFrame frame;
+	private JButton btnNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -39,7 +34,7 @@ public class QnaMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QnaMain window = new QnaMain();
+					NoticeMain window = new NoticeMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +46,7 @@ public class QnaMain {
 	/**
 	 * Create the application.
 	 */
-	public QnaMain() {
+	public NoticeMain() {
 		initialize();
 	}
 
@@ -65,18 +60,31 @@ public class QnaMain {
 			public void windowOpened(WindowEvent e) {
 				TableInit();
 				SearchAction();
+				UserorAdmin();
 			}
 		});
-		frame.setBounds(100, 100, 403, 360);
+		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(getBtnNotice());
 		frame.getContentPane().add(getScrollPane());
 	}
-
+	private JButton getBtnNotice() {
+		if (btnNotice == null) {
+			btnNotice = new JButton("공지작성");
+			btnNotice.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					OpenAction();
+				}
+			});
+			btnNotice.setBounds(337, 6, 96, 29);
+		}
+		return btnNotice;
+	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 29, 391, 260);
+			scrollPane.setBounds(32, 60, 400, 182);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -86,21 +94,6 @@ public class QnaMain {
 			Inner_Table = new JTable();
 			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			Inner_Table.setModel(Outer_Table);
-			Inner_Table.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					TableClick();
-				}
-			});
-			Inner_Table.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getButton() == 1){
-						TableClick();
-					}
-				}
-			});
-			
 		}
 		return Inner_Table;
 	}
@@ -143,7 +136,7 @@ public class QnaMain {
 	}
 	private void SearchAction(){
 		DbAction dbAction = new DbAction();
-		ArrayList<com.javalec.function.Bean> beanList = dbAction.QnAList();
+		ArrayList<Bean> beanList = dbAction.DocumentList();
 		
 		int listCount = beanList.size();
 		
@@ -154,15 +147,21 @@ public class QnaMain {
 		}
 
 	}
+	private void UserorAdmin() {
+		int i = 1; //user
+		if (i == 1) {
+			//어드민일경우
+			btnNotice.setVisible(true);
+		}
+		if (i == 0) {
+			//유저일경우
+			btnNotice.setVisible(false);
+			
+		}
+	}
+	private void OpenAction() {
+		InsertNotice insertNotice = new InsertNotice();
+		insertNotice.main(null);
 
-	private void TableClick() {
-		Static staticint = new Static();
-        int i = Inner_Table.getSelectedRow();
-        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
-        staticint.seqIndex = Integer.parseInt(tkSequence);
-        System.out.println(staticint.seqIndex);
-        QnaComment qnaComment = new QnaComment();
-        qnaComment.main(null);
-      
 	}
 }

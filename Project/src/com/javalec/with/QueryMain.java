@@ -1,29 +1,43 @@
-package com.javalec.admin;
+package com.javalec.with;
 
 import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.javalec.adminmenu.QueryAnswer;
 import com.javalec.function.Bean;
 import com.javalec.function.DbAction;
+import com.javalec.function.ShareVar;
+import com.javalec.function.Static;
+import com.javalec.usermenu.InsertQuery;
 
-public class NoticeMain {
-	
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class QueryMain {
+
 	private JFrame frame;
-	private JButton btnNewNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
-	
+	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private JButton btnQuery;
+
 	/**
 	 * Launch the application.
 	 */
@@ -31,7 +45,7 @@ public class NoticeMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NoticeMain window = new NoticeMain();
+					QueryMain window = new QueryMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +57,7 @@ public class NoticeMain {
 	/**
 	 * Create the application.
 	 */
-	public NoticeMain() {
+	public QueryMain() {
 		initialize();
 	}
 
@@ -55,27 +69,24 @@ public class NoticeMain {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				UserorAdmin();
 				TableInit();
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 403, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getBtnNewNotice());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getBtnQuery());
 	}
-	private JButton getBtnNewNotice() {
-		if (btnNewNotice == null) {
-			btnNewNotice = new JButton("작성하기");
-			btnNewNotice.setBounds(337, 6, 96, 29);
-		}
-		return btnNewNotice;
-	}
+
+
+
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(32, 60, 400, 182);
+			scrollPane.setBounds(6, 59, 391, 230);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -85,8 +96,35 @@ public class NoticeMain {
 			Inner_Table = new JTable();
 			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			Inner_Table.setModel(Outer_Table);
+			Inner_Table.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					TableClick();
+				}
+			});
+			Inner_Table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						TableClick();
+					}
+				}
+			});
+			
 		}
 		return Inner_Table;
+	}
+	private JButton getBtnQuery() {
+		if (btnQuery == null) {
+			btnQuery = new JButton("질문하기");
+			btnQuery.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					OpenAction();
+				}
+			});
+			btnQuery.setBounds(280, 19, 117, 29);
+		}
+		return btnQuery;
 	}
 	private void TableInit(){
         int i = Outer_Table.getRowCount();
@@ -127,7 +165,7 @@ public class NoticeMain {
 	}
 	private void SearchAction(){
 		DbAction dbAction = new DbAction();
-		ArrayList<Bean> beanList = dbAction.QnAList();
+		ArrayList<Bean> beanList = dbAction.QueryList();
 		
 		int listCount = beanList.size();
 		
@@ -138,6 +176,33 @@ public class NoticeMain {
 		}
 
 	}
-	
-	
+
+	private void TableClick() {
+		Static staticint = new Static();
+        int i = Inner_Table.getSelectedRow();
+        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
+        staticint.seqIndex = Integer.parseInt(tkSequence);
+        System.out.println(staticint.seqIndex);
+        QueryAnswer qnaComment = new QueryAnswer();
+        qnaComment.main(null);
+      
+	}
+	private void UserorAdmin() {
+		int i = 0;
+		if (i == 0) {
+			//유저일경우
+			btnQuery.setVisible(true);
+		}
+		if (i == 1) {
+			//유저일경우
+			btnQuery.setVisible(false);
+			
+		}
+	}
+	private void OpenAction() {
+		InsertQuery insertQuery = new InsertQuery();
+		insertQuery.main(null);
+
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.javalec.community;
+package com.javalec.usermenu;
 
 import java.awt.EventQueue;
 

@@ -1,4 +1,4 @@
-package com.javalec.community;
+package com.javalec.usermenu;
 
 import java.awt.EventQueue;
 
@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class InsertQnA {
+public class InsertQuery {
 
 	private JFrame frame;
 	private JLabel lbltitle;
@@ -30,7 +30,7 @@ public class InsertQnA {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InsertQnA window = new InsertQnA();
+					InsertQuery window = new InsertQuery();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class InsertQnA {
 	/**
 	 * Create the application.
 	 */
-	public InsertQnA() {
+	public InsertQuery() {
 		initialize();
 	}
 
@@ -92,6 +92,11 @@ public class InsertQnA {
 	private JButton getBtnCancel() {
 		if (btnCancel == null) {
 			btnCancel = new JButton("취소");
+			btnCancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(JFrame.EXIT_ON_CLOSE);
+				}
+			});
 			btnCancel.setBounds(218, 237, 91, 29);
 		}
 		return btnCancel;
@@ -106,7 +111,7 @@ public class InsertQnA {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(16, 54, 415, 171);
+			panel.setBounds(16, 34, 415, 191);
 			panel.add(getTextArea());
 		}
 		return panel;
@@ -139,9 +144,11 @@ public class InsertQnA {
 		//작성자 정보 가져오기
 		
 		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
-		boolean aaa = dbaction.InsertQnA(title, content);
+		boolean aaa = dbaction.InsertQuery(title, content);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다.!");
+	          System.exit(JFrame.EXIT_ON_CLOSE);
+
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}

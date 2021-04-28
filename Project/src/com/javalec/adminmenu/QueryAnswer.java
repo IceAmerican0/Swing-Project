@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.adminmenu;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class QnaComment {
+public class QueryAnswer {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -45,7 +45,7 @@ public class QnaComment {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QnaComment window = new QnaComment();
+					QueryAnswer window = new QueryAnswer();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class QnaComment {
 	/**
 	 * Create the application.
 	 */
-	public QnaComment() {
+	public QueryAnswer() {
 		initialize();
 	}
 
