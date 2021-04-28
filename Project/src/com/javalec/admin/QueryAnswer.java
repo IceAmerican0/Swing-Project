@@ -1,4 +1,4 @@
-package com.javalec.adminmenu;
+package com.javalec.admin;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
 import com.javalec.function.DbAction;
-import com.javalec.function.Static;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.javalec.adminmenu.QueryAnswer;
+import com.javalec.admin.QueryAnswer;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 

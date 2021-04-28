@@ -1,25 +1,33 @@
-package com.javalec.usermenu;
+package com.javalec.user;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
 
-public class InsertQuery {
+import com.javalec.function.DbAction;
+
+import java.awt.BorderLayout;
+import java.awt.TextArea;
+import java.awt.Button;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import java.awt.Panel;
+import javax.swing.JTextArea;
+
+public class InsertComment {
 
 	private JFrame frame;
-	private JLabel lbltitle;
-	private JTextField titleF;
 	private JButton btnOK;
 	private JButton btnCancel;
-	private JLabel lbltitle_1;
 	private JPanel panel;
 	private JTextArea textArea;
 
@@ -30,7 +38,7 @@ public class InsertQuery {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InsertQuery window = new InsertQuery();
+					InsertComment window = new InsertComment();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +50,7 @@ public class InsertQuery {
 	/**
 	 * Create the application.
 	 */
-	public InsertQuery() {
+	public InsertComment() {
 		initialize();
 	}
 
@@ -51,104 +59,76 @@ public class InsertQuery {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setTitle("댓글 작성");
+		frame.setBounds(100, 100, 450, 145);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLbltitle());
-		frame.getContentPane().add(getTitleF());
 		frame.getContentPane().add(getBtnOK());
 		frame.getContentPane().add(getBtnCancel());
-		frame.getContentPane().add(getLbltitle_1());
 		frame.getContentPane().add(getPanel());
-	}
-
-	private JLabel getLbltitle() {
-		if (lbltitle == null) {
-			lbltitle = new JLabel("제목 :");
-			lbltitle.setBounds(6, 6, 61, 16);
-		}
-		return lbltitle;
-	}
-	private JTextField getTitleF() {
-		if (titleF == null) {
-			titleF = new JTextField();
-			titleF.setBounds(76, 1, 130, 26);
-			titleF.setColumns(10);
-		}
-		return titleF;
+		
 	}
 	private JButton getBtnOK() {
 		if (btnOK == null) {
-			btnOK = new JButton("등록");
+			btnOK = new JButton("OK");
 			btnOK.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					check();
 				}
 			});
-			btnOK.setBounds(115, 237, 91, 29);
+			btnOK.setBounds(106, 88, 117, 29);
 		}
 		return btnOK;
 	}
 	private JButton getBtnCancel() {
 		if (btnCancel == null) {
-			btnCancel = new JButton("취소");
+			btnCancel = new JButton("Cancel");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frame.dispose();
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				}
 			});
-			btnCancel.setBounds(218, 237, 91, 29);
+			btnCancel.setBounds(224, 88, 117, 29);
 		}
 		return btnCancel;
-	}
-	private JLabel getLbltitle_1() {
-		if (lbltitle_1 == null) {
-			lbltitle_1 = new JLabel("내용 :");
-			lbltitle_1.setBounds(6, 34, 61, 16);
-		}
-		return lbltitle_1;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(16, 34, 415, 191);
+			panel.setBounds(6, 6, 438, 73);
 			panel.add(getTextArea());
+			
 		}
 		return panel;
 	}
 	private JTextArea getTextArea() {
 		if (textArea == null) {
-			textArea = new JTextArea(20, 30);
+			textArea = new JTextArea(20,30);
 			textArea.setLineWrap(true);
 		}
 		return textArea;
 	}
 	private void check() {
-		String text = "";
-		if (textArea.getText().trim().length() == 0) {
-			text = "내용을";
+		if (textArea.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "내용을 입력해주세요!");
 		}
-		if (titleF.getText().trim().length() == 0) {
-			text = "제목을";
+		if (textArea.getText().length()>=140) {
+			JOptionPane.showMessageDialog(null, "140자 이하로 입력해주세요!");
 		}
 		else {
+			//database input
 			insertAction();
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
-		JOptionPane.showMessageDialog(null, text+" 입력해주세요!");
-
 	}
 	private void insertAction() {
-		// TODO Auto-generated method stub
-		String title = titleF.getText();
-		String content = textArea.getText();
+		String text = textArea.getText();
 		//작성자 정보 가져오기
 		
 		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
-		boolean aaa = dbaction.InsertQuery(title, content);
+		boolean aaa = dbaction.InsertComment(text);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다.!");
-	          frame.dispose();
-
+	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
