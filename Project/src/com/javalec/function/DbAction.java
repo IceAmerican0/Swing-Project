@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.javalec.admin.QnaComment;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 
@@ -21,7 +22,6 @@ import com.javalec.function.ShareVar;
 	    private final String id_mysql = ShareVar.DBUser;
 	    private final String pw_mysql = ShareVar.DBPass;
 		
-		int seqno;
 		String name;
 		String telno;
 		String address;
@@ -30,6 +30,7 @@ import com.javalec.function.ShareVar;
 		String conname;
 		String condata;
 		
+		int seqno;
 		String userid;//유저 아이디
 		String title; //공지사항 제목
 		String post; //공지사항 내용
@@ -105,11 +106,12 @@ import com.javalec.function.ShareVar;
 			return BeanList;
 		}
 
-		// Table을 Click하였을 경우
+		// QnA Table을 Click하였을 경우
 		public Bean TableClick() {
+			System.out.println(seqno);
 			Bean bean = null;
-			String WhereDefault = "select seqno, name, telno, address, email, relation, file from userinfo2 ";
-			String WhereDefault2 = "where seqno = " + seqno;
+			String WhereDefault = "select qnaid, qnatitle, qnacontent, qnatime from qna ";
+			String WhereDefault2 = "where qnaid = " + seqno;
 			
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -123,67 +125,65 @@ import com.javalec.function.ShareVar;
 	            if(rs.next()){
 	            	
 	            	int wkSeq = rs.getInt(1);
-	            	String wkName = rs.getString(2);
-	            	String wkTelno = rs.getString(3);
-	            	String wkAddress = rs.getString(4);
-	            	String wkEmail = rs.getString(5);
-	            	String wkRelation = rs.getString(6);
-	            	// File
-	            	ShareVar.filename = ShareVar.filename + 1;
-	            	File file = new File(Integer.toString(ShareVar.filename));
-	            	FileOutputStream output = new FileOutputStream(file);
-	            	InputStream input = rs.getBinaryStream(7);
-	                byte[] buffer = new byte[1024];
-	                while (input.read(buffer) > 0) {
-	                    output.write(buffer);
-	                }
+	            	String wkTitle = rs.getString(2);
+	            	String wkContent = rs.getString(3);
+	            	String wkTime = rs.getString(4);
+//	            	// File
+//	            	ShareVar.filename = ShareVar.filename + 1;
+//	            	File file = new File(Integer.toString(ShareVar.filename));
+//	            	FileOutputStream output = new FileOutputStream(file);
+//	            	InputStream input = rs.getBinaryStream(7);
+//	                byte[] buffer = new byte[1024];
+//	                while (input.read(buffer) > 0) {
+//	                    output.write(buffer);
+//	                }
 	            	
-	            bean = new Bean(wkSeq, wkName, wkTelno, wkAddress, wkEmail, wkRelation);
+	            bean = new Bean(wkSeq, wkTitle, wkContent, wkTime);
 	            }
-	            
 	            conn_mysql.close();
 	        }
 	        catch (Exception e){
 	            e.printStackTrace();
 	        }
-			
 			return bean;
+			
+			
 		}
-		
-		
+//		
+//		
 		//조건 검색 결과를 Table로 
-		public ArrayList<Bean> ConditionList(){
-			
-			ArrayList<Bean> BeanList = new ArrayList<Bean>();
-			
-			String WhereDefault = "select seqno, name, telno, relation from userinfo2 ";
-			String WhereDefault2 = "where " + conname + " like '%" + condata + "%'";
-			
-	        try{
-	            Class.forName("com.mysql.cj.jdbc.Driver");
-	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-	            Statement stmt_mysql = conn_mysql.createStatement();
-
-	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
-
-	            while(rs.next()){
-	            	
-	            	int wkSeq = rs.getInt(1);
-	            	String wkName = rs.getString(2);
-	            	String wkTelno = rs.getString(3);
-	            	String wkRelation = rs.getString(4);
-	            	
-	            	Bean bean = new Bean(wkSeq, wkName, wkTelno, wkRelation);
-	            	BeanList.add(bean);
-	            }
-	            
-	            conn_mysql.close();
-	        }
-	        catch (Exception e){
-	            e.printStackTrace();
-	        }
-			return BeanList;
-		}
+//		public ArrayList<Bean> ConditionList(){
+//			
+//			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+//			
+//			String WhereDefault = "select seqno, name, telno, relation from userinfo2 ";
+//			String WhereDefault2 = "where " + conname + " like '%" + condata + "%'";
+//			
+//	        try{
+//	            Class.forName("com.mysql.cj.jdbc.Driver");
+//	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//	            Statement stmt_mysql = conn_mysql.createStatement();
+//
+//	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+//
+//	            while(rs.next()){
+//	            	
+//	            	int wkSeq = rs.getInt(1);
+//	            	String wkName = rs.getString(2);
+//	            	String wkTelno = rs.getString(3);
+//	            	String wkRelation = rs.getString(4);
+//	            	
+//	            	Bean bean = new Bean(wkSeq, wkName, wkTelno, wkRelation);
+//	            	BeanList.add(bean);
+//	            }
+//	            
+//	            conn_mysql.close();
+//	        }
+//	        catch (Exception e){
+//	            e.printStackTrace();
+//	        }
+//			return BeanList;
+//		}
 
 		
 		// 입력
@@ -215,6 +215,30 @@ import com.javalec.function.ShareVar;
 //		      return true;
 //		}
 		//-------------------------입력------------------------------------
+		public boolean InsertQnaComment(String adminComment) {
+			PreparedStatement ps = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				String A = "insert into answer (answercontent";
+				String B = ") values (?)";
+				
+				ps = conn_mysql.prepareStatement(A+B);
+				ps.setString(1, adminComment);
+				
+				ps.executeUpdate();
+				
+				conn_mysql.close();
+			} catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+
+		}
 		public boolean InsertNotice() {
 			PreparedStatement ps = null;
 			try{

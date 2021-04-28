@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.javalec.function.DbAction;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -259,7 +262,7 @@ public class InsertClothes {
 		ConditionQueryAction(ConditionQueryColumn);
 	}
 	private void ConditionQueryAction(String selection) {
-		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
+		DbAction dbaction = new DbAction();
 		// Image File
 				FileInputStream input = null;
 				File file = new File(tfFilePath.getText());

@@ -126,11 +126,11 @@ public class InsertNotice {
 		if (textArea.getText().trim().length() == 0 || textField.getText().trim().length() == 0) {
 			JOptionPane.showMessageDialog(null, "내용을 채워주세요!");
 		}else {
-			InsertDB();
+			InsertAction();
 		}
 
 	}
-	private void InsertDB() {
+	private void InsertAction() {
 		//
 		String title = textField.getText();
 		String post = textArea.getText();

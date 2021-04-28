@@ -2,18 +2,27 @@ package com.javalec.admin;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.DbAction;
+import com.javalec.function.ShareVar;
+import com.javalec.function.Static;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 public class QnaMain {
@@ -77,6 +86,20 @@ public class QnaMain {
 			Inner_Table = new JTable();
 			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			Inner_Table.setModel(Outer_Table);
+			Inner_Table.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					TableClick();
+				}
+			});
+			Inner_Table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						TableClick();
+					}
+				}
+			});
 			
 		}
 		return Inner_Table;
@@ -119,16 +142,27 @@ public class QnaMain {
 
 	}
 	private void SearchAction(){
-		com.javalec.function.DbAction dbAction = new com.javalec.function.DbAction();
+		DbAction dbAction = new DbAction();
 		ArrayList<com.javalec.function.Bean> beanList = dbAction.QnAList();
 		
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
 			String temp = Integer.toString(beanList.get(index).getSeqno());
-			String[] qTxt = {temp, beanList.get(index).getName(), beanList.get(index).getTelno(), beanList.get(index).getRelation()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getName(),beanList.get(index).getTime()};
 			Outer_Table.addRow(qTxt);
 		}
 
+	}
+
+	private void TableClick() {
+		Static staticint = new Static();
+        int i = Inner_Table.getSelectedRow();
+        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
+        staticint.seqIndex = Integer.parseInt(tkSequence);
+        System.out.println(staticint.seqIndex);
+        QnaComment qnaComment = new QnaComment();
+        qnaComment.main(null);
+      
 	}
 }

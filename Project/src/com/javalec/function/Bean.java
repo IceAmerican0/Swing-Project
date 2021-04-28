@@ -4,32 +4,17 @@ public class Bean {
 	
 	int seqno;
 	String name;
-	String telno;
-	String address;
-	String email;
-	String relation;
+	String title;
+	String content;
+	String time;
 	
-	public Bean(int seqno, String name, String telno, String address, String email, String relation) {
+	public Bean(int seqno, String title, String content, String time) {
 		super();
 		this.seqno = seqno;
-		this.name = name;
-		this.telno = telno;
-		this.address = address;
-		this.email = email;
-		this.relation = relation;
+		this.title = title;
+		this.content = content;
+		this.time = time;
 	}
-
-	
-	
-	public Bean(int seqno, String name, String telno, String relation) {
-		super();
-		this.seqno = seqno;
-		this.name = name;
-		this.telno = telno;
-		this.relation = relation;
-	}
-
-
 
 	public int getSeqno() {
 		return seqno;
@@ -47,38 +32,34 @@ public class Bean {
 		this.name = name;
 	}
 
-	public String getTelno() {
-		return telno;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTelno(String telno) {
-		this.telno = telno;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getContent() {
+		return content;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getTime() {
+		return time;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public String getRelation() {
-		return relation;
-	}
 
-	public void setRelation(String relation) {
-		this.relation = relation;
-	} 
-	
+
+
 
 }
+
 

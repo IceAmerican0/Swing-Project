@@ -1,13 +1,23 @@
 package com.javalec.admin;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import com.javalec.function.Bean;
+import com.javalec.function.DbAction;
+import com.javalec.function.Static;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class QnaComment {
 
@@ -26,6 +36,7 @@ public class QnaComment {
 	private JLabel Answer;
 	private JPanel paneladmin;
 	private JTextArea textAreaAdmin;
+	private JLabel lblSeq;
 
 	/**
 	 * Launch the application.
@@ -43,6 +54,7 @@ public class QnaComment {
 		});
 	}
 
+
 	/**
 	 * Create the application.
 	 */
@@ -55,6 +67,12 @@ public class QnaComment {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				SearchAction();
+			}
+		});
 		frame.setBounds(100, 100, 454, 458);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -70,11 +88,13 @@ public class QnaComment {
 		frame.getContentPane().add(getLblDate());
 		frame.getContentPane().add(getAnswer());
 		frame.getContentPane().add(getPaneladmin());
+		frame.getContentPane().add(getLblSeq());
 	}
 
-	private JTextField getTitleF() {
+	public JTextField getTitleF() {
 		if (titleF == null) {
 			titleF = new JTextField();
+			titleF.setEditable(false);
 			titleF.setColumns(10);
 			titleF.setBounds(43, 6, 233, 26);
 		}
@@ -95,9 +115,10 @@ public class QnaComment {
 		}
 		return panel;
 	}
-	private JTextArea getTextArea() {
+	public JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea(20, 30);
+			textArea.setEditable(false);
 			textArea.setLineWrap(true);
 		}
 		return textArea;
@@ -112,6 +133,11 @@ public class QnaComment {
 	private JButton getBtnInsertDB() {
 		if (btnInsertDB == null) {
 			btnInsertDB = new JButton("확인");
+			btnInsertDB.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					check();
+				}
+			});
 			btnInsertDB.setBounds(126, 395, 81, 29);
 		}
 		return btnInsertDB;
@@ -130,17 +156,19 @@ public class QnaComment {
 		}
 		return lblUserName;
 	}
-	private JTextField getUserF() {
+	public JTextField getUserF() {
 		if (userF == null) {
 			userF = new JTextField();
+			userF.setEditable(false);
 			userF.setBounds(55, 35, 88, 26);
 			userF.setColumns(10);
 		}
 		return userF;
 	}
-	private JTextField getDateF() {
+	public JTextField getDateF() {
 		if (dateF == null) {
 			dateF = new JTextField();
+			dateF.setEditable(false);
 			dateF.setBounds(269, 35, 158, 26);
 			dateF.setColumns(10);
 		}
@@ -175,4 +203,42 @@ public class QnaComment {
 		}
 		return textAreaAdmin;
 	}
+	private JLabel getLblSeq() {
+		if (lblSeq == null) {
+			lblSeq = new JLabel("");
+			lblSeq.setBounds(157, 40, 61, 16);
+		}
+		return lblSeq;
+	}
+	private void SearchAction() {
+		Static staticint = new Static();
+		System.out.println(staticint.seqIndex);
+		DbAction dbAction = new DbAction(staticint.seqIndex);
+        Bean bean = dbAction.TableClick();
+        
+       lblSeq.setText(Integer.toString(bean.getSeqno()));
+       titleF.setText(bean.getTitle());
+       textArea.setText(bean.getContent());
+       dateF.setText(bean.getTime());
+//       qnaComment.getDateF().setText(bean.getTime());
+	}
+	private void check() {
+		if (textAreaAdmin.getText().trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "답변을 입력해주세요!");
+		}else {
+			InsertAction();
+		}
+	}
+	private void InsertAction() {
+		// TODO Auto-generated method stub
+		String comment = textAreaAdmin.getText();
+		DbAction dbaction = new DbAction();
+		boolean aaa = dbaction.InsertQnaComment(comment);
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+	}
+	
 }
