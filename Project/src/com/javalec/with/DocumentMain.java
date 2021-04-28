@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 
 public class DocumentMain {
 
@@ -30,6 +33,9 @@ public class DocumentMain {
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 	private JTable table;
+	private JButton btnUpdate;
+	private JButton btndelete;
+	private JButton btnheart;
 
 	/**
 	 * Launch the application.
@@ -71,6 +77,9 @@ public class DocumentMain {
 		frame.getContentPane().add(getBtnNewButton());
 		frame.getContentPane().add(getCommentpanel());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getBtnUpdate());
+		frame.getContentPane().add(getBtndelete());
+		frame.getContentPane().add(getBtnheart());
 	}
 
 	private JLabel getClothesData() {
@@ -109,7 +118,7 @@ public class DocumentMain {
 		if (lblDatetime == null) {
 			lblDatetime = new JLabel("datetime");
 			lblDatetime.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-			lblDatetime.setBounds(232, 273, 61, 16);
+			lblDatetime.setBounds(183, 273, 61, 16);
 		}
 		return lblDatetime;
 	}
@@ -165,5 +174,48 @@ public class DocumentMain {
 			table = new JTable();
 		}
 		return table;
+	}
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			
+			ImageIcon icon = new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/pencil.png");
+			Image img = icon.getImage();
+			Image changeImage = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+			ImageIcon changeIcon = new ImageIcon(changeImage);
+			btnUpdate = new JButton(changeIcon);
+			btnUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
+			btnUpdate.setBounds(247, 282, 24, 29);
+		}
+		return btnUpdate;
+	}
+	private JButton getBtndelete() {
+		if (btndelete == null) {
+			ImageIcon icon = new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/cancel.png");
+			Image img = icon.getImage();
+			Image changeImage = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+			ImageIcon changeIcon = new ImageIcon(changeImage);
+			btndelete = new JButton(changeIcon);
+			btndelete.setHorizontalAlignment(SwingConstants.CENTER);
+			btndelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
+			btndelete.setBounds(247, 282, 24, 29);
+		}
+		return btndelete;
+	}
+	private JButton getBtnheart() {
+		if (btnheart == null) {
+			btnheart = new JButton("New button");
+			btnheart.setIcon(new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/1.png"));
+			btnheart.setBounds(298, 282, 24, 29);
+		}
+		return btnheart;
 	}
 }
