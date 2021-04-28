@@ -211,9 +211,8 @@ public class QueryAnswer {
 		return lblSeq;
 	}
 	private void SearchAction() {
-		Static staticint = new Static();
-		System.out.println(staticint.seqIndex);
-		DbAction dbAction = new DbAction(staticint.seqIndex);
+		System.out.println(Bean.seqIndex);
+		DbAction dbAction = new DbAction(Bean.seqIndex);
         Bean bean = dbAction.TableClick();
         
        lblSeq.setText(Integer.toString(bean.getSeqno()));

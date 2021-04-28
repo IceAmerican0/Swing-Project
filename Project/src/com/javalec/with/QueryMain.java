@@ -181,8 +181,8 @@ public class QueryMain {
 		Static staticint = new Static();
         int i = Inner_Table.getSelectedRow();
         String tkSequence = (String)Inner_Table.getValueAt(i, 0);
-        staticint.seqIndex = Integer.parseInt(tkSequence);
-        System.out.println(staticint.seqIndex);
+        Bean.seqIndex = Integer.parseInt(tkSequence);
+        System.out.println(Bean.seqIndex);
         QueryAnswer qnaComment = new QueryAnswer();
         qnaComment.main(null);
       

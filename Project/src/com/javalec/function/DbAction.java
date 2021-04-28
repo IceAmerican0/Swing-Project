@@ -148,8 +148,8 @@ import com.javalec.function.ShareVar;
 		public Bean TableClick() {
 			System.out.println(seqno);
 			Bean bean = null;
-			String WhereDefault = "select qnaid, qnatitle, qnacontent, qnatime from qna ";
-			String WhereDefault2 = "where qnaid = " + seqno;
+			String WhereDefault = "select queryid, querytitle, querycontent, querytime from query ";
+			String WhereDefault2 = "where queryid = " + seqno;
 			
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");

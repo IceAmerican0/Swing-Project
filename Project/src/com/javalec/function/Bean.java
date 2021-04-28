@@ -2,6 +2,8 @@ package com.javalec.function;
 
 public class Bean {
 	
+	public static int seqIndex;
+	
 	int seqno;
 	String name;
 	String title;
