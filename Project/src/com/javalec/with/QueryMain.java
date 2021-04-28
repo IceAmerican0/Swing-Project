@@ -13,9 +13,7 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.admin.QueryAnswer;
 import com.javalec.function.Bean;
-import com.javalec.function.DbAction;
 import com.javalec.function.ShareVar;
-import com.javalec.function.Static;
 import com.javalec.user.InsertQuery;
 
 import java.awt.event.KeyAdapter;
@@ -31,7 +29,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class QueryMain {
-
+/*
+ * 유저와 관리자가 함께 이용하므로 시작하자마자 체크 필수
+ * 
+ * 
+ * 
+ * 
+ */
 	private JFrame frame;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
@@ -164,8 +168,8 @@ public class QueryMain {
 
 	}
 	private void SearchAction(){
-		DbAction dbAction = new DbAction();
-		ArrayList<Bean> beanList = dbAction.QueryList();
+		WithAction withAction = new WithAction();
+		ArrayList<Bean> beanList = withAction.QueryList();
 		
 		int listCount = beanList.size();
 		
@@ -178,7 +182,6 @@ public class QueryMain {
 	}
 
 	private void TableClick() {
-		Static staticint = new Static();
         int i = Inner_Table.getSelectedRow();
         String tkSequence = (String)Inner_Table.getValueAt(i, 0);
         Bean.seqIndex = Integer.parseInt(tkSequence);

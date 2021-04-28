@@ -17,7 +17,6 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.admin.InsertNotice;
 import com.javalec.function.Bean;
-import com.javalec.function.DbAction;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -163,8 +162,8 @@ public class NoticeMain {
 
 	}
 	private void SearchAction(){
-		DbAction dbAction = new DbAction();
-		ArrayList<Bean> beanList = dbAction.DocumentList();
+		WithAction withAction = new WithAction();
+		ArrayList<Bean> beanList = withAction.DocumentList();
 		
 		int listCount = beanList.size();
 		

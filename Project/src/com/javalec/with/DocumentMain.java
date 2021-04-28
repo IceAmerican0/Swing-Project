@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
-import com.javalec.function.DbAction;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -296,8 +295,8 @@ public class DocumentMain {
 
 	}
 	private void SearchAction() {
-		DbAction dbAction = new DbAction();
-		ArrayList<Bean> beanList = dbAction.DocumentComment();
+		WithAction withAction = new WithAction();
+		ArrayList<Bean> beanList =withAction.DocumentList();
 		
 		int listCount = beanList.size();
 		
