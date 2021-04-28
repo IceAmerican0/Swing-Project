@@ -220,8 +220,8 @@ public class QueryAnswer {
 		return lblSeq;
 	}
 	private void SearchAction() {
-		System.out.println(Bean.queryid);
-		WithAction WithAction = new WithAction(Bean.queryid);
+//		System.out.println(Bean.seqIndex);
+		WithAction WithAction = new WithAction(Bean.seqIndex);
         Bean bean = WithAction.QueryTableClick();
         
        lblSeq.setText(Integer.toString(bean.getQueryid()));

@@ -5,11 +5,12 @@ public class Bean {
 	
 	//Primary key
 	public static int userid;
-	public static int queryid;
-	public static int answerid;
-	public static int clothid;
-	public static int commentid;
-	public static int documentid;
+	public static int seqIndex;
+	int queryid;
+	int answerid;
+	int clothid;
+	int commentid;
+	int documentid;
 	//foreign key
 	int query_queryid;
 	int document_documentid;
@@ -42,11 +43,16 @@ public class Bean {
 	String	clothimage;
 	String	userimage;
 	//
-	public Bean(int seq, String documentcontent, String addtime) {
+	public Bean(int seq, String title, String content) {
 		super();
 		this.documentid = seq;
-		this.documentcontent = documentcontent;
-		this.addtime = addtime;
+		this.documenttitle= title;
+		this.documentcontent = content;
+	}
+	public Bean(int seq, String title) {
+		super();
+		this.documentid = seq;
+		this.documenttitle= title;
 	}
 
 	
@@ -85,35 +91,11 @@ public class Bean {
 	public static void setUserid(int userid) {
 		Bean.userid = userid;
 	}
-	public static int getQueryid() {
-		return queryid;
-	}
-	public static void setQueryid(int queryid) {
-		Bean.queryid = queryid;
-	}
-	public static int getAnswerid() {
-		return answerid;
-	}
-	public static void setAnswerid(int answerid) {
-		Bean.answerid = answerid;
-	}
-	public static int getClothid() {
-		return clothid;
-	}
-	public static void setClothid(int clothid) {
-		Bean.clothid = clothid;
-	}
-	public static int getCommentid() {
-		return commentid;
-	}
-	public static void setCommentid(int commentid) {
-		Bean.commentid = commentid;
-	}
-	public static int getDocumentid() {
+	public int getDocumentid() {
 		return documentid;
 	}
-	public static void setDocumentid(int documentid) {
-		Bean.documentid = documentid;
+	public void setDocumentid(int documentid) {
+		this.documentid = documentid;
 	}
 	public int getQuery_queryid() {
 		return query_queryid;
@@ -288,6 +270,150 @@ public class Bean {
 	}
 	public void setUserimage(String userimage) {
 		this.userimage = userimage;
+	}
+	public int getQueryid() {
+		return queryid;
+	}
+	public void setQueryid(int queryid) {
+		this.queryid = queryid;
+	}
+	public int getAnswerid() {
+		return answerid;
+	}
+	public void setAnswerid(int answerid) {
+		this.answerid = answerid;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public int getClothid() {
+		return clothid;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setClothid(int clothid) {
+		this.clothid = clothid;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public int getCommentid() {
+		return commentid;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
 
 	
