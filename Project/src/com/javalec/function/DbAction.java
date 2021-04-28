@@ -17,7 +17,7 @@ import com.javalec.function.ShareVar;
 
 
 	public class DbAction {
-
+//--------------------------------------------------------------------------------------------
 	    private final String url_mysql = ShareVar.DBName;
 	    private final String id_mysql = ShareVar.DBUser;
 	    private final String pw_mysql = ShareVar.DBPass;
@@ -30,7 +30,7 @@ import com.javalec.function.ShareVar;
 		String post; //공지사항 내용
 		String date; //공지사항 제목
 		FileInputStream file;
-
+//--------------------------------------------------------------------------------------------
 		public DbAction() {
 			super();
 		}
@@ -47,7 +47,7 @@ import com.javalec.function.ShareVar;
 			this.post = post;
 		}
 
-		//-------------------검색 결과를 Table로----------------------------
+//---------------------------------검색 결과를 Table로------------------------------------------
 		public ArrayList<Bean> QueryList(){
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
@@ -82,34 +82,66 @@ import com.javalec.function.ShareVar;
 		public ArrayList<Bean> DocumentList() {
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
-						
+			
 			String WhereDefault = "select documentid, documenttitle, documentcontent from Document";
 			
-	        try{
-	            Class.forName("com.mysql.cj.jdbc.Driver");
-	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-	            Statement stmt_mysql = conn_mysql.createStatement();
-
-	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
-
-	            while(rs.next()){
-	            	
-	            	int wkSeq = rs.getInt(1);
-	            	String wktitle = rs.getString(2);
-	            	String wkcontent = rs.getString(3);
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+				
+				while(rs.next()){
+					
+					int wkSeq = rs.getInt(1);
+					String wktitle = rs.getString(2);
+					String wkcontent = rs.getString(3);
 //	            	String wktime = rs.getString(4);
-	            	
-	            	Bean bean = new Bean(wkSeq, wktitle, wkcontent);
-	            	BeanList.add(bean);
-	            }
-	            
-	            conn_mysql.close();
-	        }
-	        catch (Exception e){
-	            e.printStackTrace();
-	        }
+					
+					Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+					BeanList.add(bean);
+				}
+				
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 			return BeanList;
-
+			
+		}
+		public ArrayList<Bean> DocumentComment() {
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select User_userid, commentcontent, comment_document_documentid, addtime from writecomment";
+			
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+				
+				while(rs.next()){
+					
+					int wkSeq = rs.getInt(1);
+					String wktitle = rs.getString(2);
+					String wkcontent = rs.getString(3);
+//	            	String wktime = rs.getString(4);
+					
+					Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+					BeanList.add(bean);
+				}
+				
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return BeanList;
+			
 		}
 
 		// QnA Table을 Click하였을 경우
@@ -220,7 +252,7 @@ import com.javalec.function.ShareVar;
 //		      }
 //		      return true;
 //		}
-		//-------------------------입력------------------------------------
+		//-----------------------------------------입력------------------------------------
 		public boolean InsertQnaComment(String adminComment) {
 			PreparedStatement ps = null;
 			try{
@@ -343,7 +375,7 @@ import com.javalec.function.ShareVar;
 			return true;
 		}
 		
-		//---------------------------------------------- 수정
+		//---------------------------------------------- 수정----------------------------------------------
 //		public boolean UpdateAction() {
 //			  PreparedStatement ps = null;
 //			  try{
@@ -375,7 +407,7 @@ import com.javalec.function.ShareVar;
 //			  return true;
 //		}
 //
-//		// 삭제
+//		//----------------------------------------------삭제----------------------------------------------
 //		public boolean DeleteAction() {
 //		      PreparedStatement ps = null;
 //		      try{

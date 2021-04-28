@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.JScrollBar;
 
 public class DocumentMain {
 
@@ -47,6 +48,9 @@ public class DocumentMain {
 	private JButton btnheart;
 	private JLabel lblComment;
 	private JButton btnComment;
+	public String like1 = "/Volumes/Data/AI/yangseolin/Swing-Project/Project/1.png";
+	public String like2 = "/Volumes/Data/AI/yangseolin/Swing-Project/Project/2.png";
+	public int likecount = 0;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	/**
 	 * Launch the application.
@@ -152,7 +156,8 @@ public class DocumentMain {
 	}
 	private JTextArea getDocumentArea() {
 		if (documentArea == null) {
-			documentArea = new JTextArea(20,30);
+			documentArea = new JTextArea(20,23);
+			documentArea.setEditable(false);
 			documentArea.setLineWrap(true);
 		}
 		return documentArea;
@@ -167,7 +172,7 @@ public class DocumentMain {
 	}
 	private JTextArea getTextArea() {
 		if (textArea == null) {
-			textArea = new JTextArea(20,30);
+			textArea = new JTextArea(10,23);
 			textArea.setLineWrap(true);
 		}
 		return textArea;
@@ -223,20 +228,18 @@ public class DocumentMain {
 		}
 		return btndelete;
 	}
+	
 	private JButton getBtnheart() {
 		if (btnheart == null) {
-			
-			ImageIcon icon = new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/1.png");
+			ImageIcon icon = new ImageIcon(like1);
 			Image img = icon.getImage();
 			Image changeImage = img.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 			ImageIcon changeIcon = new ImageIcon(changeImage);
 			btnheart = new JButton(changeIcon);
+			
+				
 			btnheart.setHorizontalAlignment(SwingConstants.CENTER);
-			btnheart.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});
+			
 			btnheart.setBounds(298, 282, 24, 29);
 		}
 		return btnheart;
@@ -294,7 +297,7 @@ public class DocumentMain {
 	}
 	private void SearchAction() {
 		DbAction dbAction = new DbAction();
-		ArrayList<Bean> beanList = dbAction.DocumentList();
+		ArrayList<Bean> beanList = dbAction.DocumentComment();
 		
 		int listCount = beanList.size();
 		
