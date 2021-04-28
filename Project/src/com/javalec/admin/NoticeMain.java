@@ -1,6 +1,9 @@
 package com.javalec.admin;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -8,6 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import com.javalec.function.Bean;
+import com.javalec.function.DbAction;
 
 public class NoticeMain {
 	
@@ -45,6 +52,13 @@ public class NoticeMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				TableInit();
+				SearchAction();
+			}
+		});
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -74,5 +88,56 @@ public class NoticeMain {
 		}
 		return Inner_Table;
 	}
-	//이너테이블과 아우터테이블 연결까ㅣㅈ 완료, 데이터 가져오는 쿼리문 작성 안함
+	private void TableInit(){
+        int i = Outer_Table.getRowCount();
+        
+        Outer_Table.addColumn("Seq.");
+        Outer_Table.addColumn("제목");
+        Outer_Table.addColumn("작성자");
+        Outer_Table.addColumn("작성시간");
+        Outer_Table.setColumnCount(4);
+
+        for(int j = 0 ; j < i ; j++){
+            Outer_Table.removeRow(0);
+        }
+
+        Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+        
+
+        int vColIndex = 0;
+        TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        int width = 30;
+        col.setPreferredWidth(width);
+
+        vColIndex = 1;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 150;
+        col.setPreferredWidth(width);
+
+        vColIndex = 2;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 80;
+        col.setPreferredWidth(width);
+
+        vColIndex = 3;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+
+	}
+	private void SearchAction(){
+		DbAction dbAction = new DbAction();
+		ArrayList<Bean> beanList = dbAction.QnAList();
+		
+		int listCount = beanList.size();
+		
+		for (int index = 0; index < listCount; index++) {
+			String temp = Integer.toString(beanList.get(index).getSeqno());
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getName(),beanList.get(index).getTime()};
+			Outer_Table.addRow(qTxt);
+		}
+
+	}
+	
+	
 }
