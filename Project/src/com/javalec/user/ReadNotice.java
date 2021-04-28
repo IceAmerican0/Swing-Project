@@ -179,8 +179,8 @@ public class ReadNotice {
 		return lblSeq;
 	}
 	private void SearchAction() {
-		System.out.println(Bean.seqIndex);
-		WithAction WithAction = new WithAction(Bean.seqIndex);
+		System.out.println(Bean.documentid);
+		WithAction WithAction = new WithAction(Bean.documentid);
         Bean bean = WithAction.QueryTableClick();
         
        lblSeq.setText(Integer.toString(bean.getSeqno()));

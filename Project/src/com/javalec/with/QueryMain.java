@@ -174,8 +174,8 @@ public class QueryMain {
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getSeqno());
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getName(),beanList.get(index).getTime()};
+			String temp = Integer.toString(beanList.get(index).getQuery_queryid());
+			String[] qTxt = {temp, beanList.get(index).getQuerytitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
 			Outer_Table.addRow(qTxt);
 		}
 
@@ -184,8 +184,8 @@ public class QueryMain {
 	private void TableClick() {
         int i = Inner_Table.getSelectedRow();
         String tkSequence = (String)Inner_Table.getValueAt(i, 0);
-        Bean.seqIndex = Integer.parseInt(tkSequence);
-        System.out.println(Bean.seqIndex);
+        Bean.queryid = Integer.parseInt(tkSequence);
+        System.out.println(Bean.queryid);
         QueryAnswer qnaComment = new QueryAnswer();
         qnaComment.main(null);
       

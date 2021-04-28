@@ -187,8 +187,8 @@ public class NoticeMain {
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getSeqno());
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getName(),beanList.get(index).getTime()};
+			String temp = Integer.toString(beanList.get(index).getDocumentid());
+			String[] qTxt = {temp, beanList.get(index).getDocumenttitle(),beanList.get(index).getDocumentcontent(),beanList.get(index).getAddtime()};
 			Outer_Table.addRow(qTxt);
 		}
 
