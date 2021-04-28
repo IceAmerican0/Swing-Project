@@ -1,15 +1,23 @@
 package com.javalec.tab;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -84,10 +92,10 @@ public class user_tab {
 		lblNewLabel.setBounds(6, 6, 97, 26);
 		myprofile.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("이미지 파일을 등록해주세요");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(43, 43, 199, 170);
-		myprofile.add(lblNewLabel_1);
+		JLabel lblImage = new JLabel("이미지 파일을 등록해주세요");
+		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImage.setBounds(43, 43, 199, 170);
+		myprofile.add(lblImage);
 		
 		JLabel lblNewLabel_6 = new JLabel("이름 :");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -140,6 +148,35 @@ public class user_tab {
 		btnNewButton_1.setBounds(723, 248, 117, 29);
 		myprofile.add(btnNewButton_1);
 		
+		JButton btnBrowse = new JButton("이미지등록");
+		btnBrowse.addActionListener(new ActionListener() {
+			//이미지 사진 등록하기 2021.04.28 김민규
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser browseImageFile = new JFileChooser();
+				//Filter image extensions
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","PNG","JPG","JPEG");
+				browseImageFile.addChoosableFileFilter(fnef);
+				int showOpenDialog = browseImageFile.showOpenDialog(null);
+				
+				if(showOpenDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = browseImageFile.getSelectedFile();
+					String selectedImagePath = selectedImageFile.getAbsolutePath();
+					JOptionPane.showMessageDialog(null, selectedImagePath);
+					//Display image on label
+					ImageIcon ii = new ImageIcon(selectedImagePath);
+					//Resize image to fit label
+					Image image = ii.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+					
+					lblImage.setIcon(new ImageIcon(image));
+					
+					
+					
+				}
+			}
+		});
+		btnBrowse.setBounds(85, 225, 117, 29);
+		myprofile.add(btnBrowse);
+		
 		bestitem = new JPanel();
 		layeredPane.add(bestitem, "name_10025409858196");
 		bestitem.setLayout(null);
@@ -188,7 +225,7 @@ public class user_tab {
 		JButton btnmyProfile = new JButton("내 프로필");
 		btnmyProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(myprofile);
+				switchPanels(myprofile);//탭전환
 			}
 		});
 		btnmyProfile.setBounds(52, 63, 151, 50);
@@ -197,7 +234,7 @@ public class user_tab {
 		JButton btnBest = new JButton("Best");
 		btnBest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(bestitem);
+				switchPanels(bestitem);//탭전환
 			}
 		});
 		btnBest.setBounds(52, 125, 151, 50);
@@ -206,7 +243,7 @@ public class user_tab {
 		JButton btnallCloset = new JButton("모두의 옷장");
 		btnallCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(allcloset);
+				switchPanels(allcloset);//탭전환
 			}
 		});
 		btnallCloset.setBounds(52, 187, 151, 50);
@@ -215,7 +252,7 @@ public class user_tab {
 		JButton btnmyCloset = new JButton("나의 옷장");
 		btnmyCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(mycloset);
+				switchPanels(mycloset);//탭전환
 			}
 		});
 		btnmyCloset.setBounds(52, 249, 151, 50);
@@ -224,7 +261,7 @@ public class user_tab {
 		JButton btnNotice = new JButton("공지사항");
 		btnNotice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(notice);
+				switchPanels(notice);//탭전환
 			}
 		});
 		btnNotice.setBounds(52, 311, 151, 50);
@@ -233,7 +270,7 @@ public class user_tab {
 		JButton btnInquiry = new JButton("1:1 문의");
 		btnInquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(inquiry);
+				switchPanels(inquiry);//탭전환
 			}
 		});
 		btnInquiry.setBounds(52, 373, 151, 50);
