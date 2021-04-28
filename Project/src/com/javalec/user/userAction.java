@@ -95,11 +95,11 @@ import com.javalec.function.ShareVar;
 			while(rs.next()){
 				
 				int wkSeq = rs.getInt(1);
-				String wktitle = rs.getString(2);
-				String wkcontent = rs.getString(3);
+				String wkcontent = rs.getString(2);
+				String wktime = rs.getString(3);
 //            	String wktime = rs.getString(4);
 				
-				Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+				Bean bean = new Bean(wkSeq, wkcontent, wktime);
 				BeanList.add(bean);
 			}
 			

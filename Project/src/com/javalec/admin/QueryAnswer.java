@@ -224,10 +224,10 @@ public class QueryAnswer {
 		WithAction WithAction = new WithAction(Bean.queryid);
         Bean bean = WithAction.QueryTableClick();
         
-       lblSeq.setText(Integer.toString(bean.getSeqno()));
-       titleF.setText(bean.getTitle());
-       textArea.setText(bean.getContent());
-       dateF.setText(bean.getTime());
+       lblSeq.setText(Integer.toString(bean.getQueryid()));
+       titleF.setText(bean.getQuerytitle());
+       textArea.setText(bean.getQuerycontent());
+       dateF.setText(bean.getAddtime());
 //       qnaComment.getDateF().setText(bean.getTime());
 	}
 	private void check() {

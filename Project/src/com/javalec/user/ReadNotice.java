@@ -183,10 +183,10 @@ public class ReadNotice {
 		WithAction WithAction = new WithAction(Bean.documentid);
         Bean bean = WithAction.QueryTableClick();
         
-       lblSeq.setText(Integer.toString(bean.getSeqno()));
-       titleF.setText(bean.getTitle());
-       textArea.setText(bean.getContent());
-       dateF.setText(bean.getTime());
+       lblSeq.setText(Integer.toString(bean.getDocumentid()));
+       titleF.setText(bean.getDocumenttitle());
+       textArea.setText(bean.getDocumentcontent());
+       dateF.setText(bean.getAddtime());
 //       qnaComment.getDateF().setText(bean.getTime());
 	}
 	

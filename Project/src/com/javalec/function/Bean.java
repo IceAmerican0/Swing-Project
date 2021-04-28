@@ -41,10 +41,16 @@ public class Bean {
 	int	admin;
 	String	clothimage;
 	String	userimage;
+	//
+	public Bean(int seq, String documentcontent, String addtime) {
+		super();
+		this.documentid = seq;
+		this.documentcontent = documentcontent;
+		this.addtime = addtime;
+	}
 
 	
 	
-	//
 	
 	
 	
