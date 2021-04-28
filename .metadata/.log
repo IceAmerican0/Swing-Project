@@ -1,0 +1,5 @@
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2021-04-28 10:04:18.588
+!MESSAGE Exception caught during execution of command '[/usr/bin/git, --version]' in '/usr/bin', return code '69', error message '
+You have not agreed to the Xcode license agreements, please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode license agreements.
+'
