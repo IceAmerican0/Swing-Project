@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.javalec.function.DbAction;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -262,7 +261,7 @@ public class InsertClothes {
 		ConditionQueryAction(ConditionQueryColumn);
 	}
 	private void ConditionQueryAction(String selection) {
-		DbAction dbaction = new DbAction();
+		UserAction useraction = new UserAction();
 		// Image File
 				FileInputStream input = null;
 				File file = new File(tfFilePath.getText());
@@ -272,7 +271,7 @@ public class InsertClothes {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		boolean aaa = dbaction.InsertCloth(selection, clothname.getText(), input);
+		boolean aaa = useraction.InsertCloth(selection, clothname.getText(), input);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "옷 데이터 등록 되었습니다.!");                    
 		}else{

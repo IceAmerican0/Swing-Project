@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.javalec.function.DbAction;
 
 import java.awt.BorderLayout;
 import java.awt.TextArea;
@@ -125,8 +124,8 @@ public class InsertComment {
 		String text = textArea.getText();
 		//작성자 정보 가져오기
 		
-		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
-		boolean aaa = dbaction.InsertComment(text);
+		UserAction useraction = new UserAction();
+		boolean aaa = useraction.InsertComment(text);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, " 님의 댓글이 입력 되었습니다.!");                    
 		}else{

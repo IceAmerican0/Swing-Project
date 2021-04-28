@@ -34,8 +34,14 @@ import com.javalec.function.ShareVar;
 			super();
 		}
 		
+		public WithAction(int seqno) {
+			super();
+			this.seqno = seqno;
+		}
 	
 //--------------------------------------------------------------------------------------------
+
+
 
 			// 1:1 게시판 출력
 			public ArrayList<Bean> QueryList(){
@@ -70,7 +76,7 @@ import com.javalec.function.ShareVar;
 				return BeanList;
 			}
 			//1:1 table 클릭
-			public Bean TableClick() {
+			public Bean QueryTableClick() {
 				System.out.println(seqno);
 				Bean bean = null;
 				String WhereDefault = "select queryid, querytitle, querycontent, querytime from query ";

@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import com.javalec.function.DbAction;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -139,8 +138,8 @@ public class InsertNotice {
 		//
 		String title = textField.getText();
 		String post = textArea.getText();
-		DbAction dbaction = new DbAction();
-		boolean aaa = dbaction.InsertDocument(title, post);
+		AdminAction adminaction = new AdminAction();
+		boolean aaa = adminaction.InsertDocument(title, post);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");
 	          frame.dispose();

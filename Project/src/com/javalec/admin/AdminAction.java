@@ -27,7 +27,7 @@ import com.javalec.function.ShareVar;
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
 		//
-		public boolean InsertQnaComment(String adminComment) {
+		public boolean InsertQueryComment(String adminComment) {
 			PreparedStatement ps = null;
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");

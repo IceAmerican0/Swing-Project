@@ -143,8 +143,8 @@ public class InsertQuery {
 		String content = textArea.getText();
 		//작성자 정보 가져오기
 		
-		com.javalec.function.DbAction dbaction = new com.javalec.function.DbAction();
-		boolean aaa = dbaction.InsertQuery(title, content);
+		UserAction useraction = new UserAction();
+		boolean aaa = useraction.InsertQuery(title, content);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다.!");
 	          frame.dispose();

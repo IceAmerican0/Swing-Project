@@ -8,8 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
-import com.javalec.function.DbAction;
-
+import com.javalec.with.WithAction;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -212,8 +211,8 @@ public class QueryAnswer {
 	}
 	private void SearchAction() {
 		System.out.println(Bean.seqIndex);
-		DbAction dbAction = new DbAction(Bean.seqIndex);
-        Bean bean = dbAction.TableClick();
+		WithAction WithAction = new WithAction(Bean.seqIndex);
+        Bean bean = WithAction.QueryTableClick();
         
        lblSeq.setText(Integer.toString(bean.getSeqno()));
        titleF.setText(bean.getTitle());
@@ -231,8 +230,8 @@ public class QueryAnswer {
 	private void InsertAction() {
 		// TODO Auto-generated method stub
 		String comment = textAreaAdmin.getText();
-		DbAction dbaction = new DbAction();
-		boolean aaa = dbaction.InsertQnaComment(comment);
+		AdminAction adminAction = new AdminAction();
+		boolean aaa = adminAction.InsertQueryComment(comment);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
 		}else{
