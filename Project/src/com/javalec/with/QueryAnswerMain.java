@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.with;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -11,10 +11,15 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
+import com.javalec.admin.QueryAnswerInsert;
+import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
-import com.javalec.with.WithAction;
+import com.javalec.user.ReadNotice;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,9 +27,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
-public class QueryAnswer {
+public class QueryAnswerMain {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -39,9 +50,10 @@ public class QueryAnswer {
 	private JTextField dateF;
 	private JLabel lblDate;
 	private JLabel Answer;
-	private JPanel paneladmin;
-	private JTextArea textAreaAdmin;
 	private JLabel lblSeq;
+	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private JScrollPane scrollPane;
+	private JTable Inner_Table;
 
 	/**
 	 * Launch the application.
@@ -50,7 +62,7 @@ public class QueryAnswer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QueryAnswer window = new QueryAnswer();
+					QueryAnswerMain window = new QueryAnswerMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +75,7 @@ public class QueryAnswer {
 	/**
 	 * Create the application.
 	 */
-	public QueryAnswer() {
+	public QueryAnswerMain() {
 		initialize();
 	}
 
@@ -75,10 +87,11 @@ public class QueryAnswer {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				TableInit();
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 454, 458);
+		frame.setBounds(100, 100, 454, 523);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTitleF());
@@ -92,8 +105,8 @@ public class QueryAnswer {
 		frame.getContentPane().add(getDateF());
 		frame.getContentPane().add(getLblDate());
 		frame.getContentPane().add(getAnswer());
-		frame.getContentPane().add(getPaneladmin());
 		frame.getContentPane().add(getLblSeq());
+		frame.getContentPane().add(getScrollPane());
 	}
 
 	public JTextField getTitleF() {
@@ -140,10 +153,9 @@ public class QueryAnswer {
 			btnInsertDB = new JButton("등록");
 			btnInsertDB.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					check();
 				}
 			});
-			btnInsertDB.setBounds(126, 395, 81, 29);
+			btnInsertDB.setBounds(125, 442, 81, 29);
 		}
 		return btnInsertDB;
 	}
@@ -155,7 +167,7 @@ public class QueryAnswer {
 					frame.dispose();
 				}
 			});
-			btnCancel.setBounds(219, 395, 81, 29);
+			btnCancel.setBounds(213, 442, 81, 29);
 		}
 		return btnCancel;
 	}
@@ -198,21 +210,6 @@ public class QueryAnswer {
 		}
 		return Answer;
 	}
-	private JPanel getPaneladmin() {
-		if (paneladmin == null) {
-			paneladmin = new JPanel();
-			paneladmin.setBounds(6, 298, 424, 85);
-			paneladmin.add(getTextAreaAdmin());
-		}
-		return paneladmin;
-	}
-	private JTextArea getTextAreaAdmin() {
-		if (textAreaAdmin == null) {
-			textAreaAdmin = new JTextArea(20, 30);
-			textAreaAdmin.setLineWrap(true);
-		}
-		return textAreaAdmin;
-	}
 	private JLabel getLblSeq() {
 		if (lblSeq == null) {
 			lblSeq = new JLabel("");
@@ -220,38 +217,92 @@ public class QueryAnswer {
 		}
 		return lblSeq;
 	}
-	private void SearchAction() {
-//		System.out.println(Bean.seqIndex);
-		WithAction WithAction = new WithAction(Bean.seqIndex);
-        Bean bean = WithAction.QueryTableClick();
+
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(6, 309, 424, 128);
+			scrollPane.setViewportView(getInner_Table());
+		}
+		return scrollPane;
+	}
+	private JTable getInner_Table() {
+		if (Inner_Table == null) {
+			Inner_Table = new JTable();
+			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			Inner_Table.setModel(Outer_Table);
+			Inner_Table.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					TableClick();
+				}
+			});
+			Inner_Table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						TableClick();
+					}
+				}
+			});
+		}
+		return Inner_Table;
+	}
+	private void TableInit(){
+        int i = Outer_Table.getRowCount();
         
-       lblSeq.setText(Integer.toString(bean.getQueryid()));
-       titleF.setText(bean.getQuerytitle());
-       textArea.setText(bean.getQuerycontent());
-       dateF.setText(bean.getAddtime());
-//       qnaComment.getDateF().setText(bean.getTime());
-	}
-	private void check() {
-		if (textAreaAdmin.getText().trim().length() == 0) {
-			JOptionPane.showMessageDialog(null, "답변을 입력해주세요!");
-		}else {
-			InsertAction();
-		}
-	}
-	private void InsertAction() {
-		// TODO Auto-generated method stub
-		String comment = textAreaAdmin.getText();
-		ShareVar.seqIndex = Integer.parseInt(lblSeq.getText());
-		AdminAction adminAction = new AdminAction();
-		boolean aaa = adminAction.InsertQueryComment(comment,ShareVar.seqIndex);
-		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
-		}else{
-	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
-		}
-	}
+        Outer_Table.addColumn("Seq.");
+        Outer_Table.addColumn("제목");
+        Outer_Table.addColumn("작성자");
+        Outer_Table.addColumn("작성시간");
+        Outer_Table.setColumnCount(4);
 
+        for(int j = 0 ; j < i ; j++){
+            Outer_Table.removeRow(0);
+        }
 
+        Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+        
+
+        int vColIndex = 0;
+        TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        int width = 30;
+        col.setPreferredWidth(width);
+
+        vColIndex = 1;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 150;
+        col.setPreferredWidth(width);
+
+        vColIndex = 2;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 80;
+        col.setPreferredWidth(width);
+
+        vColIndex = 3;
+        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+
+	}
+	private void SearchAction() {
+		WithAction withAction = new WithAction();
+		ArrayList<Bean> beanList = withAction.QueryList();
 		
-	
+		int listCount = beanList.size();
+		
+		for (int index = 0; index < listCount; index++) {
+			String temp = Integer.toString(beanList.get(index).getQuery_queryid());
+			String[] qTxt = {temp, beanList.get(index).getQuerytitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
+			Outer_Table.addRow(qTxt);
+		}
+	}
+	private void TableClick() {
+		  int i = Inner_Table.getSelectedRow();
+	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
+	        ShareVar.seqIndex = Integer.parseInt(tkSeq);
+//	        System.out.println(ShareVar.seqIndex);
+	        //답변표현 어케 할건지?
+		
+	}
 }

@@ -1,4 +1,4 @@
-package com.javalec.user;
+package com.javalec.admin;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -24,7 +24,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ReadNotice {
+public class QueryAnswerInsert {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -33,10 +33,14 @@ public class ReadNotice {
 	private JTextArea textArea;
 	private JLabel lblPost;
 	private JButton btnInsertDB;
+	private JButton btnCancel;
 	private JLabel lblUserName;
 	private JTextField userF;
 	private JTextField dateF;
 	private JLabel lblDate;
+	private JLabel Answer;
+	private JPanel paneladmin;
+	private JTextArea textAreaAdmin;
 	private JLabel lblSeq;
 
 	/**
@@ -46,7 +50,7 @@ public class ReadNotice {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReadNotice window = new ReadNotice();
+					QueryAnswerInsert window = new QueryAnswerInsert();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +63,7 @@ public class ReadNotice {
 	/**
 	 * Create the application.
 	 */
-	public ReadNotice() {
+	public QueryAnswerInsert() {
 		initialize();
 	}
 
@@ -74,7 +78,7 @@ public class ReadNotice {
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 454, 458);
+		frame.setBounds(100, 100, 454, 623);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTitleF());
@@ -82,10 +86,13 @@ public class ReadNotice {
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getLblPost());
 		frame.getContentPane().add(getBtnInsertDB());
+		frame.getContentPane().add(getBtnCancel());
 		frame.getContentPane().add(getLblUserName());
 		frame.getContentPane().add(getUserF());
 		frame.getContentPane().add(getDateF());
 		frame.getContentPane().add(getLblDate());
+		frame.getContentPane().add(getAnswer());
+		frame.getContentPane().add(getPaneladmin());
 		frame.getContentPane().add(getLblSeq());
 	}
 
@@ -108,7 +115,7 @@ public class ReadNotice {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(6, 82, 424, 297);
+			panel.setBounds(6, 82, 424, 187);
 			panel.add(getTextArea());
 		}
 		return panel;
@@ -130,15 +137,27 @@ public class ReadNotice {
 	}
 	private JButton getBtnInsertDB() {
 		if (btnInsertDB == null) {
-			btnInsertDB = new JButton("확인");
+			btnInsertDB = new JButton("등록");
 			btnInsertDB.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+					check();
 				}
 			});
-			btnInsertDB.setBounds(187, 395, 81, 29);
+			btnInsertDB.setBounds(126, 395, 81, 29);
 		}
 		return btnInsertDB;
+	}
+	private JButton getBtnCancel() {
+		if (btnCancel == null) {
+			btnCancel = new JButton("취소");
+			btnCancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+				}
+			});
+			btnCancel.setBounds(219, 395, 81, 29);
+		}
+		return btnCancel;
 	}
 	private JLabel getLblUserName() {
 		if (lblUserName == null) {
@@ -172,6 +191,28 @@ public class ReadNotice {
 		}
 		return lblDate;
 	}
+	private JLabel getAnswer() {
+		if (Answer == null) {
+			Answer = new JLabel("답변 :");
+			Answer.setBounds(6, 281, 61, 16);
+		}
+		return Answer;
+	}
+	private JPanel getPaneladmin() {
+		if (paneladmin == null) {
+			paneladmin = new JPanel();
+			paneladmin.setBounds(6, 298, 424, 85);
+			paneladmin.add(getTextAreaAdmin());
+		}
+		return paneladmin;
+	}
+	private JTextArea getTextAreaAdmin() {
+		if (textAreaAdmin == null) {
+			textAreaAdmin = new JTextArea(20, 30);
+			textAreaAdmin.setLineWrap(true);
+		}
+		return textAreaAdmin;
+	}
 	private JLabel getLblSeq() {
 		if (lblSeq == null) {
 			lblSeq = new JLabel("");
@@ -180,17 +221,35 @@ public class ReadNotice {
 		return lblSeq;
 	}
 	private void SearchAction() {
-		System.out.println(ShareVar.seqIndex);
+//		System.out.println(Bean.seqIndex);
 		WithAction WithAction = new WithAction(ShareVar.seqIndex);
         Bean bean = WithAction.QueryTableClick();
         
-       lblSeq.setText(Integer.toString(bean.getDocumentid()));
-       titleF.setText(bean.getDocumenttitle());
-       textArea.setText(bean.getDocumentcontent());
+       lblSeq.setText(Integer.toString(bean.getQueryid()));
+       titleF.setText(bean.getQuerytitle());
+       textArea.setText(bean.getQuerycontent());
        dateF.setText(bean.getAddtime());
 //       qnaComment.getDateF().setText(bean.getTime());
 	}
-	
+	private void check() {
+		if (textAreaAdmin.getText().trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "답변을 입력해주세요!");
+		}else {
+			InsertAction();
+		}
+	}
+	private void InsertAction() {
+		// TODO Auto-generated method stub
+		String comment = textAreaAdmin.getText();
+		ShareVar.seqIndex = Integer.parseInt(lblSeq.getText());
+		AdminAction adminAction = new AdminAction();
+		boolean aaa = adminAction.InsertQueryComment(comment,ShareVar.seqIndex);
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+	}
 
 
 		

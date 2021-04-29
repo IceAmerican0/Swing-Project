@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.admin.QueryAnswer;
+import com.javalec.admin.QueryAnswerInsert;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.user.InsertQuery;
@@ -184,9 +184,9 @@ public class QueryMain {
 	private void TableClick() {
         int i = Inner_Table.getSelectedRow();
         String tkSeq = (String)Inner_Table.getValueAt(i, 0);
-        Bean.seqIndex = Integer.parseInt(tkSeq);
-        System.out.println(Bean.seqIndex);
-        QueryAnswer qnaComment = new QueryAnswer();
+        ShareVar.seqIndex = Integer.parseInt(tkSeq);
+        System.out.println(ShareVar.seqIndex);
+        QueryAnswerInsert qnaComment = new QueryAnswerInsert();
         qnaComment.main(null);
       
 	}
