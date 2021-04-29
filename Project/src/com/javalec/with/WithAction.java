@@ -119,6 +119,76 @@ import com.javalec.function.ShareVar;
 		
 		
 	}
+	public ArrayList<Bean> AnswerList(){
+		
+		ArrayList<Bean> BeanList = new ArrayList<Bean>();
+		
+		String WhereDefault = "select a.answerid, a.answercontent, u.username, a.addtime"
+				+ "   from user as u inner join query as q on u.userid=q.user_userid"
+				+"   inner join answer as a on q.queryid=a.query_queryid";
+		
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            Statement stmt_mysql = conn_mysql.createStatement();
+
+            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+            while(rs.next()){
+            	
+            	int wkSeq = rs.getInt(1);
+            	String wkcontent = rs.getString(2);
+            	String wkname = rs.getString(3);
+		        String wkaddtime = rs.getString(4);
+            	
+            	Bean bean = new Bean(wkSeq, wkcontent, wkname, wkaddtime);
+            	BeanList.add(bean);
+            }
+            
+            conn_mysql.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+		return BeanList;
+	}
+	public String AnswerClick() {
+		String str;
+		String WhereDefault = "select answercontent from answer ";
+		String WhereDefault2 = "where answerid = " + seqno;
+		
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+			
+			
+			
+			if(rs.next()){
+				
+				
+				String wkContent = rs.getString(1);
+				str = wkContent;
+//		            	// File
+//		            	ShareVar.filename = ShareVar.filename + 1;
+//		            	File file = new File(Integer.toString(ShareVar.filename));
+//		            	FileOutputStream output = new FileOutputStream(file);
+//		            	InputStream input = rs.getBinaryStream(7);
+//		                byte[] buffer = new byte[1024];
+//		                while (input.read(buffer) > 0) {
+//		                    output.write(buffer);
+//		                }
+				
+			}
+			conn_mysql.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return str;
+	}
 	//게시글 데이터 가져오기 (작성자 데이터로 공지사항인지 게시글인지 구분?)
 	public ArrayList<Bean> DocumentList() {
 		

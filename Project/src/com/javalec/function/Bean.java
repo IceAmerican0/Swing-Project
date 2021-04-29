@@ -2,27 +2,16 @@ package com.javalec.function;
 
 public class Bean {
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	String userid;
-	String User_userid;
-	int answerid;
-	int Query_queryid;
 	int clothid;
-	int commentid;
-	int Document_documentid;
 	int documentid;
-	int Cloth_clothid;
 	int queryid;
+	int answerid;
+	int commentid;
+	String User_userid;
+	int Query_queryid;
+	int Document_documentid;
+	int Cloth_clothid;
 //--------------------------------------------------------------------
 	String	answercontent;
 	String	addtime;
@@ -45,31 +34,29 @@ public class Bean {
 	String	userblindtime;
 	int	admin;
 	String	userimage;
-
-	
-	
-	
-	
 //----------------------------------------------------------------------------
-	public Bean(int documentid, String documenttitle, String documentcontent, String addtime) {
-		super();
-		this.documentid = documentid;
-		this.documenttitle = documenttitle;
-		this.documentcontent = documentcontent;
-		this.addtime = addtime;
-	}
+//	public Bean(int documentid, String documenttitle, String documentcontent, String addtime) {
+//		super();
+//		this.documentid = documentid;
+//		this.documenttitle = documenttitle;
+//		this.documentcontent = documentcontent;
+//		this.addtime = addtime;
+//	}
 	
-public Bean(int commentid, String commentcontent) {
+	public Bean(int commentid, String commentcontent) {
 		super();
 		this.commentid = commentid;
 		this.commentcontent = commentcontent;
 	}
+	public Bean(int answerid, String answercontent, String addtime, String username) {
+		super();
+		this.answerid = answerid;
+		this.answercontent = answercontent;
+		this.addtime = addtime;
+		this.username = username;
+	}
 
-//----------------------------------------------------------------------------
-
-
-
-
+	//----------------------------------------------------------------------------
 	public String getUserid() {
 		return userid;
 	}

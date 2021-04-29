@@ -336,13 +336,13 @@ public class AnswerQueryMain {
 	}
 	private void SearchAction() {
 		WithAction withAction = new WithAction();
-		ArrayList<Bean> beanList = withAction.QueryList();
+		ArrayList<Bean> beanList = withAction.AnswerList();
 		
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getQuery_queryid());
-			String[] qTxt = {temp, beanList.get(index).getQuerytitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
+			String temp = Integer.toString(beanList.get(index).getAnswerid());
+			String[] qTxt = {temp, beanList.get(index).getAnswercontent(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
 			Outer_Table.addRow(qTxt);
 		}
 	}
@@ -350,9 +350,9 @@ public class AnswerQueryMain {
 		  int i = Inner_Table.getSelectedRow();
 	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
 	        ShareVar.seqIndex = Integer.parseInt(tkSeq);
-//	        System.out.println(ShareVar.seqIndex);
-	        //클릭한 댓글내용을 댓글창으로
-		
+	        WithAction withAction = new WithAction();
+	        answer_textArea.setText(withAction.AnswerClick());
+	        
 	}
 
 	private void Admincheck() {
