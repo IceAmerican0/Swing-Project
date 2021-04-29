@@ -16,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.javalec.admin.InsertNotice;
+import com.javalec.community.InsertClothes;
+import com.javalec.community.InsertQnA;
+import com.javalec.community.WritePost;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
@@ -25,6 +30,10 @@ import javax.swing.JTabbedPane;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 
 public class user_tab {
 
@@ -43,6 +52,13 @@ public class user_tab {
 	private JPanel in_mypreset;
 	private JPanel in_mycloset;
 	private JLayeredPane inmycloset;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTable table_nt;
+	private JTable table_iq;
+	private JTextField textField_5;
+	private JTable table_ac;
+	private JTextField textField_6;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -199,8 +215,25 @@ public class user_tab {
 		
 		JLabel lblBest = new JLabel("Best");
 		lblBest.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBest.setBounds(237, 176, 424, 138);
+		lblBest.setBounds(6, 6, 116, 31);
 		bestitem.add(lblBest);
+		
+		JScrollPane scrollPane_ac_1 = new JScrollPane();
+		scrollPane_ac_1.setBounds(6, 49, 913, 482);
+		bestitem.add(scrollPane_ac_1);
+		
+		JComboBox cbtitle_nt_1_1 = new JComboBox();
+		cbtitle_nt_1_1.setBounds(514, 7, 116, 27);
+		bestitem.add(cbtitle_nt_1_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(642, 6, 208, 26);
+		bestitem.add(textField_6);
+		
+		JButton btnLoad_nt_1_1 = new JButton("검색");
+		btnLoad_nt_1_1.setBounds(854, 6, 65, 29);
+		bestitem.add(btnLoad_nt_1_1);
 		
 		allcloset = new JPanel();
 		layeredPane.add(allcloset, "name_10028148525053");
@@ -208,8 +241,38 @@ public class user_tab {
 		
 		JLabel lblNewLabel_2 = new JLabel("모두의 옷장");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(242, 171, 424, 138);
+		lblNewLabel_2.setBounds(6, 6, 104, 27);
 		allcloset.add(lblNewLabel_2);
+		
+		JButton btnNewButton_4 = new JButton("작성하기");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WritePost.main(null);
+			}
+		});
+		
+		JScrollPane scrollPane_ac = new JScrollPane();
+		scrollPane_ac.setBounds(6, 49, 913, 482);
+		allcloset.add(scrollPane_ac);
+		
+		table_ac = new JTable();
+		scrollPane_ac.setViewportView(table_ac);
+		btnNewButton_4.setBounds(802, 6, 117, 29);
+		allcloset.add(btnNewButton_4);
+		
+		JComboBox cbtitle_nt_1 = new JComboBox();
+		cbtitle_nt_1.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
+		cbtitle_nt_1.setBounds(397, 7, 116, 27);
+		allcloset.add(cbtitle_nt_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(525, 6, 208, 26);
+		allcloset.add(textField_5);
+		
+		JButton btnLoad_nt_1 = new JButton("검색");
+		btnLoad_nt_1.setBounds(737, 6, 65, 29);
+		allcloset.add(btnLoad_nt_1);
 		
 		mycloset = new JPanel();
 		layeredPane.add(mycloset, "name_10030972904756");
@@ -247,9 +310,14 @@ public class user_tab {
 		inmycloset.add(in_mycloset, "name_83815068808318");
 		in_mycloset.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("옷장");
-		lblNewLabel_1.setBounds(126, 86, 149, 77);
-		in_mycloset.add(lblNewLabel_1);
+		JButton btnNewButton_2_1 = new JButton("옷 등록");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertClothes.main(null);
+			}
+		});
+		btnNewButton_2_1.setBounds(6, 6, 98, 29);
+		in_mycloset.add(btnNewButton_2_1);
 		
 		in_mypreset = new JPanel();
 		inmycloset.add(in_mypreset, "name_83833397636156");
@@ -473,14 +541,64 @@ public class user_tab {
 		lblNewLabel_4.setBounds(6, 6, 86, 35);
 		notice.add(lblNewLabel_4);
 		
+		JScrollPane scrollPane_iq_1 = new JScrollPane();
+		scrollPane_iq_1.setBounds(6, 49, 913, 482);
+		notice.add(scrollPane_iq_1);
+		
+		table_nt = new JTable();
+		scrollPane_iq_1.setViewportView(table_nt);
+		
+		JComboBox cbtitle_nt = new JComboBox();
+		cbtitle_nt.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용"}));
+		cbtitle_nt.setBounds(514, 7, 116, 27);
+		notice.add(cbtitle_nt);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(642, 6, 208, 26);
+		notice.add(textField_4);
+		
+		JButton btnLoad_nt = new JButton("검색");
+		btnLoad_nt.setBounds(854, 6, 65, 29);
+		notice.add(btnLoad_nt);
+		
 		inquiry = new JPanel();
 		layeredPane.add(inquiry, "name_10036677548749");
 		inquiry.setLayout(null);
 		
 		JLabel lblNewLabel_5 = new JLabel("1:1 문의");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(246, 185, 424, 138);
+		lblNewLabel_5.setBounds(6, 6, 81, 27);
 		inquiry.add(lblNewLabel_5);
+		
+		JScrollPane scrollPane_iq = new JScrollPane();
+		scrollPane_iq.setBounds(6, 49, 913, 482);
+		inquiry.add(scrollPane_iq);
+		
+		table_iq = new JTable();
+		scrollPane_iq.setViewportView(table_iq);
+		
+		JComboBox cbtitle_iq = new JComboBox();
+		cbtitle_iq.setBounds(450, 5, 116, 27);
+		inquiry.add(cbtitle_iq);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(578, 4, 208, 26);
+		inquiry.add(textField_3);
+		
+		JButton btnLoad_iq = new JButton("조회");
+		btnLoad_iq.setBounds(790, 4, 65, 29);
+		inquiry.add(btnLoad_iq);
+		
+		JButton btnWrite_iq = new JButton("글쓰기");
+		btnWrite_iq.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertQnA.main(null);
+			}
+		});
+		btnWrite_iq.setBounds(854, 4, 65, 29);
+		inquiry.add(btnWrite_iq);
 		
 		JButton btnmyProfile = new JButton("내 프로필");
 		btnmyProfile.addActionListener(new ActionListener() {
@@ -537,6 +655,11 @@ public class user_tab {
 		frame.getContentPane().add(btnInquiry);
 		
 		JButton btnlogOut = new JButton("로그아웃");
+		btnlogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tab.main(null);
+			}
+		});
 		btnlogOut.setBounds(86, 435, 117, 29);
 		frame.getContentPane().add(btnlogOut);
 		

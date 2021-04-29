@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import com.javalec.admin.InsertNotice;
+import com.javalec.community.InsertQnA;
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -46,7 +47,7 @@ public class admin_tab {
 	private JPanel member;
 	private JPanel admin;
 	private JLayeredPane layeredPane;
-	private JTable table;
+	private JTable table_mb;
 	private JTextField tfresult_bd;
 	private JTextField tfname;
 	private JTextField tfid;
@@ -55,13 +56,16 @@ public class admin_tab {
 	private JTextField txresult_nt;
 	private JTextField tfresult_iq;
 	private JTextField tfresult_cs;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	//--------------------------------------------
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JButton btnWrite_nt;
 	private JScrollPane scrollPane;
 	private JTable table_nt;
+	private JTable table_iq;
+	private JTable table_cs;
+	private JTable table_bd;
+	private JTextField tfresult_mb;
 	//--------------------------------------------
 	
 	
@@ -208,20 +212,26 @@ public class admin_tab {
 		member.add(lblmember);
 		lblmember.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JButton btnload_mb = new JButton("조회");
-		btnload_mb.setBounds(623, 48, 117, 29);
-		member.add(btnload_mb);
-		
-		JButton btndelete_mb = new JButton("삭제");
-		btndelete_mb.setBounds(752, 48, 117, 29);
-		member.add(btndelete_mb);
-		
 		JScrollPane scrollPane_mb = new JScrollPane();
-		scrollPane_mb.setBounds(51, 89, 829, 427);
+		scrollPane_mb.setBounds(6, 54, 913, 477);
 		member.add(scrollPane_mb);
 		
-		table = new JTable();
-		scrollPane_mb.setViewportView(table);
+		table_mb = new JTable();
+		scrollPane_mb.setViewportView(table_mb);
+		
+		tfresult_mb = new JTextField();
+		tfresult_mb.setColumns(10);
+		tfresult_mb.setBounds(642, 6, 208, 26);
+		member.add(tfresult_mb);
+		
+		JButton btnLoad_mb = new JButton("조회");
+		btnLoad_mb.setBounds(854, 6, 65, 29);
+		member.add(btnLoad_mb);
+		
+		JComboBox cbtitle_mb = new JComboBox();
+		cbtitle_mb.setModel(new DefaultComboBoxModel(new String[] {"이름", "아이디", "연락처"}));
+		cbtitle_mb.setBounds(532, 6, 98, 27);
+		member.add(cbtitle_mb);
 		
 		closet = new JPanel();
 		layeredPane.add(closet, "name_10028148525053");
@@ -235,6 +245,9 @@ public class admin_tab {
 		JScrollPane scrollPane_cs = new JScrollPane();
 		scrollPane_cs.setBounds(7, 53, 913, 479);
 		closet.add(scrollPane_cs);
+		
+		table_cs = new JTable();
+		scrollPane_cs.setViewportView(table_cs);
 		
 		tfresult_cs = new JTextField();
 		tfresult_cs.setColumns(10);
@@ -270,26 +283,25 @@ public class admin_tab {
 		scrollPane_1.setBounds(6, 52, 913, 479);
 		board.add(scrollPane_1);
 		
+		table_bd = new JTable();
+		scrollPane_1.setViewportView(table_bd);
+		
 		tfresult_bd = new JTextField();
-		tfresult_bd.setBounds(518, 6, 208, 26);
+		tfresult_bd.setBounds(578, 6, 208, 26);
 		board.add(tfresult_bd);
 		tfresult_bd.setColumns(10);
 		
 		JComboBox cbtitle_bd = new JComboBox();
 		cbtitle_bd.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
-		cbtitle_bd.setBounds(390, 7, 116, 27);
+		cbtitle_bd.setBounds(450, 7, 116, 27);
 		board.add(cbtitle_bd);
 		
 		JButton btnDelete_bd = new JButton("삭제");
 		btnDelete_bd.setBounds(854, 6, 65, 29);
 		board.add(btnDelete_bd);
 		
-		JButton btnWrite_bd = new JButton("글쓰기");
-		btnWrite_bd.setBounds(794, 6, 65, 29);
-		board.add(btnWrite_bd);
-		
 		JButton btnLoad_bd = new JButton("조회");
-		btnLoad_bd.setBounds(730, 6, 65, 29);
+		btnLoad_bd.setBounds(790, 6, 65, 29);
 		board.add(btnLoad_bd);
 		
 		inquiry = new JPanel();
@@ -301,9 +313,12 @@ public class admin_tab {
 		lblinquiry.setBounds(6, 6, 116, 31);
 		inquiry.add(lblinquiry);
 		
-		JScrollPane scrollPane_1_1 = new JScrollPane();
-		scrollPane_1_1.setBounds(6, 49, 913, 482);
-		inquiry.add(scrollPane_1_1);
+		JScrollPane scrollPane_iq = new JScrollPane();
+		scrollPane_iq.setBounds(6, 49, 913, 482);
+		inquiry.add(scrollPane_iq);
+		
+		table_iq = new JTable();
+		scrollPane_iq.setViewportView(table_iq);
 		
 		JComboBox cbtitle_iq = new JComboBox();
 		cbtitle_iq.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
@@ -320,7 +335,12 @@ public class admin_tab {
 		inquiry.add(btnLoad_iq);
 		
 		JButton btnWrite_iq = new JButton("글쓰기");
-		btnWrite_iq.setBounds(794, 6, 65, 29);
+		btnWrite_iq.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertQnA.main(null);
+			}
+		});
+		btnWrite_iq.setBounds(795, 6, 65, 29);
 		inquiry.add(btnWrite_iq);
 		
 		JButton btnDelete_iq = new JButton("삭제");
@@ -426,6 +446,11 @@ public class admin_tab {
 		frame.getContentPane().add(btnNotice);
 		
 		JButton btnlogOut = new JButton("로그아웃");
+		btnlogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tab.main(null);
+			}
+		});
 		btnlogOut.setBounds(86, 435, 117, 29);
 		frame.getContentPane().add(btnlogOut);
 	}
@@ -454,5 +479,4 @@ public class admin_tab {
 		return table_nt;
 	//--------------------------------------------	여기까지
 	}
-
 }  //-------------
