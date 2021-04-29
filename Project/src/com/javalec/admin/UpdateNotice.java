@@ -11,6 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class UpdateNotice {
 
@@ -52,6 +54,12 @@ public class UpdateNotice {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				SearchAction();
+			}
+		});
 		frame.setBounds(100, 100, 438, 396);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -162,6 +170,10 @@ public class UpdateNotice {
 
 	}
 	private void DeleteAction() {
+		// TODO Auto-generated method stub
+
+	}
+	private void SearchAction() {
 		// TODO Auto-generated method stub
 
 	}

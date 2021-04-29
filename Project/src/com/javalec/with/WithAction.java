@@ -153,7 +153,7 @@ import com.javalec.function.ShareVar;
 		return BeanList;
 	}
 	public String AnswerClick() {
-		String str;
+		String str = null;
 		String WhereDefault = "select answercontent from answer ";
 		String WhereDefault2 = "where answerid = " + seqno;
 		
@@ -190,11 +190,11 @@ import com.javalec.function.ShareVar;
 		return str;
 	}
 	//게시글 데이터 가져오기 (작성자 데이터로 공지사항인지 게시글인지 구분?)
-	public ArrayList<Bean> DocumentList() {
+	public ArrayList<Bean> NoticeList() {
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select d.documentid, u.username, d.documenttitle, d.addtime"
+		String WhereDefault = "select d.documentid, d.documenttitle, u.username, d.addtime"
 				+ "   from user as u inner join document as d on u.userid=d.user_userid"
 				+ "   where d.documenttype=1; ";
 		
@@ -209,10 +209,10 @@ import com.javalec.function.ShareVar;
 				
 				int wkSeq = rs.getInt(1);
 				String wktitle = rs.getString(2);
-//				String wkcontent = rs.getString(3); 작성자
-//		        String wktime = rs.getString(4); 작성시간
+				String wkusername = rs.getString(3); //작성자
+		        String wktime = rs.getString(4); //작성시간
 				
-				Bean bean = new Bean(wkSeq, wktitle);
+				Bean bean = new Bean(wkSeq, wktitle, wkusername, wktime);
 				BeanList.add(bean);
 			}
 			

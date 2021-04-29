@@ -61,7 +61,7 @@ import com.javalec.function.ShareVar;
 				ps.setString(1, title);
 				ps.setString(2, post);
 				ps.setInt(3, 1);//공지사항인지 아닌지
-				ps.setString(4, ShareVar.useridIndex);//공지사항인지 아닌지
+				ps.setString(4, ShareVar.useridIndex);
 				
 				ps.executeUpdate();
 				

@@ -3,33 +3,39 @@ package com.javalec.function;
 public class Bean {
 
 	String userid;
-	int clothid;
-	int documentid;
-	int queryid;
-	int answerid;
-	int commentid;
 	String User_userid;
-	int Query_queryid;
-	int Document_documentid;
-	int Cloth_clothid;
+	String	username;
+	int tablePK;
+//	int clothid;
+//	int documentid;
+//	int queryid;
+//	int answerid;
+//	int commentid;
+	
+//	int tableFK;
+//	int Query_queryid;
+//	int Document_documentid;
+//	int Cloth_clothid;
 //--------------------------------------------------------------------
-	String	answercontent;
+	String content;
+//	String	documentcontent;
+//	String	commentcontent;
+//	String	querycontent;
+	String name;
+//	String	clothname;
+	String title; //
+//	String	answercontent;
+//	String	documenttitle;
+//	String	querytitle;
 	String	addtime;
 	String	blindtime;
 	String	clothtype;
-	String	clothname;
 	String	clothimage;
 	int	likecount;
-	String	commentcontent;
-	String	documenttitle;
-	String	documentcontent;
 	int	documenttype;
 	String	liketime;
-	String	querytitle;
-	String	querycontent;
 	String	userpw;
 	String	useremail;
-	String	username;
 	String	useraddtime;
 	String	userblindtime;
 	int	admin;
@@ -43,20 +49,27 @@ public class Bean {
 //		this.addtime = addtime;
 //	}
 	
-	public Bean(int commentid, String commentcontent) {
+	public Bean(int tablePK, String content) {
 		super();
-		this.commentid = commentid;
-		this.commentcontent = commentcontent;
+		this.tablePK = tablePK;
+		this.content = content;
 	}
-	public Bean(int answerid, String answercontent, String addtime, String username) {
+	public Bean(int tablePK, String title, String username,  String addtime) {
 		super();
-		this.answerid = answerid;
-		this.answercontent = answercontent;
-		this.addtime = addtime;
+		this.tablePK = tablePK;
+		this.title = title;
 		this.username = username;
+		this.addtime = addtime;
 	}
-
 	//----------------------------------------------------------------------------
+	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -69,59 +82,29 @@ public class Bean {
 	public void setUser_userid(String user_userid) {
 		User_userid = user_userid;
 	}
-	public int getAnswerid() {
-		return answerid;
+	public String getUsername() {
+		return username;
 	}
-	public void setAnswerid(int answerid) {
-		this.answerid = answerid;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public int getQuery_queryid() {
-		return Query_queryid;
+	public int getTablePK() {
+		return tablePK;
 	}
-	public void setQuery_queryid(int query_queryid) {
-		Query_queryid = query_queryid;
+	public void setTablePK(int tablePK) {
+		this.tablePK = tablePK;
 	}
-	public int getClothid() {
-		return clothid;
+	public String getContent() {
+		return content;
 	}
-	public void setClothid(int clothid) {
-		this.clothid = clothid;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getCommentid() {
-		return commentid;
+	public String getName() {
+		return name;
 	}
-	public void setCommentid(int commentid) {
-		this.commentid = commentid;
-	}
-	public int getDocument_documentid() {
-		return Document_documentid;
-	}
-	public void setDocument_documentid(int document_documentid) {
-		Document_documentid = document_documentid;
-	}
-	public int getDocumentid() {
-		return documentid;
-	}
-	public void setDocumentid(int documentid) {
-		this.documentid = documentid;
-	}
-	public int getCloth_clothid() {
-		return Cloth_clothid;
-	}
-	public void setCloth_clothid(int cloth_clothid) {
-		Cloth_clothid = cloth_clothid;
-	}
-	public int getQueryid() {
-		return queryid;
-	}
-	public void setQueryid(int queryid) {
-		this.queryid = queryid;
-	}
-	public String getAnswercontent() {
-		return answercontent;
-	}
-	public void setAnswercontent(String answercontent) {
-		this.answercontent = answercontent;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getAddtime() {
 		return addtime;
@@ -141,12 +124,6 @@ public class Bean {
 	public void setClothtype(String clothtype) {
 		this.clothtype = clothtype;
 	}
-	public String getClothname() {
-		return clothname;
-	}
-	public void setClothname(String clothname) {
-		this.clothname = clothname;
-	}
 	public String getClothimage() {
 		return clothimage;
 	}
@@ -158,24 +135,6 @@ public class Bean {
 	}
 	public void setLikecount(int likecount) {
 		this.likecount = likecount;
-	}
-	public String getCommentcontent() {
-		return commentcontent;
-	}
-	public void setCommentcontent(String commentcontent) {
-		this.commentcontent = commentcontent;
-	}
-	public String getDocumenttitle() {
-		return documenttitle;
-	}
-	public void setDocumenttitle(String documenttitle) {
-		this.documenttitle = documenttitle;
-	}
-	public String getDocumentcontent() {
-		return documentcontent;
-	}
-	public void setDocumentcontent(String documentcontent) {
-		this.documentcontent = documentcontent;
 	}
 	public int getDocumenttype() {
 		return documenttype;
@@ -189,18 +148,6 @@ public class Bean {
 	public void setLiketime(String liketime) {
 		this.liketime = liketime;
 	}
-	public String getQuerytitle() {
-		return querytitle;
-	}
-	public void setQuerytitle(String querytitle) {
-		this.querytitle = querytitle;
-	}
-	public String getQuerycontent() {
-		return querycontent;
-	}
-	public void setQuerycontent(String querycontent) {
-		this.querycontent = querycontent;
-	}
 	public String getUserpw() {
 		return userpw;
 	}
@@ -212,12 +159,6 @@ public class Bean {
 	}
 	public void setUseremail(String useremail) {
 		this.useremail = useremail;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	public String getUseraddtime() {
 		return useraddtime;

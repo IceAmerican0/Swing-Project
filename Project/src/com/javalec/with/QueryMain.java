@@ -11,7 +11,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.admin.AnswerQueryInsert;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.user.InsertQuery;
@@ -174,8 +173,8 @@ public class QueryMain {
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getQuery_queryid());
-			String[] qTxt = {temp, beanList.get(index).getQuerytitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
+			String temp = Integer.toString(beanList.get(index).getTablePK());
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
 			Outer_Table.addRow(qTxt);
 		}
 
@@ -185,9 +184,8 @@ public class QueryMain {
         int i = Inner_Table.getSelectedRow();
         String tkSeq = (String)Inner_Table.getValueAt(i, 0);
         ShareVar.seqIndex = Integer.parseInt(tkSeq);
-        System.out.println(ShareVar.seqIndex);
-        AnswerQueryInsert qnaComment = new AnswerQueryInsert();
-        qnaComment.main(null);
+//        AnswerQ
+       
       
 	}
 	private void UserorAdmin() {

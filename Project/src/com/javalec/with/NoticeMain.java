@@ -18,6 +18,7 @@ import javax.swing.table.TableColumn;
 import com.javalec.admin.InsertNotice;
 import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
+import com.javalec.function.ShareVar;
 import com.javalec.user.ReadNotice;
 
 import java.awt.event.ActionListener;
@@ -182,13 +183,13 @@ public class NoticeMain {
 	}
 	private void SearchAction(){
 		WithAction withAction = new WithAction();
-		ArrayList<Bean> beanList = withAction.DocumentList();
+		ArrayList<Bean> beanList = withAction.NoticeList();
 		
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getDocumentid());
-			String[] qTxt = {temp, beanList.get(index).getDocumenttitle(),beanList.get(index).getDocumentcontent(),beanList.get(index).getAddtime()};
+			String temp = Integer.toString(beanList.get(index).getTablePK());
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getUsername(),beanList.get(index).getAddtime()};
 			Outer_Table.addRow(qTxt);
 		}
 
@@ -215,12 +216,11 @@ public class NoticeMain {
 	SearchAction();
 	}
 	private void TableClick() {
-		int i = 1; //user
-		if (i == 1) {
+		if (ShareVar.admincheck == 1) {
 			//어드민일경우
 			UpdateNotice.main(null);
 		}
-		if (i == 0) {
+		if (ShareVar.admincheck == 0) {
 			//유저일경우
 			ReadNotice.main(null);
 			
