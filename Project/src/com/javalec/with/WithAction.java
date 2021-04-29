@@ -48,7 +48,9 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select queryid, querytitle, querycontent from query ";
+		String WhereDefault = "select q.queryid, u.username, q.querytitle, wq.addtime"
+				+ "   from user as u inner join writequery as wq on u.userid=wq.user_userid"
+				+ "   inner join query as q on wq.query_queryid=q.queryid ";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,9 +64,9 @@ import com.javalec.function.ShareVar;
             	int wkSeq = rs.getInt(1);
             	String wktitle = rs.getString(2);
             	String wkcontent = rs.getString(3);
-//		            	String wktime = rs.getString(4);
+		        String wkaddtime = rs.getString(4);
             	
-            	Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+            	Bean bean = new Bean(wkSeq, wktitle, wkcontent, wkaddtime);
             	BeanList.add(bean);
             }
             
@@ -107,7 +109,7 @@ import com.javalec.function.ShareVar;
 //		                    output.write(buffer);
 //		                }
 				
-				bean = new Bean(wkSeq, wkTitle, wkContent);
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime);
 			}
 			conn_mysql.close();
 		}
@@ -123,7 +125,10 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select documentid, documenttitle from Document";
+		String WhereDefault = "select d.documentid, u.username, d.documenttitle, wd.addtime"
+				+ "   from user as u inner join writedocument as wd on u.userid=wd.user_userid"
+				+ "   inner join Document as d on wd.document_documentid=d.documentid"
+				+ "   where d.documenttype=1; ";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");

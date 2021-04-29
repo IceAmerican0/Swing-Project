@@ -203,8 +203,7 @@ public class QueryMain {
 		}
 	}
 	private void OpenAction() {
-		InsertQuery insertQuery = new InsertQuery();
-		insertQuery.main(null);
+		InsertQuery.main(null);
 
 	}
 

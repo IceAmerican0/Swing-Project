@@ -36,14 +36,19 @@ import com.javalec.function.ShareVar;
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			
-			String A = "insert into Query (Querytitle, Querycontent";
-			String B = ") values (?,?)";
-			
+			String A = "insert into Query ( Querytitle, Querycontent";
+			String B = ") values (?, ?)";
 			ps = conn_mysql.prepareStatement(A+B);
 			ps.setString(1, title);
 			ps.setString(2, content);
-			
 			ps.executeUpdate();
+//			String C = "insert into writequery (User_userid, query_queryid";
+//			String D = ") values (?, ?)";
+			
+			
+//			ps.setString(3, Bean.useridIndex);
+//			ps.setString(4, "10");
+			
 			
 			conn_mysql.close();
 		} catch (Exception e){
@@ -97,9 +102,9 @@ import com.javalec.function.ShareVar;
 				int wkSeq = rs.getInt(1);
 				String wkcontent = rs.getString(2);
 				String wktime = rs.getString(3);
-//            	String wktime = rs.getString(4);
+            	String wkaddtime = rs.getString(4);
 				
-				Bean bean = new Bean(wkSeq, wkcontent, wktime);
+				Bean bean = new Bean(wkSeq, wkcontent, wktime, wkaddtime);
 				BeanList.add(bean);
 			}
 			

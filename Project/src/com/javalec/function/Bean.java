@@ -3,7 +3,7 @@ package com.javalec.function;
 public class Bean {
 //----------------------------------------------------------------------------
 	public static int seqIndex;
-	public static String useridIndex;
+	public static String useridIndex = "5";
 	
 	//PK
 	String userid;
@@ -44,8 +44,22 @@ public class Bean {
 	String	userblindtime;
 	String	userimage;
 //----------------------------------------------------------------------------
+	public Bean(int documentid, String documenttitle, String documentcontent, String addtime) {
+		super();
+		this.documentid = documentid;
+		this.documenttitle = documenttitle;
+		this.documentcontent = documentcontent;
+		this.addtime = addtime;
+	}
 	
-//----------------------------------------------------------------------------
+public Bean(int commentid, String commentcontent) {
+		super();
+		this.commentid = commentid;
+		this.commentcontent = commentcontent;
+	}
+
+
+	//----------------------------------------------------------------------------
 	public static int getSeqIndex() {
 		return seqIndex;
 	}
