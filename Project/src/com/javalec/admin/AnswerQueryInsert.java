@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
+import com.javalec.function.ShareVar;
 import com.javalec.with.WithAction;
 
 import javax.swing.JLabel;
@@ -23,7 +24,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class QueryAnswer {
+public class AnswerQueryInsert {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -49,7 +50,7 @@ public class QueryAnswer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QueryAnswer window = new QueryAnswer();
+					AnswerQueryInsert window = new AnswerQueryInsert();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +63,7 @@ public class QueryAnswer {
 	/**
 	 * Create the application.
 	 */
-	public QueryAnswer() {
+	public AnswerQueryInsert() {
 		initialize();
 	}
 
@@ -77,7 +78,7 @@ public class QueryAnswer {
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 454, 458);
+		frame.setBounds(100, 100, 454, 623);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTitleF());
@@ -221,7 +222,7 @@ public class QueryAnswer {
 	}
 	private void SearchAction() {
 //		System.out.println(Bean.seqIndex);
-		WithAction WithAction = new WithAction(Bean.seqIndex);
+		WithAction WithAction = new WithAction(ShareVar.seqIndex);
         Bean bean = WithAction.QueryTableClick();
         
        lblSeq.setText(Integer.toString(bean.getQueryid()));
@@ -240,8 +241,9 @@ public class QueryAnswer {
 	private void InsertAction() {
 		// TODO Auto-generated method stub
 		String comment = textAreaAdmin.getText();
+		ShareVar.seqIndex = Integer.parseInt(lblSeq.getText());
 		AdminAction adminAction = new AdminAction();
-		boolean aaa = adminAction.InsertQueryComment(comment);
+		boolean aaa = adminAction.InsertQueryComment(comment,ShareVar.seqIndex);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
 		}else{

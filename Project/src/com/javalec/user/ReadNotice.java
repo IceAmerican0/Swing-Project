@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
+import com.javalec.function.ShareVar;
 import com.javalec.with.WithAction;
 
 import javax.swing.JLabel;
@@ -179,8 +180,8 @@ public class ReadNotice {
 		return lblSeq;
 	}
 	private void SearchAction() {
-		System.out.println(Bean.seqIndex);
-		WithAction WithAction = new WithAction(Bean.seqIndex);
+		System.out.println(ShareVar.seqIndex);
+		WithAction WithAction = new WithAction(ShareVar.seqIndex);
         Bean bean = WithAction.QueryTableClick();
         
        lblSeq.setText(Integer.toString(bean.getDocumentid()));

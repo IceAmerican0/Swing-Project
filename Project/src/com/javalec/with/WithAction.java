@@ -48,7 +48,8 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select queryid, querytitle, querycontent from query ";
+		String WhereDefault = "select q.queryid, u.username, q.querytitle, q.addtime"
+				+ "   from user as u inner join query as q on u.userid=q.user_userid";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,9 +63,9 @@ import com.javalec.function.ShareVar;
             	int wkSeq = rs.getInt(1);
             	String wktitle = rs.getString(2);
             	String wkcontent = rs.getString(3);
-//		            	String wktime = rs.getString(4);
+		        String wkaddtime = rs.getString(4);
             	
-            	Bean bean = new Bean(wkSeq, wktitle, wkcontent);
+            	Bean bean = new Bean(wkSeq, wktitle, wkcontent, wkaddtime);
             	BeanList.add(bean);
             }
             
@@ -79,7 +80,7 @@ import com.javalec.function.ShareVar;
 	public Bean QueryTableClick() {
 		System.out.println(seqno);
 		Bean bean = null;
-		String WhereDefault = "select queryid, querytitle, querycontent, querytime from query ";
+		String WhereDefault = "select queryid, querytitle, querycontent, addtime from query ";
 		String WhereDefault2 = "where queryid = " + seqno;
 		
 		try{
@@ -107,7 +108,7 @@ import com.javalec.function.ShareVar;
 //		                    output.write(buffer);
 //		                }
 				
-				bean = new Bean(wkSeq, wkTitle, wkContent);
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime);
 			}
 			conn_mysql.close();
 		}
@@ -123,7 +124,9 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select documentid, documenttitle from Document";
+		String WhereDefault = "select d.documentid, u.username, d.documenttitle, d.addtime"
+				+ "   from user as u inner join document as d on u.userid=d.user_userid"
+				+ "   where d.documenttype=1; ";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");

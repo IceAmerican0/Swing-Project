@@ -108,6 +108,7 @@ public class UpdateNotice {
 			btnBlindNotice = new JButton("삭제");
 			btnBlindNotice.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					DeleteAction();
 				}
 			});
 			btnBlindNotice.setBounds(175, 321, 81, 29);
@@ -132,7 +133,6 @@ public class UpdateNotice {
 			btnUpdateNotice.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					check();
-					
 				}
 			});
 			btnUpdateNotice.setBounds(82, 321, 81, 29);
@@ -159,6 +159,10 @@ public class UpdateNotice {
 	}
 	private void UpdateAction() {
 		//AdminAction에서 업데이트 쿼리
+
+	}
+	private void DeleteAction() {
+		// TODO Auto-generated method stub
 
 	}
 }

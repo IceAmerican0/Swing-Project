@@ -139,7 +139,7 @@ public class InsertNotice {
 		String title = textField.getText();
 		String post = textArea.getText();
 		AdminAction adminaction = new AdminAction();
-		boolean aaa = adminaction.InsertDocument(title, post);
+		boolean aaa = adminaction.InsertAdminDocument(title, post);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "공지사항이 등록 되었습니다.!");
 	          frame.dispose();

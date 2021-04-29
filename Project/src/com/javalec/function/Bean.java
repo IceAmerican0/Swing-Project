@@ -1,7 +1,18 @@
 package com.javalec.function;
 
 public class Bean {
-//---------------------------------------------------------------------
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	String userid;
 	String User_userid;
 	int answerid;
@@ -34,7 +45,31 @@ public class Bean {
 	String	userblindtime;
 	int	admin;
 	String	userimage;
-//--------------------------------------------------------------------
+
+	
+	
+	
+	
+//----------------------------------------------------------------------------
+	public Bean(int documentid, String documenttitle, String documentcontent, String addtime) {
+		super();
+		this.documentid = documentid;
+		this.documenttitle = documenttitle;
+		this.documentcontent = documentcontent;
+		this.addtime = addtime;
+	}
+	
+public Bean(int commentid, String commentcontent) {
+		super();
+		this.commentid = commentid;
+		this.commentcontent = commentcontent;
+	}
+
+//----------------------------------------------------------------------------
+
+
+
+
 	public String getUserid() {
 		return userid;
 	}
