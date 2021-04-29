@@ -3,9 +3,9 @@ package com.javalec.function;
 public class Bean {
 	
 	
+	public static int seqIndex;
 	//Primary key
 	public static int userid;
-	public static int seqIndex;
 	int queryid;
 	int answerid;
 	int clothid;
