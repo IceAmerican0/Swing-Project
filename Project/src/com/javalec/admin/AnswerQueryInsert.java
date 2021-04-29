@@ -24,7 +24,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class QueryAnswerInsert {
+public class AnswerQueryInsert {
 
 	private JFrame frame;
 	private JTextField titleF;
@@ -50,7 +50,7 @@ public class QueryAnswerInsert {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QueryAnswerInsert window = new QueryAnswerInsert();
+					AnswerQueryInsert window = new AnswerQueryInsert();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +63,7 @@ public class QueryAnswerInsert {
 	/**
 	 * Create the application.
 	 */
-	public QueryAnswerInsert() {
+	public AnswerQueryInsert() {
 		initialize();
 	}
 

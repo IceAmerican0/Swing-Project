@@ -15,7 +15,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.admin.QueryAnswerInsert;
+import com.javalec.admin.AnswerQueryInsert;
 import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
@@ -35,13 +35,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class QueryAnswerMain {
+public class AnswerQueryMain {
 
 	private JFrame frame;
 	private JTextField titleF;
 	private JLabel lblTitle;
 	private JPanel panel;
-	private JTextArea textArea;
+	private JTextArea query_textArea;
 	private JLabel lblPost;
 	private JButton btnInsertDB;
 	private JButton btnCancel;
@@ -54,6 +54,10 @@ public class QueryAnswerMain {
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
+	private JButton btnUpdate;
+	private JLabel lblComment;
+	private JPanel commentpanel;
+	private JTextArea answer_textArea;
 
 	/**
 	 * Launch the application.
@@ -62,7 +66,7 @@ public class QueryAnswerMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QueryAnswerMain window = new QueryAnswerMain();
+					AnswerQueryMain window = new AnswerQueryMain();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,7 +79,7 @@ public class QueryAnswerMain {
 	/**
 	 * Create the application.
 	 */
-	public QueryAnswerMain() {
+	public AnswerQueryMain() {
 		initialize();
 	}
 
@@ -91,7 +95,7 @@ public class QueryAnswerMain {
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 454, 523);
+		frame.setBounds(100, 100, 454, 550);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTitleF());
@@ -107,6 +111,9 @@ public class QueryAnswerMain {
 		frame.getContentPane().add(getAnswer());
 		frame.getContentPane().add(getLblSeq());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getBtnUpdate());
+		frame.getContentPane().add(getLblComment());
+		frame.getContentPane().add(getCommentpanel());
 	}
 
 	public JTextField getTitleF() {
@@ -129,17 +136,17 @@ public class QueryAnswerMain {
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setBounds(6, 82, 424, 187);
-			panel.add(getTextArea());
+			panel.add(getQuery_textArea());
 		}
 		return panel;
 	}
-	public JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea(20, 30);
-			textArea.setEditable(false);
-			textArea.setLineWrap(true);
+	public JTextArea getQuery_textArea() {
+		if (query_textArea == null) {
+			query_textArea = new JTextArea(30,20);
+			query_textArea.setEditable(false);
+			query_textArea.setLineWrap(true);
 		}
-		return textArea;
+		return query_textArea;
 	}
 	private JLabel getLblPost() {
 		if (lblPost == null) {
@@ -150,24 +157,25 @@ public class QueryAnswerMain {
 	}
 	private JButton getBtnInsertDB() {
 		if (btnInsertDB == null) {
-			btnInsertDB = new JButton("등록");
+			btnInsertDB = new JButton("댓글등록");
 			btnInsertDB.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 				}
 			});
-			btnInsertDB.setBounds(125, 442, 81, 29);
+			btnInsertDB.setBounds(349, 276, 81, 29);
 		}
 		return btnInsertDB;
 	}
 	private JButton getBtnCancel() {
 		if (btnCancel == null) {
-			btnCancel = new JButton("취소");
+			btnCancel = new JButton("확인");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.dispose();
 				}
 			});
-			btnCancel.setBounds(213, 442, 81, 29);
+			btnCancel.setBounds(174, 476, 81, 29);
 		}
 		return btnCancel;
 	}
@@ -206,7 +214,7 @@ public class QueryAnswerMain {
 	private JLabel getAnswer() {
 		if (Answer == null) {
 			Answer = new JLabel("답변 :");
-			Answer.setBounds(6, 281, 61, 16);
+			Answer.setBounds(6, 362, 61, 16);
 		}
 		return Answer;
 	}
@@ -221,7 +229,7 @@ public class QueryAnswerMain {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 309, 424, 128);
+			scrollPane.setBounds(6, 379, 424, 85);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -252,7 +260,7 @@ public class QueryAnswerMain {
         int i = Outer_Table.getRowCount();
         
         Outer_Table.addColumn("Seq.");
-        Outer_Table.addColumn("제목");
+        Outer_Table.addColumn("내용");
         Outer_Table.addColumn("작성자");
         Outer_Table.addColumn("작성시간");
         Outer_Table.setColumnCount(4);
@@ -304,5 +312,34 @@ public class QueryAnswerMain {
 //	        System.out.println(ShareVar.seqIndex);
 	        //답변표현 어케 할건지?
 		
+	}
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton("수정하기");
+			btnUpdate.setBounds(313, 41, 117, 29);
+		}
+		return btnUpdate;
+	}
+	private JLabel getLblComment() {
+		if (lblComment == null) {
+			lblComment = new JLabel("답변 작성하기");
+			lblComment.setBounds(6, 286, 82, 16);
+		}
+		return lblComment;
+	}
+	private JPanel getCommentpanel() {
+		if (commentpanel == null) {
+			commentpanel = new JPanel();
+			commentpanel.setBounds(11, 301, 419, 58);
+			commentpanel.add(getAnswer_textArea());
+		}
+		return commentpanel;
+	}
+	private JTextArea getAnswer_textArea() {
+		if (answer_textArea == null) {
+			answer_textArea = new JTextArea(10, 23);
+			answer_textArea.setLineWrap(true);
+		}
+		return answer_textArea;
 	}
 }
