@@ -48,9 +48,8 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select q.queryid, u.username, q.querytitle, wq.addtime"
-				+ "   from user as u inner join writequery as wq on u.userid=wq.user_userid"
-				+ "   inner join query as q on wq.query_queryid=q.queryid ";
+		String WhereDefault = "select q.queryid, u.username, q.querytitle, q.addtime"
+				+ "   from user as u inner join query as q on u.userid=q.user_userid";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -125,9 +124,8 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select d.documentid, u.username, d.documenttitle, wd.addtime"
-				+ "   from user as u inner join writedocument as wd on u.userid=wd.user_userid"
-				+ "   inner join Document as d on wd.document_documentid=d.documentid"
+		String WhereDefault = "select d.documentid, u.username, d.documenttitle, d.addtime"
+				+ "   from user as u inner join document as d on u.userid=d.user_userid"
 				+ "   where d.documenttype=1; ";
 		
 		try{
