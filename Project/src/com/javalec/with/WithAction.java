@@ -80,7 +80,7 @@ import com.javalec.function.ShareVar;
 	public Bean QueryTableClick() {
 		System.out.println(seqno);
 		Bean bean = null;
-		String WhereDefault = "select queryid, querytitle, querycontent, querytime from query ";
+		String WhereDefault = "select queryid, querytitle, querycontent, addtime from query ";
 		String WhereDefault2 = "where queryid = " + seqno;
 		
 		try{

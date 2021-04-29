@@ -2,8 +2,6 @@ package com.javalec.function;
 
 public class Bean {
 //----------------------------------------------------------------------------
-	public static int seqIndex;
-	public static String useridIndex = "5";
 	
 	//PK
 	String userid;
@@ -58,20 +56,6 @@ public Bean(int commentid, String commentcontent) {
 		this.commentcontent = commentcontent;
 	}
 
-
-	//----------------------------------------------------------------------------
-	public static int getSeqIndex() {
-		return seqIndex;
-	}
-	public static void setSeqIndex(int seqIndex) {
-		Bean.seqIndex = seqIndex;
-	}
-	public static String getUseridIndex() {
-		return useridIndex;
-	}
-	public static void setUseridIndex(String useridIndex) {
-		Bean.useridIndex = useridIndex;
-	}
 //----------------------------------------------------------------------------
 	public String getUserid() {
 		return userid;

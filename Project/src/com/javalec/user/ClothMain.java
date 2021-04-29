@@ -97,7 +97,6 @@ public class ClothMain {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setEditable(true);
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"모자", "상의", "하의", "원피스", "아우터", "신발"}));
 			comboBox.setBounds(86, 284, 138, 27);
 		}
@@ -177,6 +176,7 @@ public class ClothMain {
 	private JTextField getClothname() {
 		if (clothname == null) {
 			clothname = new JTextField();
+			clothname.setEditable(false);
 			clothname.setBounds(89, 244, 130, 26);
 			clothname.setColumns(10);
 		}

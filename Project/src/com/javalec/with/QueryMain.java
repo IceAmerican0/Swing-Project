@@ -183,8 +183,8 @@ public class QueryMain {
 
 	private void TableClick() {
         int i = Inner_Table.getSelectedRow();
-        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
-        Bean.seqIndex = Integer.parseInt(tkSequence);
+        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
+        Bean.seqIndex = Integer.parseInt(tkSeq);
         System.out.println(Bean.seqIndex);
         QueryAnswer qnaComment = new QueryAnswer();
         qnaComment.main(null);

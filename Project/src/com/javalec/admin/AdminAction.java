@@ -27,7 +27,7 @@ import com.javalec.function.ShareVar;
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
 		//
-		public boolean InsertQueryComment(String adminComment) {
+		public boolean InsertQueryComment(String adminComment, int seq) {
 			PreparedStatement ps = null;
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -35,11 +35,13 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				
-				String A = "insert into answer (answercontent";
-				String B = ") values (?)";
+				String A = "insert into answer (answercontent, query_queryid, user_userid";
+				String B = ") values (?, ?, ?)";
 				
 				ps = conn_mysql.prepareStatement(A+B);
 				ps.setString(1, adminComment);
+				ps.setInt(2, seq);
+				ps.setString(3, ShareVar.useridIndex);
 				
 				ps.executeUpdate();
 				
