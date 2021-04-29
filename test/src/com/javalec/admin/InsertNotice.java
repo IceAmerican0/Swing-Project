@@ -55,7 +55,7 @@ public class InsertNotice {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 455, 390);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getLblNoticeTitle());

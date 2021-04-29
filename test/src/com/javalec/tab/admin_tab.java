@@ -358,6 +358,11 @@ public class admin_tab {
 		notice.add(btnLoad_nt);
 		
 		JButton btnWrite_nt = new JButton("글쓰기");
+		btnWrite_nt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertNotice.main(null);
+			}
+		});
 		btnWrite_nt.setBounds(794, 6, 65, 29);
 		notice.add(btnWrite_nt);
 
@@ -427,7 +432,7 @@ public class admin_tab {
 	//-------------------------------------------- 이 부분 확인 필요
 	private JButton getbtnWrite_nt() {
 		if (btnWrite_nt == null) {
-			btnWrite_nt = new JButton("작성하기");
+			btnWrite_nt = new JButton("글쓰기");
 			btnWrite_nt.setBounds(794, 6, 65, 29);
 		}
 		return btnWrite_nt;
