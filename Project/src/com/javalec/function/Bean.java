@@ -1,101 +1,105 @@
 package com.javalec.function;
 
 public class Bean {
-	
-	
+//----------------------------------------------------------------------------
 	public static int seqIndex;
-	//Primary key
-	public static int userid;
-	int queryid;
+	public static String useridIndex;
+	
+	//PK
+	String userid;
 	int answerid;
 	int clothid;
 	int commentid;
 	int documentid;
-	//foreign key
+	int queryid;
+	//FK
+	String User_userid;
 	int query_queryid;
 	int document_documentid;
-	int User_userid;
 	int Cloth_clothid;
 	int answer_answerid;
 	int answer_query_queryid;
 	int comment_commentid;
 	int comment_document_documentid;
-	//not primary
+	//Common
+	int	admin;
+	String	answercontent;
+	String	clothtype;
+	String	clothname;
+	String	clothimage;
+	String	commentcontent;
+	String	documenttitle;
+	String	documentcontent;
 	int	documenttype;
 	int	likecount;
+	String	liketime;
+	String	querytitle;
+	String	querycontent;
+	String	addtime;
+	String	blindtime;
 	String	userpw;
 	String	useremail;
 	String	username;
 	String	useraddtime;
 	String	userblindtime;
-	String	documenttitle;
-	String	documentcontent;
-	String	commentcontent;
-	String	clothtype;
-	String	clothname;
-	String	liketime;
-	String	querytitle;
-	String	querycontent;
-	String	answercontent;
-	String	addtime;
-	String	blindtime;
-	int	admin;
-	String	clothimage;
 	String	userimage;
-	//
-	public Bean(int seq, String title, String content) {
-		super();
-		this.documentid = seq;
-		this.documenttitle= title;
-		this.documentcontent = content;
+//----------------------------------------------------------------------------
+	
+//----------------------------------------------------------------------------
+	public static int getSeqIndex() {
+		return seqIndex;
 	}
-	public Bean(int seq, String title) {
-		super();
-		this.documentid = seq;
-		this.documenttitle= title;
+	public static void setSeqIndex(int seqIndex) {
+		Bean.seqIndex = seqIndex;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//
-	public static int getUserid() {
+	public static String getUseridIndex() {
+		return useridIndex;
+	}
+	public static void setUseridIndex(String useridIndex) {
+		Bean.useridIndex = useridIndex;
+	}
+//----------------------------------------------------------------------------
+	public String getUserid() {
 		return userid;
 	}
-	public static void setUserid(int userid) {
-		Bean.userid = userid;
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public int getAnswerid() {
+		return answerid;
+	}
+	public void setAnswerid(int answerid) {
+		this.answerid = answerid;
+	}
+	public int getClothid() {
+		return clothid;
+	}
+	public void setClothid(int clothid) {
+		this.clothid = clothid;
+	}
+	public int getCommentid() {
+		return commentid;
+	}
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
 	public int getDocumentid() {
 		return documentid;
 	}
 	public void setDocumentid(int documentid) {
 		this.documentid = documentid;
+	}
+	public int getQueryid() {
+		return queryid;
+	}
+	public void setQueryid(int queryid) {
+		this.queryid = queryid;
+	}
+	public String getUser_userid() {
+		return User_userid;
+	}
+	public void setUser_userid(String user_userid) {
+		User_userid = user_userid;
 	}
 	public int getQuery_queryid() {
 		return query_queryid;
@@ -108,12 +112,6 @@ public class Bean {
 	}
 	public void setDocument_documentid(int document_documentid) {
 		this.document_documentid = document_documentid;
-	}
-	public int getUser_userid() {
-		return User_userid;
-	}
-	public void setUser_userid(int user_userid) {
-		User_userid = user_userid;
 	}
 	public int getCloth_clothid() {
 		return Cloth_clothid;
@@ -145,6 +143,54 @@ public class Bean {
 	public void setComment_document_documentid(int comment_document_documentid) {
 		this.comment_document_documentid = comment_document_documentid;
 	}
+	public int getAdmin() {
+		return admin;
+	}
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+	public String getAnswercontent() {
+		return answercontent;
+	}
+	public void setAnswercontent(String answercontent) {
+		this.answercontent = answercontent;
+	}
+	public String getClothtype() {
+		return clothtype;
+	}
+	public void setClothtype(String clothtype) {
+		this.clothtype = clothtype;
+	}
+	public String getClothname() {
+		return clothname;
+	}
+	public void setClothname(String clothname) {
+		this.clothname = clothname;
+	}
+	public String getClothimage() {
+		return clothimage;
+	}
+	public void setClothimage(String clothimage) {
+		this.clothimage = clothimage;
+	}
+	public String getCommentcontent() {
+		return commentcontent;
+	}
+	public void setCommentcontent(String commentcontent) {
+		this.commentcontent = commentcontent;
+	}
+	public String getDocumenttitle() {
+		return documenttitle;
+	}
+	public void setDocumenttitle(String documenttitle) {
+		this.documenttitle = documenttitle;
+	}
+	public String getDocumentcontent() {
+		return documentcontent;
+	}
+	public void setDocumentcontent(String documentcontent) {
+		this.documentcontent = documentcontent;
+	}
 	public int getDocumenttype() {
 		return documenttype;
 	}
@@ -156,6 +202,36 @@ public class Bean {
 	}
 	public void setLikecount(int likecount) {
 		this.likecount = likecount;
+	}
+	public String getLiketime() {
+		return liketime;
+	}
+	public void setLiketime(String liketime) {
+		this.liketime = liketime;
+	}
+	public String getQuerytitle() {
+		return querytitle;
+	}
+	public void setQuerytitle(String querytitle) {
+		this.querytitle = querytitle;
+	}
+	public String getQuerycontent() {
+		return querycontent;
+	}
+	public void setQuerycontent(String querycontent) {
+		this.querycontent = querycontent;
+	}
+	public String getAddtime() {
+		return addtime;
+	}
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+	public String getBlindtime() {
+		return blindtime;
+	}
+	public void setBlindtime(String blindtime) {
+		this.blindtime = blindtime;
 	}
 	public String getUserpw() {
 		return userpw;
@@ -187,239 +263,12 @@ public class Bean {
 	public void setUserblindtime(String userblindtime) {
 		this.userblindtime = userblindtime;
 	}
-	public String getDocumenttitle() {
-		return documenttitle;
-	}
-	public void setDocumenttitle(String documenttitle) {
-		this.documenttitle = documenttitle;
-	}
-	public String getDocumentcontent() {
-		return documentcontent;
-	}
-	public void setDocumentcontent(String documentcontent) {
-		this.documentcontent = documentcontent;
-	}
-	public String getCommentcontent() {
-		return commentcontent;
-	}
-	public void setCommentcontent(String commentcontent) {
-		this.commentcontent = commentcontent;
-	}
-	public String getClothtype() {
-		return clothtype;
-	}
-	public void setClothtype(String clothtype) {
-		this.clothtype = clothtype;
-	}
-	public String getClothname() {
-		return clothname;
-	}
-	public void setClothname(String clothname) {
-		this.clothname = clothname;
-	}
-	public String getLiketime() {
-		return liketime;
-	}
-	public void setLiketime(String liketime) {
-		this.liketime = liketime;
-	}
-	public String getQuerytitle() {
-		return querytitle;
-	}
-	public void setQuerytitle(String querytitle) {
-		this.querytitle = querytitle;
-	}
-	public String getQuerycontent() {
-		return querycontent;
-	}
-	public void setQuerycontent(String querycontent) {
-		this.querycontent = querycontent;
-	}
-	public String getAnswercontent() {
-		return answercontent;
-	}
-	public void setAnswercontent(String answercontent) {
-		this.answercontent = answercontent;
-	}
-	public String getAddtime() {
-		return addtime;
-	}
-	public void setAddtime(String addtime) {
-		this.addtime = addtime;
-	}
-	public String getBlindtime() {
-		return blindtime;
-	}
-	public void setBlindtime(String blindtime) {
-		this.blindtime = blindtime;
-	}
-	public int getAdmin() {
-		return admin;
-	}
-	public void setAdmin(int admin) {
-		this.admin = admin;
-	}
-	public String getClothimage() {
-		return clothimage;
-	}
-	public void setClothimage(String clothimage) {
-		this.clothimage = clothimage;
-	}
 	public String getUserimage() {
 		return userimage;
 	}
 	public void setUserimage(String userimage) {
 		this.userimage = userimage;
 	}
-	public int getQueryid() {
-		return queryid;
-	}
-	public void setQueryid(int queryid) {
-		this.queryid = queryid;
-	}
-	public int getAnswerid() {
-		return answerid;
-	}
-	public void setAnswerid(int answerid) {
-		this.answerid = answerid;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public int getClothid() {
-		return clothid;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public void setClothid(int clothid) {
-		this.clothid = clothid;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public int getCommentid() {
-		return commentid;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public void setCommentid(int commentid) {
-		this.commentid = commentid;
-	}
-
 	
-
-
-
+	
 }
-
-
