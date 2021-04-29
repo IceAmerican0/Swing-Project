@@ -52,7 +52,7 @@ public class NoticeUpdate {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 438, 396);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getLblNoticeTitle());

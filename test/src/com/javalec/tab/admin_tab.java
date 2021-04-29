@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import com.javalec.admin.InsertNotice;
+import com.javalec.admin.QnaComment;
+import com.javalec.community.InsertClothes;
 import com.javalec.community.InsertQnA;
 
 import java.awt.event.ActionListener;
@@ -255,7 +257,8 @@ public class admin_tab {
 		closet.add(tfresult_cs);
 		
 		JComboBox cbtitle_cb = new JComboBox();
-		cbtitle_cb.setBounds(391, 8, 116, 27);
+		cbtitle_cb.setModel(new DefaultComboBoxModel(new String[] {"상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
+		cbtitle_cb.setBounds(418, 8, 89, 27);
 		closet.add(cbtitle_cb);
 		
 		JButton btnDelete_cs = new JButton("삭제");
@@ -263,6 +266,11 @@ public class admin_tab {
 		closet.add(btnDelete_cs);
 		
 		JButton btnWrite_cs = new JButton("글쓰기");
+		btnWrite_cs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertClothes.main(null);
+			}
+		});
 		btnWrite_cs.setBounds(795, 7, 65, 29);
 		closet.add(btnWrite_cs);
 		
@@ -322,30 +330,30 @@ public class admin_tab {
 		
 		JComboBox cbtitle_iq = new JComboBox();
 		cbtitle_iq.setModel(new DefaultComboBoxModel(new String[] {"제목", "제목+내용", "작성자"}));
-		cbtitle_iq.setBounds(390, 7, 116, 27);
+		cbtitle_iq.setBounds(366, 7, 116, 27);
 		inquiry.add(cbtitle_iq);
 		
 		tfresult_iq = new JTextField();
 		tfresult_iq.setColumns(10);
-		tfresult_iq.setBounds(518, 6, 208, 26);
+		tfresult_iq.setBounds(494, 6, 208, 26);
 		inquiry.add(tfresult_iq);
 		
 		JButton btnLoad_iq = new JButton("조회");
-		btnLoad_iq.setBounds(730, 6, 65, 29);
+		btnLoad_iq.setBounds(706, 6, 65, 29);
 		inquiry.add(btnLoad_iq);
-		
-		JButton btnWrite_iq = new JButton("글쓰기");
-		btnWrite_iq.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				InsertQnA.main(null);
-			}
-		});
-		btnWrite_iq.setBounds(795, 6, 65, 29);
-		inquiry.add(btnWrite_iq);
 		
 		JButton btnDelete_iq = new JButton("삭제");
 		btnDelete_iq.setBounds(854, 6, 65, 29);
 		inquiry.add(btnDelete_iq);
+		
+		JButton btnWrite_iq1 = new JButton("답변하기");
+		btnWrite_iq1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QnaComment.main(null);
+			}
+		});
+		btnWrite_iq1.setBounds(768, 6, 94, 29);
+		inquiry.add(btnWrite_iq1);
 		
 		notice = new JPanel();
 		layeredPane.add(notice, "name_10036677548749");

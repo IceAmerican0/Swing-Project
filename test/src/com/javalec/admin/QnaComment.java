@@ -74,7 +74,7 @@ public class QnaComment {
 			}
 		});
 		frame.setBounds(100, 100, 454, 458);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTitleF());
 		frame.getContentPane().add(getLblTitle());
