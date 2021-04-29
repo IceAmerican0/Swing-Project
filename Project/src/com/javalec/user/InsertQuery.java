@@ -146,7 +146,7 @@ public class InsertQuery {
 		UserAction useraction = new UserAction();
 		boolean aaa = useraction.InsertQuery(title, content);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다.!");
+	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다!");
 	          frame.dispose();
 
 		}else{

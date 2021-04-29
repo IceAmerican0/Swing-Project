@@ -72,7 +72,57 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
+		public boolean DeleteDocument() {
+			//공지와 일반게시물 같이사용 가능
+			 PreparedStatement ps = null;
+		      try{
+		          Class.forName("com.mysql.cj.jdbc.Driver");
+		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		          @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
 		
+		          String A = "UPDATE Document SET blindtime = now() where documentid = ?";
+		
+		          ps = conn_mysql.prepareStatement(A);
+		          
+		          ps.setInt(1, ShareVar.seqIndex);
+		          ps.executeUpdate();
+		
+		          conn_mysql.close();
+		      } catch (Exception e){
+		          e.printStackTrace();
+		          return false;
+		      }
+		      return true;
+			
+		}
+		public boolean UpdateNotice(String title, String content) {
+			 PreparedStatement ps = null;
+			  try{
+			      Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			      @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+			
+			      String A = "update Document set documenttitle = ?, documentcontent = ? ";
+			      String B = " where Documentid = ? ";
+			
+			      ps = conn_mysql.prepareStatement(A+B);
+			      
+			      ps.setString(1, title);
+			      ps.setString(2, content);
+			      ps.setInt(3, ShareVar.seqIndex);
+			    
+			      ps.executeUpdate();
+			
+			      conn_mysql.close();
+			  } catch (Exception e){
+			      e.printStackTrace();
+			      return false;
+			  }
+			
+			  return true;
+		}
 		
 	
 	

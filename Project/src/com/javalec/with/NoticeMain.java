@@ -30,6 +30,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class NoticeMain {
 	
@@ -38,7 +39,6 @@ public class NoticeMain {
 	private JButton btnNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
-	private JLabel lblrefresh;
 	
 	/**
 	 * Launch the application.
@@ -68,12 +68,19 @@ public class NoticeMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				TableInit();
+				SearchAction();
+			}
+		});
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				TableInit();
 				SearchAction();
-				UserorAdmin();
+				AdminCheck();
 			}
 		});
 		frame.setBounds(100, 100, 450, 300);
@@ -81,7 +88,6 @@ public class NoticeMain {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNotice());
 		frame.getContentPane().add(getScrollPane());
-		frame.getContentPane().add(getLblrefresh());
 	}
 	private JButton getBtnNotice() {
 		if (btnNotice == null) {
@@ -124,25 +130,6 @@ public class NoticeMain {
 			});
 		}
 		return Inner_Table;
-	}
-	private JLabel getLblrefresh() {
-		if (lblrefresh == null) {
-			ImageIcon icon = new ImageIcon("/Volumes/Data/AI/yangseolin/Swing-Project/Project/icons-refresh.png");
-			Image img = icon.getImage();
-			Image changeImage = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-			ImageIcon changeIcon = new ImageIcon(changeImage);
-			lblrefresh = new JLabel(changeIcon);
-			lblrefresh.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					refresh();
-				}
-			});
-			lblrefresh.setBackground(Color.WHITE);
-			lblrefresh.setBounds(297, 20, 30, 28);
-			lblrefresh.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		return lblrefresh;
 	}
 	private void TableInit(){
         int i = Outer_Table.getRowCount();
@@ -194,37 +181,26 @@ public class NoticeMain {
 		}
 
 	}
-	private void UserorAdmin() {
-		int i = 1; //user
-		if (i == 1) {
+	private void AdminCheck() {
+		if (ShareVar.admincheck == 1) {
 			//어드민일경우
 			btnNotice.setVisible(true);
 		}
-		if (i == 0) {
+		if (ShareVar.admincheck == 0) {
 			//유저일경우
 			btnNotice.setVisible(false);
 			
 		}
 	}
 	private void OpenAction() {
-		InsertNotice insertNotice = new InsertNotice();
-		insertNotice.main(null);
+		InsertNotice.main(null);
 
 	}
-	private void refresh() {
-	TableInit();
-	SearchAction();
-	}
 	private void TableClick() {
-		if (ShareVar.admincheck == 1) {
-			//어드민일경우
-			UpdateNotice.main(null);
-		}
-		if (ShareVar.admincheck == 0) {
-			//유저일경우
-			ReadNotice.main(null);
-			
-		}
+		int i = Inner_Table.getSelectedRow();
+        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
+        ShareVar.seqIndex = Integer.parseInt(tkSequence);
+		UpdateNotice.main(null);
 
 	}
 }

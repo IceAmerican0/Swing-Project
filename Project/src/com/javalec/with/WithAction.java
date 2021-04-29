@@ -1,8 +1,12 @@
 package com.javalec.with;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,25 +24,28 @@ import com.javalec.function.ShareVar;
     private final String id_mysql = ShareVar.DBUser;
     private final String pw_mysql = ShareVar.DBPass;
 	
-	
-	int seqno;
-	int loginnumber = 1;
-	String userid;//유저 아이디
-	String title; //공지사항 제목
-	String post; //공지사항 내용
-	String date; //공지사항 제목
-	FileInputStream file;
+	int seq;
+	String QueryTitle;
+	String QueryContent;
+	String QueryAnswer;
 //--------------------------------------------------------------------------------------------
 
 	public WithAction() {
 		super();
 	}
-	
-	public WithAction(int seqno) {
+	public WithAction(int seq) {
 		super();
-		this.seqno = seqno;
+		this.seq = seq;
 	}
-	
+	public WithAction(String queryAnswer) {
+		super();
+		QueryAnswer = queryAnswer;
+	}
+	public WithAction(String queryTitle, String queryContent) {
+		super();
+		QueryTitle = queryTitle;
+		QueryContent = queryContent;
+	}
 //--------------------------------------------------------------------------------------------
 
 
@@ -48,8 +55,9 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select q.queryid, u.username, q.querytitle, q.addtime"
-				+ "   from user as u inner join query as q on u.userid=q.user_userid";
+		String WhereDefault = "select q.queryid, q.querytitle, q.addtime, u.username"
+				+ " from user as u inner join query as q on u.userid=q.user_userid"
+				+ " where q.blindtime is null";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,10 +70,10 @@ import com.javalec.function.ShareVar;
             	
             	int wkSeq = rs.getInt(1);
             	String wktitle = rs.getString(2);
-            	String wkcontent = rs.getString(3);
-		        String wkaddtime = rs.getString(4);
+		        String wkaddtime = rs.getString(3);
+		        String wkusername = rs.getString(4);
             	
-            	Bean bean = new Bean(wkSeq, wktitle, wkcontent, wkaddtime);
+            	Bean bean = new Bean(wkSeq, wktitle, wkaddtime, wkusername);
             	BeanList.add(bean);
             }
             
@@ -76,56 +84,17 @@ import com.javalec.function.ShareVar;
         }
 		return BeanList;
 	}
-	//1:1 table 클릭
-	public Bean QueryTableClick() {
-		System.out.println(seqno);
-		Bean bean = null;
-		String WhereDefault = "select queryid, querytitle, querycontent, addtime from query ";
-		String WhereDefault2 = "where queryid = " + seqno;
-		
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			Statement stmt_mysql = conn_mysql.createStatement();
-			
-			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
-			
-			
-			
-			if(rs.next()){
-				
-				int wkSeq = rs.getInt(1);
-				String wkTitle = rs.getString(2);
-				String wkContent = rs.getString(3);
-				String wkTime = rs.getString(4);
-//		            	// File
-//		            	ShareVar.filename = ShareVar.filename + 1;
-//		            	File file = new File(Integer.toString(ShareVar.filename));
-//		            	FileOutputStream output = new FileOutputStream(file);
-//		            	InputStream input = rs.getBinaryStream(7);
-//		                byte[] buffer = new byte[1024];
-//		                while (input.read(buffer) > 0) {
-//		                    output.write(buffer);
-//		                }
-				
-				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime);
-			}
-			conn_mysql.close();
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return bean;
-		
-		
-	}
-	public ArrayList<Bean> AnswerList(){
+
+
+	public ArrayList<Bean> AnswerList(int query){
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select a.answerid, a.answercontent, u.username, a.addtime"
-				+ "   from user as u inner join query as q on u.userid=q.user_userid"
-				+"   inner join answer as a on q.queryid=a.query_queryid";
+		String WhereDefault = "select a.answerid, a.answercontent, a.addtime, u.username"
+				+ " from answer as a inner join user as u on u.userid=a.user_userid"
+				+" inner join query as q on q.queryid=a.query_queryid where a.query_queryid = "
+				+ ShareVar.seqIndex
+				+ " and a.blindtime is null order by a.addtime Desc";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -138,10 +107,10 @@ import com.javalec.function.ShareVar;
             	
             	int wkSeq = rs.getInt(1);
             	String wkcontent = rs.getString(2);
-            	String wkname = rs.getString(3);
-		        String wkaddtime = rs.getString(4);
+		        String wkaddtime = rs.getString(3);
+		        String wkname = rs.getString(4);
             	
-            	Bean bean = new Bean(wkSeq, wkcontent, wkname, wkaddtime);
+            	Bean bean = new Bean(wkSeq, wkcontent, wkaddtime, wkname);
             	BeanList.add(bean);
             }
             
@@ -155,7 +124,7 @@ import com.javalec.function.ShareVar;
 	public String AnswerClick() {
 		String str = null;
 		String WhereDefault = "select answercontent from answer ";
-		String WhereDefault2 = "where answerid = " + seqno;
+		String WhereDefault2 = "where answerid = " + seq;
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -163,23 +132,10 @@ import com.javalec.function.ShareVar;
 			Statement stmt_mysql = conn_mysql.createStatement();
 			
 			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
-			
-			
-			
+	
 			if(rs.next()){
-				
-				
-				String wkContent = rs.getString(1);
-				str = wkContent;
-//		            	// File
-//		            	ShareVar.filename = ShareVar.filename + 1;
-//		            	File file = new File(Integer.toString(ShareVar.filename));
-//		            	FileOutputStream output = new FileOutputStream(file);
-//		            	InputStream input = rs.getBinaryStream(7);
-//		                byte[] buffer = new byte[1024];
-//		                while (input.read(buffer) > 0) {
-//		                    output.write(buffer);
-//		                }
+				String wkcontent = rs.getString(1);
+				str = wkcontent;
 				
 			}
 			conn_mysql.close();
@@ -189,14 +145,14 @@ import com.javalec.function.ShareVar;
 		}
 		return str;
 	}
-	//게시글 데이터 가져오기 (작성자 데이터로 공지사항인지 게시글인지 구분?)
+	
 	public ArrayList<Bean> NoticeList() {
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
 		String WhereDefault = "select d.documentid, d.documenttitle, u.username, d.addtime"
 				+ "   from user as u inner join document as d on u.userid=d.user_userid"
-				+ "   where d.documenttype=1; ";
+				+ "   where d.documenttype=1 and d.blindtime is null";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -223,5 +179,199 @@ import com.javalec.function.ShareVar;
 		}
 		return BeanList;
 	}
+	public Bean NoticeTableClick() {
+		Bean bean = null;
+		
+		String WhereDefault = "select d.documentid, d.documenttitle, d.documentcontent, d.addtime, u.username"
+				+ " from document as d inner join user as u on d.user_userid = u.userid";
+		String WhereDefault2 = " where documentid = " + ShareVar.seqIndex;
+		
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
 			
-}
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+			
+			
+			
+			if(rs.next()){
+				
+				int wkSeq = rs.getInt(1);
+				String wkTitle = rs.getString(2);
+				String wkContent = rs.getString(3);
+				String wkTime = rs.getString(4);
+				String wkusername = rs.getString(5);
+				
+//		            	
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime, wkusername);
+				
+			}
+			conn_mysql.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return bean;
+		
+		
+	}
+	public Bean QueryTableClick() {
+		Bean bean = null;
+		
+		String WhereDefault = "select q.queryid, q.querytitle, q.querycontent, q.addtime, u.username"
+				+ " from query as q inner join user as u on q.user_userid = u.userid";
+		String WhereDefault2 = " where queryid = " + seq;
+		
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+			
+			
+			
+			if(rs.next()){
+				
+				int wkSeq = rs.getInt(1);
+				String wkTitle = rs.getString(2);
+				String wkContent = rs.getString(3);
+				String wkTime = rs.getString(4);
+				String wkusername = rs.getString(5);
+				
+//		            	
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime, wkusername);
+				
+			}
+			conn_mysql.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return bean;
+	}
+	public boolean InsertAnswer(String Answer , int queryid) {
+		PreparedStatement ps = null;
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			@SuppressWarnings("unused")
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			String A = "insert into Answer (Answercontent, user_userid, query_queryid";
+			String B = ") values (?, ?, ?)";
+			ps = conn_mysql.prepareStatement(A+B);
+			ps.setString(1, Answer);
+			ps.setString(2, ShareVar.useridIndex);
+			ps.setInt(3, queryid);
+			ps.executeUpdate();
+			
+			
+			conn_mysql.close();
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public boolean UpdateAnswer(String answer, int answerid) {
+		 PreparedStatement ps = null;
+		  try{
+		      Class.forName("com.mysql.cj.jdbc.Driver");
+		      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		      @SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+		
+		      String A = "update Answer set answercontent = ?";
+		      String B = " where answerid = ? ";
+		
+		      ps = conn_mysql.prepareStatement(A+B);
+		      
+		      ps.setString(1, answer);
+		      ps.setInt(2, answerid);
+		    
+		      ps.executeUpdate();
+		
+		      conn_mysql.close();
+		  } catch (Exception e){
+		      e.printStackTrace();
+		      return false;
+		  }
+		
+		  return true;
+	}
+	public boolean UpdateQuery(String title, String Query, int queryid) {
+		PreparedStatement ps = null;
+		  try{
+		      Class.forName("com.mysql.cj.jdbc.Driver");
+		      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		      @SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+		
+		      String A = "update Query set querytitle, querycontent = ?, ? ";
+		      String B = " where queryid = ? ";
+		
+		      ps = conn_mysql.prepareStatement(A+B);
+		      
+		      ps.setString(1, title);
+		      ps.setString(2, Query);
+		      ps.setInt(3, queryid);
+		    
+		      ps.executeUpdate();
+		
+		      conn_mysql.close();
+		  } catch (Exception e){
+		      e.printStackTrace();
+		      return false;
+		  }
+		
+		  return true;
+	}
+	public boolean DeleteQuery(int queryid) {
+		//공지와 일반게시물 같이사용 가능
+		 PreparedStatement ps = null;
+	      try{
+	          Class.forName("com.mysql.cj.jdbc.Driver");
+	          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	          @SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+	
+	          String A = "UPDATE Query SET blindtime = now() where queryid = ?";
+	
+	          ps = conn_mysql.prepareStatement(A);
+	          
+	          ps.setInt(1, ShareVar.seqIndex);
+	          ps.executeUpdate();
+	
+	          conn_mysql.close();
+	      } catch (Exception e){
+	          e.printStackTrace();
+	          return false;
+	      }
+	      return true;
+	}
+	public boolean DeleteAnswer(int answerid) {
+		//공지와 일반게시물 같이사용 가능
+		 PreparedStatement ps = null;
+	      try{
+	          Class.forName("com.mysql.cj.jdbc.Driver");
+	          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	          @SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+	
+	          String A = "UPDATE Answer SET blindtime = now() where answerid = ? ;";
+	
+	          ps = conn_mysql.prepareStatement(A);
+	          
+	          ps.setInt(1, answerid);
+	          ps.executeUpdate();
+	
+	          conn_mysql.close();
+	      } catch (Exception e){
+	          e.printStackTrace();
+	          return false;
+	      }
+	      return true;
+		}
+	}

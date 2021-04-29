@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.user.InsertQuery;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class QueryMain {
 /*
@@ -69,14 +71,21 @@ public class QueryMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				UserorAdmin();
-				TableInit();
-				SearchAction();
-			}
-		});
+			frame.addMouseMotionListener(new MouseMotionAdapter() {
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					TableInit();
+					SearchAction();
+				}
+			});
+			frame.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowOpened(WindowEvent e) {
+					TableInit();
+					SearchAction();
+					AdminCheck();
+				}
+			});
 		frame.setBounds(100, 100, 403, 360);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -181,24 +190,23 @@ public class QueryMain {
 	}
 
 	private void TableClick() {
-        int i = Inner_Table.getSelectedRow();
-        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
-        ShareVar.seqIndex = Integer.parseInt(tkSeq);
-//        AnswerQ
+		int i = Inner_Table.getSelectedRow();
+        String tkSequence = (String)Inner_Table.getValueAt(i, 0);
+        ShareVar.seqIndex = Integer.parseInt(tkSequence);
+		AnswerQueryMain.main(null);
        
       
 	}
-	private void UserorAdmin() {
-		int i = 0;
-		if (i == 0) {
+	private void AdminCheck() {
+		if (ShareVar.admincheck == 1) {
+			//어드민일경우
+			btnQuery.setVisible(false);
+		}
+		if (ShareVar.admincheck == 0) {
 			//유저일경우
 			btnQuery.setVisible(true);
 		}
-		if (i == 1) {
-			//유저일경우
-			btnQuery.setVisible(false);
-			
-		}
+		
 	}
 	private void OpenAction() {
 		InsertQuery.main(null);

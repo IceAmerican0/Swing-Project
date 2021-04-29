@@ -54,7 +54,7 @@ public class Bean {
 		this.tablePK = tablePK;
 		this.content = content;
 	}
-	public Bean(int tablePK, String title, String username,  String addtime) {
+	public Bean(int tablePK, String title, String addtime, String username) {
 		super();
 		this.tablePK = tablePK;
 		this.title = title;
@@ -64,6 +64,14 @@ public class Bean {
 	//----------------------------------------------------------------------------
 	
 	
+	public Bean(int tablePK, String title, String content, String addtime, String username) {
+		super();
+		this.tablePK = tablePK;
+		this.title = title;
+		this.content = content;
+		this.addtime = addtime;
+		this.username = username;
+	}
 	public String getTitle() {
 		return title;
 	}
