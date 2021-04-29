@@ -20,6 +20,7 @@ import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.user.ReadNotice;
+import com.javalec.user.UpdateQuery;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,8 +44,8 @@ public class AnswerQueryMain {
 	private JPanel panel;
 	private JTextArea query_textArea;
 	private JLabel lblPost;
-	private JButton btnInsertDB;
-	private JButton btnCancel;
+	private JButton btnUpdate;
+	private JButton btnOK;
 	private JLabel lblUserName;
 	private JTextField userF;
 	private JTextField dateF;
@@ -54,10 +55,10 @@ public class AnswerQueryMain {
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
-	private JButton btnUpdate;
 	private JLabel lblComment;
 	private JPanel commentpanel;
 	private JTextArea answer_textArea;
+	private JButton btnDelete;
 
 	/**
 	 * Launch the application.
@@ -91,6 +92,7 @@ public class AnswerQueryMain {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				Admincheck();
 				TableInit();
 				SearchAction();
 			}
@@ -102,8 +104,8 @@ public class AnswerQueryMain {
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getLblPost());
-		frame.getContentPane().add(getBtnInsertDB());
-		frame.getContentPane().add(getBtnCancel());
+		frame.getContentPane().add(getBtnUpdate());
+		frame.getContentPane().add(getBtnOK());
 		frame.getContentPane().add(getLblUserName());
 		frame.getContentPane().add(getUserF());
 		frame.getContentPane().add(getDateF());
@@ -111,9 +113,9 @@ public class AnswerQueryMain {
 		frame.getContentPane().add(getAnswer());
 		frame.getContentPane().add(getLblSeq());
 		frame.getContentPane().add(getScrollPane());
-		frame.getContentPane().add(getBtnUpdate());
 		frame.getContentPane().add(getLblComment());
 		frame.getContentPane().add(getCommentpanel());
+		frame.getContentPane().add(getBtnDelete());
 	}
 
 	public JTextField getTitleF() {
@@ -155,29 +157,47 @@ public class AnswerQueryMain {
 		}
 		return lblPost;
 	}
-	private JButton getBtnInsertDB() {
-		if (btnInsertDB == null) {
-			btnInsertDB = new JButton("댓글등록");
-			btnInsertDB.addActionListener(new ActionListener() {
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton("U");
+			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					btnDelete.setVisible(true);
+					if(btnUpdate.getText() == "댓글작성" || btnUpdate.getText() == "문의수정") {
+						btnUpdate.setText("등록");
+					}if(btnUpdate.getText() == "등록") {
+						FieldCheck();
+//						btnUpdate.setText("수정하기");
+					}
 				}
 			});
-			btnInsertDB.setBounds(349, 276, 81, 29);
+			btnUpdate.setBounds(349, 276, 81, 29);
 		}
-		return btnInsertDB;
+		return btnUpdate;
 	}
-	private JButton getBtnCancel() {
-		if (btnCancel == null) {
-			btnCancel = new JButton("확인");
-			btnCancel.addActionListener(new ActionListener() {
+	private JButton getBtnDelete() {
+		if (btnDelete == null) {
+			btnDelete = new JButton("D");
+			btnDelete.setVisible(false);
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnDelete.setBounds(268, 276, 81, 29);
+		}
+		return btnDelete;
+	}
+	private JButton getBtnOK() {
+		if (btnOK == null) {
+			btnOK = new JButton("확인");
+			btnOK.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.dispose();
 				}
 			});
-			btnCancel.setBounds(174, 476, 81, 29);
+			btnOK.setBounds(174, 476, 81, 29);
 		}
-		return btnCancel;
+		return btnOK;
 	}
 	private JLabel getLblUserName() {
 		if (lblUserName == null) {
@@ -225,7 +245,28 @@ public class AnswerQueryMain {
 		}
 		return lblSeq;
 	}
-
+	private JLabel getLblComment() {
+		if (lblComment == null) {
+			lblComment = new JLabel("답변 작성하기");
+			lblComment.setBounds(6, 286, 82, 16);
+		}
+		return lblComment;
+	}
+	private JPanel getCommentpanel() {
+		if (commentpanel == null) {
+			commentpanel = new JPanel();
+			commentpanel.setBounds(11, 301, 419, 58);
+			commentpanel.add(getAnswer_textArea());
+		}
+		return commentpanel;
+	}
+	private JTextArea getAnswer_textArea() {
+		if (answer_textArea == null) {
+			answer_textArea = new JTextArea(10, 23);
+			answer_textArea.setLineWrap(true);
+		}
+		return answer_textArea;
+	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -310,36 +351,49 @@ public class AnswerQueryMain {
 	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
 	        ShareVar.seqIndex = Integer.parseInt(tkSeq);
 //	        System.out.println(ShareVar.seqIndex);
-	        //답변표현 어케 할건지?
+	        //클릭한 댓글내용을 댓글창으로
 		
 	}
-	private JButton getBtnUpdate() {
-		if (btnUpdate == null) {
-			btnUpdate = new JButton("수정하기");
-			btnUpdate.setBounds(313, 41, 117, 29);
+
+	private void Admincheck() {
+		if (ShareVar.admincheck == 1) {
+			//관리자
+			query_textArea.setEditable(false);
+			btnUpdate.setText("댓글작성");
+		}if (ShareVar.admincheck == 0) {
+			//유저
+			lblComment.setVisible(false);
+			answer_textArea.setEditable(false);
+			btnUpdate.setText("문의수정");
 		}
-		return btnUpdate;
+	
 	}
-	private JLabel getLblComment() {
-		if (lblComment == null) {
-			lblComment = new JLabel("답변 작성하기");
-			lblComment.setBounds(6, 286, 82, 16);
+	private void FieldCheck() {
+		if (ShareVar.admincheck == 1) {
+			//관리자
+			if(answer_textArea.getText().trim().length() == 0) {
+				JOptionPane.showMessageDialog(null, "댓글을 다시 입력해주세요!");
+					//answer Insert or update
+			}else {
+				UpdateAction(answer_textArea.getText());
+			}
+		}if (ShareVar.admincheck == 0) {
+			//유저
+			if(query_textArea.getText().trim().length() == 0) {
+				JOptionPane.showMessageDialog(null, "질문을 다시 입력해주세요!");
+			}else {
+				UpdateAction(titleF.getText() ,query_textArea.getText());
+			}
 		}
-		return lblComment;
+
 	}
-	private JPanel getCommentpanel() {
-		if (commentpanel == null) {
-			commentpanel = new JPanel();
-			commentpanel.setBounds(11, 301, 419, 58);
-			commentpanel.add(getAnswer_textArea());
-		}
-		return commentpanel;
+	private void UpdateAction(String Comment) {
+		// TODO Auto-generated method stub
+
 	}
-	private JTextArea getAnswer_textArea() {
-		if (answer_textArea == null) {
-			answer_textArea = new JTextArea(10, 23);
-			answer_textArea.setLineWrap(true);
-		}
-		return answer_textArea;
+	private void UpdateAction(String Title, String Content) {
+		// TODO Auto-generated method stub
+
 	}
+
 }
