@@ -34,6 +34,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
+import javax.swing.JInternalFrame;
+import javax.swing.JList;
+import java.awt.ScrollPane;
+import java.awt.Canvas;
+import javax.swing.JScrollBar;
+import java.awt.FlowLayout;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JDesktopPane;
 
 public class user_tab {
 
@@ -57,7 +65,6 @@ public class user_tab {
 	private JTable table_nt;
 	private JTable table_iq;
 	private JTextField textField_5;
-	private JTable table_ac;
 	private JTextField textField_6;
 
 	//탭 전환하기 (2021.04.27 김민규)
@@ -250,13 +257,6 @@ public class user_tab {
 				WritePost.main(null);
 			}
 		});
-		
-		JScrollPane scrollPane_ac = new JScrollPane();
-		scrollPane_ac.setBounds(6, 49, 913, 482);
-		allcloset.add(scrollPane_ac);
-		
-		table_ac = new JTable();
-		scrollPane_ac.setViewportView(table_ac);
 		btnNewButton_4.setBounds(802, 6, 117, 29);
 		allcloset.add(btnNewButton_4);
 		
@@ -273,6 +273,17 @@ public class user_tab {
 		JButton btnLoad_nt_1 = new JButton("검색");
 		btnLoad_nt_1.setBounds(737, 6, 65, 29);
 		allcloset.add(btnLoad_nt_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 45, 913, 486);
+		allcloset.add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		scrollPane.setViewportView(panel);
+		
+		
+		
+		
 		
 		mycloset = new JPanel();
 		layeredPane.add(mycloset, "name_10030972904756");
@@ -324,7 +335,8 @@ public class user_tab {
 		in_mypreset.setLayout(null);
 		
 		JLabel lblNewLabel_9 = new JLabel("프리셋");
-		lblNewLabel_9.setBounds(51, 73, 143, 59);
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setBounds(6, 6, 87, 39);
 		in_mypreset.add(lblNewLabel_9);
 		
 		JLabel lblhat = new JLabel("모자 등록하기");
