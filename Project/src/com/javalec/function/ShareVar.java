@@ -5,4 +5,6 @@ public class ShareVar {
 	public static String DBUser = "root";
 	public static String DBPass = "qwer1234";
 	public static int filename = 0;
+	public static int seqIndex;
+	public static String useridIndex;
 }

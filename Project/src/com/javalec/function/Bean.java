@@ -1,75 +1,63 @@
 package com.javalec.function;
 
 public class Bean {
-//----------------------------------------------------------------------------
-	public static int seqIndex;
-	public static String useridIndex;
-	
-	//PK
+//---------------------------------------------------------------------
 	String userid;
+	String User_userid;
 	int answerid;
+	int Query_queryid;
 	int clothid;
 	int commentid;
+	int Document_documentid;
 	int documentid;
-	int queryid;
-	//FK
-	String User_userid;
-	int query_queryid;
-	int document_documentid;
 	int Cloth_clothid;
-	int answer_answerid;
-	int answer_query_queryid;
-	int comment_commentid;
-	int comment_document_documentid;
-	//Common
-	int	admin;
+	int queryid;
+//--------------------------------------------------------------------
 	String	answercontent;
+	String	addtime;
+	String	blindtime;
 	String	clothtype;
 	String	clothname;
 	String	clothimage;
+	int	likecount;
 	String	commentcontent;
 	String	documenttitle;
 	String	documentcontent;
 	int	documenttype;
-	int	likecount;
 	String	liketime;
 	String	querytitle;
 	String	querycontent;
-	String	addtime;
-	String	blindtime;
 	String	userpw;
 	String	useremail;
 	String	username;
 	String	useraddtime;
 	String	userblindtime;
+	int	admin;
 	String	userimage;
-//----------------------------------------------------------------------------
-	
-//----------------------------------------------------------------------------
-	public static int getSeqIndex() {
-		return seqIndex;
-	}
-	public static void setSeqIndex(int seqIndex) {
-		Bean.seqIndex = seqIndex;
-	}
-	public static String getUseridIndex() {
-		return useridIndex;
-	}
-	public static void setUseridIndex(String useridIndex) {
-		Bean.useridIndex = useridIndex;
-	}
-//----------------------------------------------------------------------------
+//--------------------------------------------------------------------
 	public String getUserid() {
 		return userid;
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	public String getUser_userid() {
+		return User_userid;
+	}
+	public void setUser_userid(String user_userid) {
+		User_userid = user_userid;
+	}
 	public int getAnswerid() {
 		return answerid;
 	}
 	public void setAnswerid(int answerid) {
 		this.answerid = answerid;
+	}
+	public int getQuery_queryid() {
+		return Query_queryid;
+	}
+	public void setQuery_queryid(int query_queryid) {
+		Query_queryid = query_queryid;
 	}
 	public int getClothid() {
 		return clothid;
@@ -83,35 +71,17 @@ public class Bean {
 	public void setCommentid(int commentid) {
 		this.commentid = commentid;
 	}
+	public int getDocument_documentid() {
+		return Document_documentid;
+	}
+	public void setDocument_documentid(int document_documentid) {
+		Document_documentid = document_documentid;
+	}
 	public int getDocumentid() {
 		return documentid;
 	}
 	public void setDocumentid(int documentid) {
 		this.documentid = documentid;
-	}
-	public int getQueryid() {
-		return queryid;
-	}
-	public void setQueryid(int queryid) {
-		this.queryid = queryid;
-	}
-	public String getUser_userid() {
-		return User_userid;
-	}
-	public void setUser_userid(String user_userid) {
-		User_userid = user_userid;
-	}
-	public int getQuery_queryid() {
-		return query_queryid;
-	}
-	public void setQuery_queryid(int query_queryid) {
-		this.query_queryid = query_queryid;
-	}
-	public int getDocument_documentid() {
-		return document_documentid;
-	}
-	public void setDocument_documentid(int document_documentid) {
-		this.document_documentid = document_documentid;
 	}
 	public int getCloth_clothid() {
 		return Cloth_clothid;
@@ -119,41 +89,29 @@ public class Bean {
 	public void setCloth_clothid(int cloth_clothid) {
 		Cloth_clothid = cloth_clothid;
 	}
-	public int getAnswer_answerid() {
-		return answer_answerid;
+	public int getQueryid() {
+		return queryid;
 	}
-	public void setAnswer_answerid(int answer_answerid) {
-		this.answer_answerid = answer_answerid;
-	}
-	public int getAnswer_query_queryid() {
-		return answer_query_queryid;
-	}
-	public void setAnswer_query_queryid(int answer_query_queryid) {
-		this.answer_query_queryid = answer_query_queryid;
-	}
-	public int getComment_commentid() {
-		return comment_commentid;
-	}
-	public void setComment_commentid(int comment_commentid) {
-		this.comment_commentid = comment_commentid;
-	}
-	public int getComment_document_documentid() {
-		return comment_document_documentid;
-	}
-	public void setComment_document_documentid(int comment_document_documentid) {
-		this.comment_document_documentid = comment_document_documentid;
-	}
-	public int getAdmin() {
-		return admin;
-	}
-	public void setAdmin(int admin) {
-		this.admin = admin;
+	public void setQueryid(int queryid) {
+		this.queryid = queryid;
 	}
 	public String getAnswercontent() {
 		return answercontent;
 	}
 	public void setAnswercontent(String answercontent) {
 		this.answercontent = answercontent;
+	}
+	public String getAddtime() {
+		return addtime;
+	}
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+	public String getBlindtime() {
+		return blindtime;
+	}
+	public void setBlindtime(String blindtime) {
+		this.blindtime = blindtime;
 	}
 	public String getClothtype() {
 		return clothtype;
@@ -172,6 +130,12 @@ public class Bean {
 	}
 	public void setClothimage(String clothimage) {
 		this.clothimage = clothimage;
+	}
+	public int getLikecount() {
+		return likecount;
+	}
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
 	}
 	public String getCommentcontent() {
 		return commentcontent;
@@ -197,12 +161,6 @@ public class Bean {
 	public void setDocumenttype(int documenttype) {
 		this.documenttype = documenttype;
 	}
-	public int getLikecount() {
-		return likecount;
-	}
-	public void setLikecount(int likecount) {
-		this.likecount = likecount;
-	}
 	public String getLiketime() {
 		return liketime;
 	}
@@ -220,18 +178,6 @@ public class Bean {
 	}
 	public void setQuerycontent(String querycontent) {
 		this.querycontent = querycontent;
-	}
-	public String getAddtime() {
-		return addtime;
-	}
-	public void setAddtime(String addtime) {
-		this.addtime = addtime;
-	}
-	public String getBlindtime() {
-		return blindtime;
-	}
-	public void setBlindtime(String blindtime) {
-		this.blindtime = blindtime;
 	}
 	public String getUserpw() {
 		return userpw;
@@ -263,12 +209,17 @@ public class Bean {
 	public void setUserblindtime(String userblindtime) {
 		this.userblindtime = userblindtime;
 	}
+	public int getAdmin() {
+		return admin;
+	}
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
 	public String getUserimage() {
 		return userimage;
 	}
 	public void setUserimage(String userimage) {
 		this.userimage = userimage;
 	}
-	
 	
 }
