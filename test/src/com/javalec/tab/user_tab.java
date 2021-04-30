@@ -66,6 +66,7 @@ public class user_tab {
 	private JTable table_iq;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	private JTable table;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -278,8 +279,8 @@ public class user_tab {
 		scrollPane.setBounds(6, 45, 913, 486);
 		allcloset.add(scrollPane);
 		
-		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
+		table = new JTable();
+		scrollPane.setViewportView(table);
 		
 		
 		
