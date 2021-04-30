@@ -24,7 +24,7 @@ import com.javalec.function.ShareVar;
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select u.userid, u.username, u.useremail, u.useraddtime, u.blindtime, u.admin"
+			String WhereDefault = "select u.userid, u.username, u.useremail, u.useraddtime, u.userblindtime, u.admin"
 					+ " from user as u";
 //					+ " where u.blindtime is null";
 			
@@ -40,11 +40,11 @@ import com.javalec.function.ShareVar;
 	            	String wktablePK = rs.getString(1);
 	            	String wkname = rs.getString(2);
 			        String wkemail = rs.getString(3);
-			        String wkaddtime = rs.getString(4);
-			        String wkblindtime = rs.getString(5);
+			        String wkuseraddtime = rs.getString(4);
+			        String wkuserblindtime = rs.getString(5);
 			        int wkadmincheck = rs.getInt(6);
 	            	
-	            	Bean bean = new Bean(wktablePK, wkname, wkemail, wkaddtime, wkblindtime, wkadmincheck);
+	            	Bean bean = new Bean(wktablePK, wkname, wkemail, wkuseraddtime, wkuserblindtime, wkadmincheck);
 	            	BeanList.add(bean);
 	            }
 	            
@@ -160,6 +160,41 @@ import com.javalec.function.ShareVar;
 			
 			  return true;
 		}
+
+		public ArrayList<Bean> ConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select userid, username, useremail, useraddtime, userblindtime, admin from user ";
+			String WhereDefault2 = "where " + WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
+			System.out.println(WhereDefault+WhereDefault2);
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+
+	            while(rs.next()){
+	            	
+	            	String wktablePK = rs.getString(1);
+	            	String wkname = rs.getString(2);
+			        String wkemail = rs.getString(3);
+			        String wkuseraddtime = rs.getString(4);
+			        String wkuserblindtime = rs.getString(5);
+			        int wkadmincheck = rs.getInt(6);
+	            	
+	            	Bean bean = new Bean(wktablePK, wkname, wkemail, wkuseraddtime, wkuserblindtime, wkadmincheck);
+	            	BeanList.add(bean);
+	            }
+	            
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+		}
+		
 		
 	
 	
