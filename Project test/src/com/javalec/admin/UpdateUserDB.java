@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -77,7 +78,7 @@ public  class UpdateUserDB {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				TableInit();
-				SearchAction();
+				ScreenPartition();
 			}
 		});
 		frame.setBounds(100, 100, 928, 568);
@@ -161,6 +162,12 @@ public  class UpdateUserDB {
 	private JRadioButton getRdbtnAll() {
 		if (rdbtnAll == null) {
 			rdbtnAll = new JRadioButton("ALL");
+			rdbtnAll.setSelected(true);
+			rdbtnAll.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ScreenPartition();
+				}
+			});
 			buttonGroup.add(rdbtnAll);
 			rdbtnAll.setBounds(286, 18, 55, 23);
 		}
@@ -169,6 +176,11 @@ public  class UpdateUserDB {
 	private JRadioButton getRdbtnBlocked() {
 		if (rdbtnBlocked == null) {
 			rdbtnBlocked = new JRadioButton("Blocked");
+			rdbtnBlocked.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ScreenPartition();
+				}
+			});
 			buttonGroup.add(rdbtnBlocked);
 			rdbtnBlocked.setBounds(353, 18, 86, 23);
 		}
@@ -177,6 +189,11 @@ public  class UpdateUserDB {
 	private JRadioButton getRdbtnNormal() {
 		if (rdbtnCommon == null) {
 			rdbtnCommon = new JRadioButton("Normal");
+			rdbtnCommon.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ScreenPartition();
+				}
+			});
 			buttonGroup.add(rdbtnCommon);
 			rdbtnCommon.setBounds(440, 18, 79, 23);
 		}
@@ -234,9 +251,9 @@ public  class UpdateUserDB {
         col.setPreferredWidth(width);
 
 	}
-	private void SearchAction(){
+	private void SearchAction(String WhereCheck){
 		AdminAction adminAction = new AdminAction();
-		ArrayList<Bean> beanList = adminAction.UserList();
+		ArrayList<Bean> beanList = adminAction.UserList(WhereCheck);
 		
 		int listCount = beanList.size();
 		for (int index = 0; index < listCount; index++) {
@@ -253,10 +270,56 @@ public  class UpdateUserDB {
 	private void TableClick() {
 		//선택한 번호
 		int i = Inner_Table_mb.getSelectedRow();
-        String tkSequence = (String)Inner_Table_mb.getValueAt(i, 0);
-        ShareVar.seqIndex = Integer.parseInt(tkSequence);
+		String tkSequence = (String)Inner_Table_mb.getValueAt(i, 0);
+		
+		AdminAction adminAction = new AdminAction();
+		String userid = adminAction.blindcheck(tkSequence);
+		if (userid == null) {
+			//차단된 사용자
+			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateBlindtime(tkSequence, 1);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
+			          TableInit();
+						ScreenPartition();
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+				
+			}
+		}if (userid != null) {
+			int result = JOptionPane.showConfirmDialog(null, "해당 사용자를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateBlindtime(tkSequence, 0);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "사용자가 차단되었습니다!");
+			          TableInit();
+						ScreenPartition();
+			          
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+				
+			}
+		}
+		
 		
 
+	}
+	
+	private void ScreenPartition() {
+		String WhereCheck = "";
+		if (rdbtnBlocked.isSelected()) {
+			WhereCheck = " where not userblindtime is null ";
+			
+		}if (rdbtnCommon.isSelected()) {
+			WhereCheck = " where userblindtime is null ";
+		}
+		TableInit();
+		SearchAction(WhereCheck);
 	}
 	private void ConditionQuery() {
 		int i = cbtitle_mb.getSelectedIndex();
@@ -274,12 +337,12 @@ public  class UpdateUserDB {
 		default:
 			break;
 		}
-		String WhereCheck = "";
+		String WhereCheck = " where ";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " not userblindtime is null and ";
+			WhereCheck = " where not userblindtime is null and ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " userblindtime is null and ";
+			WhereCheck = " where userblindtime is null and ";
 		}
 		
 		TableInit();

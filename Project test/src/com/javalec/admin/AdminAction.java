@@ -20,14 +20,14 @@ import com.javalec.function.ShareVar;
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
 		//
-		public ArrayList<Bean> UserList(){
+		public ArrayList<Bean> UserList(String WhereCheck){
 			
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select u.userid, u.username, u.useremail, u.useraddtime, u.userblindtime, u.admin"
-					+ " from user as u";
-//					+ " where u.blindtime is null";
-			
+			String WhereDefault = "select userid, username, useremail, useraddtime, userblindtime, admin"
+					+ " from user"
+					+ WhereCheck;
+//			System.out.println(WhereDefault);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -165,8 +165,8 @@ import com.javalec.function.ShareVar;
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
 			String WhereDefault = "select userid, username, useremail, useraddtime, userblindtime, admin from user ";
-			String WhereDefault2 = "where " + WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
-			System.out.println(WhereDefault+WhereDefault2);
+			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
+//			System.out.println(WhereDefault+WhereDefault2);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -194,8 +194,59 @@ import com.javalec.function.ShareVar;
 	        }
 			return BeanList;
 		}
-		
-		
+		public String blindcheck(String tablePK) {
+			String userid = null;
+			PreparedStatement ps = null;
+			//정상사용자인 경우에만 값이 나옴
+			String WhereDefault = "select userid"
+					+ " from user "
+					+ " where userblindtime is null and userid = '" + tablePK +"'";
+//			System.out.println(WhereDefault);
+			try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+	
+				if(rs.next()){
+					userid  = rs.getString(1);
+					conn_mysql.close();
+				}
+			}catch (Exception e){
+			e.printStackTrace();
+			}
+		return userid;
+		}
+		public boolean UpdateBlindtime(String tkSequence, int i) {
+			//공지와 일반게시물 같이사용 가능
+			
+			PreparedStatement ps = null;
+			String A = null;
+		      try{
+		          Class.forName("com.mysql.cj.jdbc.Driver");
+		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		          @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+		          if (i == 0) {
+		        	A = "UPDATE User SET userblindtime = now() where userid = '"+tkSequence+"'";		        	  
+		          }
+		          if (i == 1) {
+		        	  A = "UPDATE user SET userblindtime = null WHERE userid = '"+tkSequence+"'";		        	  		        	  
+		          }
+		          ps = conn_mysql.prepareStatement(A);
+			      
+			    
+			      ps.executeUpdate();
+			
+			      conn_mysql.close();
+
+		      }catch (Exception e){
+		          e.printStackTrace();
+		          return false;
+		      }
+		      return true;
+		}
 	
 	
 	

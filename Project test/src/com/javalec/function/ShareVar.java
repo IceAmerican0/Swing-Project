@@ -12,6 +12,7 @@ public class ShareVar {
 
 	
 	public static int filename;
+	public static String IDIndex;
 	public static int seqIndex;
 	public static int admincheck;
 	
