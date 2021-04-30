@@ -150,7 +150,7 @@ import com.javalec.function.ShareVar;
 		
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
-		String WhereDefault = "select d.documentid, d.documenttitle, u.username, d.addtime"
+		String WhereDefault = "select d.documentid, d.documenttitle, d.addtime, u.username"
 				+ "   from user as u inner join document as d on u.userid=d.user_userid"
 				+ "   where d.documenttype=1 and d.blindtime is null";
 		
@@ -165,10 +165,10 @@ import com.javalec.function.ShareVar;
 				
 				int wkSeq = rs.getInt(1);
 				String wktitle = rs.getString(2);
-				String wkusername = rs.getString(3); //작성자
-		        String wktime = rs.getString(4); //작성시간
+		        String wktime = rs.getString(3); //작성시간
+		        String wkusername = rs.getString(4); //작성자
 				
-				Bean bean = new Bean(wkSeq, wktitle, wkusername, wktime);
+				Bean bean = new Bean(wkSeq, wktitle, wktime, wkusername);
 				BeanList.add(bean);
 			}
 			

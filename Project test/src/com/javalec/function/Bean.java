@@ -48,6 +48,15 @@ public class Bean {
 		this.tablePK = tablePK;
 		this.content = content;
 	}
+	public Bean(String userid, String username, String useremail, String useraddtime, String userblindtime, int admin) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.useremail = useremail;
+		this.useraddtime = useraddtime;
+		this.userblindtime = userblindtime;
+		this.admin = admin;
+	}
 	public Bean(int tablePK, String title, String addtime, String username) {
 		super();
 		this.tablePK = tablePK;

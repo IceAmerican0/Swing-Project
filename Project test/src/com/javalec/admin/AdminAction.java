@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
@@ -19,6 +20,42 @@ import com.javalec.function.ShareVar;
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
 		//
+		public ArrayList<Bean> UserList(){
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select u.userid, u.username, u.useremail, u.useraddtime, u.blindtime, u.admin"
+					+ " from user as u";
+//					+ " where u.blindtime is null";
+			
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+	            while(rs.next()){
+	            	
+	            	String wktablePK = rs.getString(1);
+	            	String wkname = rs.getString(2);
+			        String wkemail = rs.getString(3);
+			        String wkaddtime = rs.getString(4);
+			        String wkblindtime = rs.getString(5);
+			        int wkadmincheck = rs.getInt(6);
+	            	
+	            	Bean bean = new Bean(wktablePK, wkname, wkemail, wkaddtime, wkblindtime, wkadmincheck);
+	            	BeanList.add(bean);
+	            }
+	            
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+		} 
+		
 		public boolean InsertQueryComment(String adminComment, int seq) {
 			PreparedStatement ps = null;
 			try{

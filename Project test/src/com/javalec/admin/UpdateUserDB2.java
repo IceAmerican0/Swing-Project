@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -12,11 +13,13 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.DefaultComboBoxModel;
 
-public class UpdateClothDB {
+public class UpdateUserDB2 {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JTable Inner_Table_mb;
+	private final DefaultTableModel Outer_Table_mb = new DefaultTableModel();
+
 
 	/**
 	 * Launch the application.
@@ -25,7 +28,7 @@ public class UpdateClothDB {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateClothDB window = new UpdateClothDB();
+					UpdateUserDB2 window = new UpdateUserDB2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +40,7 @@ public class UpdateClothDB {
 	/**
 	 * Create the application.
 	 */
-	public UpdateClothDB() {
+	public UpdateUserDB2() {
 		initialize();
 	}
 
