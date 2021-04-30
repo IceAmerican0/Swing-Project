@@ -1,6 +1,8 @@
 package com.javalec.user;
 
+import java.awt.Image;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,7 +60,7 @@ import com.javalec.function.ShareVar;
 		return true;
 	}
 	//옷데이터 등록
-	public boolean InsertCloth(String clothtype, String clothname, FileInputStream file) {
+	public boolean InsertCloth(String clothtype, String clothname, FileInputStream input) {
 		PreparedStatement ps = null;
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -66,13 +68,14 @@ import com.javalec.function.ShareVar;
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			
-			String A = "insert into cloth (clothtype, clothname, clothimage";
-			String B = ") values (?,?,?)";
+			String A = "insert into cloth (clothtype, clothname, clothimage, User_userid";
+			String B = ") values (?,?,?,?)";
 			
 			ps = conn_mysql.prepareStatement(A+B);
 			ps.setString(1, clothtype);
 			ps.setString(2, clothname);
-			ps.setBinaryStream(3, file);
+			ps.setBinaryStream(3, input);
+			ps.setString(4, ShareVar.useridIndex);
 			
 			ps.executeUpdate();
 			
