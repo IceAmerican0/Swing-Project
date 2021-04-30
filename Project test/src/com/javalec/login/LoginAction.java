@@ -34,7 +34,6 @@ public class LoginAction {
 	public int Login() {
 		String sql1="select userpw,username,admin from user where";
 		String sql2=" user.userid='"+id+"'";
-		String userid="";
 		String userpw="";
 		
 		try{
@@ -44,7 +43,7 @@ public class LoginAction {
 	
 	          ResultSet rs = stmt_mysql.executeQuery(sql1+sql2);
 	          while(rs.next()) {
-	        	  this.pw=rs.getString(1);
+	        	  userpw=rs.getString(1);
 	        	  this.name=rs.getString(2);
 	        	  this.admin=rs.getInt(3);
 	          }
@@ -55,8 +54,8 @@ public class LoginAction {
 	      }
 		
 		
-		if(pw.equals("")) return 0;
-		if(pw.equals(pw)) {
+		if(userpw.equals("")) return 0;
+		if(userpw.equals(pw)) {
 			ShareVar.nowId=id;
 			ShareVar.nowPw=pw;
 			ShareVar.admincheck=admin;
