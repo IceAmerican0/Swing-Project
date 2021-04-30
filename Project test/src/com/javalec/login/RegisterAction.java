@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import com.javalec.function.ShareVar;
+import com.javalec.function.Bean;
+
 
 public class RegisterAction {
 	private final String url_mysql=ShareVar.url_mysql;	
@@ -32,7 +35,42 @@ public class RegisterAction {
 		this.name = name;
 		this.email=email;
 	}
-	
+	//-----
+	// 검색 결과를 Table로 
+	public ArrayList<Bean> SelectList(){
+		
+		ArrayList<Bean> BeanList = new ArrayList<Bean>();
+		
+		String WhereDefault = "select seqno, name, telno, relation from userinfo2 ";
+		
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            Statement stmt_mysql = conn_mysql.createStatement();
+
+            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+            while(rs.next()){
+            	
+            	int wkSeq = rs.getInt(1);
+            	String wkName = rs.getString(2);
+            	String wkTelno = rs.getString(3);
+            	String wkRelation = rs.getString(4);
+            	
+            	Bean bean = new Bean(wkSeq, wkName, wkTelno, wkRelation);
+            	BeanList.add(bean);
+            }
+            
+            conn_mysql.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+		return BeanList;
+	}
+
+
+	//-----
 	public void Register() {
 		String sql="insert into user(userid,userpw,useremail,username,admin) values (?,?,?,?,0)";
 		

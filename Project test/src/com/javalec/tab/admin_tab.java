@@ -14,15 +14,20 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import com.javalec.admin.AnswerQueryInsert;
 import com.javalec.admin.InsertNotice;
 import com.javalec.function.ShareVar;
 import com.javalec.login.Login;
+import com.javalec.login.RegisterAction;
 import com.javalec.user.InsertCloth;
+import com.javalec.function.Bean;
+
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
@@ -103,6 +108,7 @@ public class admin_tab {
 	 */
 	public admin_tab() {
 		initialize();
+		
 	}
 
 	/**
@@ -155,21 +161,25 @@ public class admin_tab {
 		admin.add(lblpassword);
 		
 		tfname = new JTextField();
+		tfname.setEditable(false);
 		tfname.setColumns(10);
 		tfname.setBounds(632, 91, 208, 26);
 		admin.add(tfname);
 		
 		tfid = new JTextField();
+		tfid.setEditable(false);
 		tfid.setColumns(10);
 		tfid.setBounds(633, 124, 207, 26);
 		admin.add(tfid);
 		
 		tfemail = new JTextField();
+		tfemail.setEditable(false);
 		tfemail.setColumns(10);
 		tfemail.setBounds(633, 158, 207, 26);
 		admin.add(tfemail);
 		
 		pfpassword = new JPasswordField();
+		pfpassword.setEditable(false);
 		pfpassword.setBounds(632, 191, 208, 26);
 		admin.add(pfpassword);
 		
@@ -216,6 +226,18 @@ public class admin_tab {
 		scrollPane_mb.setBounds(6, 54, 913, 477);
 		member.add(scrollPane_mb);
 		
+		/*
+		switchPanels(admin);//탭전환
+		
+		btnWrite_iq1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnswerQueryInsert.main(null);
+			}
+		});
+		
+		*/
+		
+		
 		table_mb = new JTable();
 		scrollPane_mb.setViewportView(table_mb);
 		
@@ -225,6 +247,11 @@ public class admin_tab {
 		member.add(tfresult_mb);
 		
 		JButton btnLoad_mb = new JButton("조회");
+		btnLoad_mb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenPartition(); //조회버튼 클릭하여 회원정보 출력
+			}
+		});
 		btnLoad_mb.setBounds(854, 6, 65, 29);
 		member.add(btnLoad_mb);
 		
@@ -400,7 +427,8 @@ public class admin_tab {
 		JButton btnMember = new JButton("회원관리");
 		btnMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(member);//탭전환
+				switchPanels(member);//탭전환	
+				// 탭 전환 하면서 회원정보 출력 또는 조회버튼 클릭시 회원정보 출력
 			}
 		});
 		btnMember.setBounds(52, 125, 151, 50);
@@ -456,28 +484,77 @@ public class admin_tab {
 		frame.getContentPane().add(btnlogOut);
 	}
 	//-------------------------------------------- 이 부분 확인 필요
-	private JButton getbtnWrite_nt() {
-		if (btnWrite_nt == null) {
-			btnWrite_nt = new JButton("글쓰기");
-			btnWrite_nt.setBounds(794, 6, 65, 29);
+	// -------------------
+		// Table 초기화
+		@SuppressWarnings("static-access")
+		private void TableInit(){
+	        int i = Outer_Table.getRowCount();
+	        
+	        Outer_Table.addColumn("Seq.");
+	        Outer_Table.addColumn("이름");
+	        Outer_Table.addColumn("전화번호");
+	        Outer_Table.addColumn("관계");
+	        Outer_Table.setColumnCount(4);
+
+	        for(int j = 0 ; j < i ; j++){
+	            Outer_Table.removeRow(0);
+	        }
+
+	       table_mb.setAutoResizeMode(table_mb.AUTO_RESIZE_OFF);
+	        
+
+	        int vColIndex = 0;
+	        TableColumn col = table_mb.getColumnModel().getColumn(vColIndex);
+	        int width = 40;
+	        col.setPreferredWidth(width);
+
+	        vColIndex = 1;
+	        col = table_mb.getColumnModel().getColumn(vColIndex);
+	        width = 100;
+	        col.setPreferredWidth(width);
+
+	        vColIndex = 2;
+	        col = table_mb.getColumnModel().getColumn(vColIndex);
+	        width = 100;
+	        col.setPreferredWidth(width);
+
+	        vColIndex = 3;
+	        col = table_mb.getColumnModel().getColumn(vColIndex);
+	        width = 200;
+	        col.setPreferredWidth(width);
+
 		}
-		return btnWrite_nt;
-	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 54, 913, 477);
-			scrollPane.setViewportView(getTable_nt());
+		
+		//전체 검색결과를 Table로 
+		private void SearchAction(){
+			RegisterAction dbAction = new RegisterAction();
+			ArrayList<Bean> beanList = dbAction.SelectList();
+			
+			int listCount = beanList.size();
+			
+			for (int index = 0; index < listCount; index++) {
+				String temp = Integer.toString(beanList.get(index).getSeqno());
+				String[] qTxt = {temp, beanList.get(index).getName(), beanList.get(index).getTelno(), beanList.get(index).getRelation()};
+				Outer_Table.addRow(qTxt);
+			}
+
 		}
-		return scrollPane;
-	}
-	private JTable getTable_nt() {
-		if (table_nt == null) {
-			table_nt = new JTable();
-			table_nt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			table_nt.setModel(Outer_Table);
-		}
-		return table_nt;
+		
+		// Table에서 Row를 Click후 검색 
+		private void TableClick() {
+	        int i = table_mb.getSelectedRow();
+	        String tkSequence = (String)table_mb.getValueAt(i, 0);
+	        int wkSequence = Integer.parseInt(tkSequence);
+	        
+	        RegisterAction dbAction = new RegisterAction(wkSequence);
+	        Bean bean = dbAction.TableClick();
+	        
+	        tfSeqno.setText(Integer.toString(bean.getSeqno()));
+	        tfName.setText(bean.getName());
+	        tfTelno.setText(bean.getTelno());
+	        tfAddress.setText(bean.getAddress());
+	        tfEmail.setText(bean.getEmail());
+	        tfRelation.setText(bean.getRelation());
 	//--------------------------------------------	여기까지
 	}
 }  //-------------
