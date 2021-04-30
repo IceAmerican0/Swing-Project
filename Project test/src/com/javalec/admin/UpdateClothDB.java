@@ -327,35 +327,35 @@ public  class UpdateClothDB {
 		String ConditionQueryColumn = "";
 		switch (i) {
 		case 0:
-			ConditionQueryColumn = "상의";
+			ConditionQueryColumn = "'상의'";
 			break;
 		case 1:
-			ConditionQueryColumn = "하의";
+			ConditionQueryColumn = "'하의'";
 			break;
 		case 2:
-			ConditionQueryColumn = "모자";
+			ConditionQueryColumn = "'모자'";
 			break;
 		case 3:
-			ConditionQueryColumn = "신발";
+			ConditionQueryColumn = "'신발'";
 			break;
 		case 4:
-			ConditionQueryColumn = "가방";
+			ConditionQueryColumn = "'가방'";
 			break;
 		case 5:
-			ConditionQueryColumn = "원피스";
+			ConditionQueryColumn = "'원피스'";
 			break;
 		case 6:
-			ConditionQueryColumn = "아우터";
+			ConditionQueryColumn = "'아우터'";
 			break;
 		default:
 			break;
 		}
-		String WhereCheck = " where ";
+		String WhereCheck = " where clothtype = ";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not blindtime is null and ";
+			WhereCheck = " where not blindtime is null and clothtype = ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where blindtime is null and ";
+			WhereCheck = " where blindtime is null and clothtype = ";
 		}
 		
 		TableInit();

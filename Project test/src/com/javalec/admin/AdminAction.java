@@ -260,8 +260,8 @@ import com.javalec.function.ShareVar;
 		public ArrayList<Bean> ClothConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select Clothid, Clothname, Clothemail, addtime, blindtime, admin from user ";
-			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
+			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid from cloth ";
+			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " and clothname like '%" + querykey + "%'";
 //			System.out.println(WhereDefault+WhereDefault2);
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -269,21 +269,31 @@ import com.javalec.function.ShareVar;
 				Statement stmt_mysql = conn_mysql.createStatement();
 				
 				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
-				
+				System.out.println(WhereDefault+WhereDefault2);
 				while(rs.next()){
 					
-					String wktablePK = rs.getString(1);
-					String wkname = rs.getString(2);
-					String wkemail = rs.getString(3);
-					String wkuseraddtime = rs.getString(4);
-					String wkuserblindtime = rs.getString(5);
-					int wkadmincheck = rs.getInt(6);
-					
-					Bean bean = new Bean(wktablePK, wkname, wkemail, wkuseraddtime, wkuserblindtime, wkadmincheck);
-					BeanList.add(bean);
+					int wktablePK = rs.getInt(1);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
+	            	
+			        String wkaddtime = rs.getString(5);
+			        String wkblindtime = rs.getString(6);
+			        String wkusername = rs.getString(7);
+	            	//image처리
+			        ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	InputStream wkclothimage = rs.getBinaryStream(4);
+	                byte[] buffer = new byte[1024];
+	                while (wkclothimage.read(buffer) > 0) {
+	                    output.write(buffer);
+	                }
+			        
+			        
+	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkusername);
+	            	BeanList.add(bean);
 				}
-				
-				conn_mysql.close();
+			    conn_mysql.close();
 			}
 			catch (Exception e){
 				e.printStackTrace();
@@ -297,6 +307,30 @@ import com.javalec.function.ShareVar;
 			String WhereDefault = "select userid"
 					+ " from user "
 					+ " where userblindtime is null and userid = '" + tablePK +"'";
+//			System.out.println(WhereDefault);
+			try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+	
+				if(rs.next()){
+					userid  = rs.getString(1);
+					conn_mysql.close();
+				}
+			}catch (Exception e){
+			e.printStackTrace();
+			}
+		return userid;
+		}
+		public String ClothBlindCheck(String tablePK) {
+			String userid = null;
+			PreparedStatement ps = null;
+			//정상사용자인 경우에만 값이 나옴
+			String WhereDefault = "select clothid"
+					+ " from cloth "
+					+ " where blindtime is null and clothid = '" + tablePK +"'";
 //			System.out.println(WhereDefault);
 			try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -342,6 +376,35 @@ import com.javalec.function.ShareVar;
 		          return false;
 		      }
 		      return true;
+		}
+		public boolean UpdateClothBlindtime(String tkSequence, int i) {
+			//공지와 일반게시물 같이사용 가능
+			
+			PreparedStatement ps = null;
+			String A = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+				if (i == 0) {
+					A = "UPDATE cloth SET blindtime = now() where clothid = '"+tkSequence+"'";		        	  
+				}
+				if (i == 1) {
+					A = "UPDATE cloth SET blindtime = null WHERE clothid = '"+tkSequence+"'";		        	  		        	  
+				}
+				ps = conn_mysql.prepareStatement(A);
+				
+				
+				ps.executeUpdate();
+				
+				conn_mysql.close();
+				
+			}catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
 		}
 	
 	
