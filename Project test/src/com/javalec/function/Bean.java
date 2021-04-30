@@ -1,5 +1,7 @@
 package com.javalec.function;
 
+import java.io.InputStream;
+
 public class Bean {
 
 	String userid;
@@ -21,16 +23,16 @@ public class Bean {
 //	String	documentcontent;
 //	String	commentcontent;
 //	String	querycontent;
-	String name;
 //	String	clothname;
+	String name;
 	String title; //
+	String	clothtype;
 //	String	answercontent;
 //	String	documenttitle;
 //	String	querytitle;
 	String	addtime;
 	String	blindtime;
-	String	clothtype;
-	String	clothimage;
+	InputStream	clothimage;
 	int	likecount;
 	int	documenttype;
 	String	liketime;
@@ -47,6 +49,17 @@ public class Bean {
 		super();
 		this.tablePK = tablePK;
 		this.content = content;
+	}
+	public Bean(int tablePK, String title, String content, InputStream clothimage, String addtime, String blindtime,
+			 String user_userid) {
+		super();
+		this.tablePK = tablePK;
+		this.title = title;
+		this.content = content;
+		this.clothimage = clothimage;
+		this.addtime = addtime;
+		this.blindtime = blindtime;
+		User_userid = user_userid;
 	}
 	public Bean(int tablePK, String title, String addtime, String username) {
 		super();
@@ -135,10 +148,11 @@ public class Bean {
 	public void setClothtype(String clothtype) {
 		this.clothtype = clothtype;
 	}
-	public String getClothimage() {
+	
+	public InputStream getClothimage() {
 		return clothimage;
 	}
-	public void setClothimage(String clothimage) {
+	public void setClothimage(InputStream clothimage) {
 		this.clothimage = clothimage;
 	}
 	public int getLikecount() {

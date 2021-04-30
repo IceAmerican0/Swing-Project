@@ -1,12 +1,18 @@
 package com.javalec.admin;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
@@ -55,7 +61,53 @@ import com.javalec.function.ShareVar;
 	        }
 			return BeanList;
 		} 
-		
+		public ArrayList<Bean> ClothList(String WhereCheck){
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid"
+					+ " from cloth"
+					+ WhereCheck;
+//			System.out.println(WhereDefault);
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+	            while(rs.next()){
+	            	
+	            	int wktablePK = rs.getInt(1);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
+	            	
+			        String wkaddtime = rs.getString(5);
+			        String wkblindtime = rs.getString(6);
+			        String wkusername = rs.getString(7);
+	            	//image처리
+			        ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	InputStream wkclothimage = rs.getBinaryStream(4);
+	                byte[] buffer = new byte[1024];
+	                while (wkclothimage.read(buffer) > 0) {
+	                    output.write(buffer);
+	                }
+			        
+			        
+	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkusername);
+	            	BeanList.add(bean);
+	            }
+	            rs.close ();
+	            stmt_mysql.close ();
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+		} 
 		public boolean InsertQueryComment(String adminComment, int seq) {
 			PreparedStatement ps = null;
 			try{
@@ -161,10 +213,10 @@ import com.javalec.function.ShareVar;
 			  return true;
 		}
 
-		public ArrayList<Bean> ConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
+		public ArrayList<Bean> UserConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select userid, username, useremail, useraddtime, userblindtime, admin from user ";
+			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid from user ";
 			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
 //			System.out.println(WhereDefault+WhereDefault2);
 	        try{
@@ -176,14 +228,25 @@ import com.javalec.function.ShareVar;
 
 	            while(rs.next()){
 	            	
-	            	String wktablePK = rs.getString(1);
-	            	String wkname = rs.getString(2);
-			        String wkemail = rs.getString(3);
-			        String wkuseraddtime = rs.getString(4);
-			        String wkuserblindtime = rs.getString(5);
-			        int wkadmincheck = rs.getInt(6);
+	            	int wktablePK = rs.getInt(1);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
 	            	
-	            	Bean bean = new Bean(wktablePK, wkname, wkemail, wkuseraddtime, wkuserblindtime, wkadmincheck);
+			        String wkaddtime = rs.getString(5);
+			        String wkblindtime = rs.getString(6);
+			        String wkusername = rs.getString(7);
+	            	//image처리
+			        ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	InputStream wkclothimage = rs.getBinaryStream(4);
+	                byte[] buffer = new byte[1024];
+	                while (wkclothimage.read(buffer) > 0) {
+	                    output.write(buffer);
+	                }
+			        
+			        
+	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkusername);
 	            	BeanList.add(bean);
 	            }
 	            
@@ -194,7 +257,40 @@ import com.javalec.function.ShareVar;
 	        }
 			return BeanList;
 		}
-		public String blindcheck(String tablePK) {
+		public ArrayList<Bean> ClothConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select Clothid, Clothname, Clothemail, addtime, blindtime, admin from user ";
+			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
+//			System.out.println(WhereDefault+WhereDefault2);
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+				
+				while(rs.next()){
+					
+					String wktablePK = rs.getString(1);
+					String wkname = rs.getString(2);
+					String wkemail = rs.getString(3);
+					String wkuseraddtime = rs.getString(4);
+					String wkuserblindtime = rs.getString(5);
+					int wkadmincheck = rs.getInt(6);
+					
+					Bean bean = new Bean(wktablePK, wkname, wkemail, wkuseraddtime, wkuserblindtime, wkadmincheck);
+					BeanList.add(bean);
+				}
+				
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return BeanList;
+		}
+		public String UserBlindCheck(String tablePK) {
 			String userid = null;
 			PreparedStatement ps = null;
 			//정상사용자인 경우에만 값이 나옴
@@ -218,7 +314,7 @@ import com.javalec.function.ShareVar;
 			}
 		return userid;
 		}
-		public boolean UpdateBlindtime(String tkSequence, int i) {
+		public boolean UpdateUserBlindtime(String tkSequence, int i) {
 			//공지와 일반게시물 같이사용 가능
 			
 			PreparedStatement ps = null;
