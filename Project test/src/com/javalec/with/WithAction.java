@@ -258,13 +258,13 @@ import com.javalec.function.ShareVar;
 				int wkSeq = rs.getInt(1);
 				String wkTitle = rs.getString(2);
 				String wkContent = rs.getString(3);
-				String wkTime = rs.getString(4);
+				String wkaddime = rs.getString(4);
 				String wkusername = rs.getString(5);
 				String wkuserid = rs.getString(6);
 				int wkadmin = rs.getInt(7);
 //				System.out.println(wkuserid+wkadmin);
 //		            	
-				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime, wkusername, wkuserid, wkadmin);
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkaddime, wkusername, wkuserid, wkadmin);
 				
 			}
 			conn_mysql.close();

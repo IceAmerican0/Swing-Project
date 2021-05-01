@@ -61,6 +61,16 @@ public class Bean {
 		this.blindtime = blindtime;
 		this.clothimage = clothimage;
 	}
+	public Bean(int tablePK, String title, String content,String username, String user_userid, String addtime, int admin) {
+		super();
+		this.tablePK = tablePK;
+		this.title = title;
+		this.content = content;
+		this.username = username;
+		this.User_userid = user_userid;
+		this.addtime = addtime;
+		this.admin = admin;
+	}
 	public Bean(int tablePK, String title, String content, InputStream clothimage, String addtime, String blindtime,
 			 String user_userid) {
 		super();
@@ -79,9 +89,6 @@ public class Bean {
 		this.username = username;
 		this.addtime = addtime;
 	}
-	//----------------------------------------------------------------------------
-	
-	
 	public Bean(int tablePK, String title, String content, String addtime, String username) {
 		super();
 		this.tablePK = tablePK;
@@ -113,9 +120,9 @@ public class Bean {
 	public Bean(String content, String User_userid) {
 		//1:1 문의 본인 댓글 확인
 		this.content = content;
-		this.User_userid = User_userid;
-		
+		this.User_userid = User_userid;	
 	}
+	//----------------------------------------------------------------------------
 	public String getTitle() {
 		return title;
 	}

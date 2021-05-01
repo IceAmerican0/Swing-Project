@@ -149,6 +149,7 @@ public  class UpdateClothDB {
 		if (Inner_Table_cth == null) {
 			Inner_Table_cth = new JTable();
 			Inner_Table_cth.setModel(Outer_Table_cth);
+			Inner_Table_cth.isCellEditable(0, 100);
 			Inner_Table_cth.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {

@@ -288,7 +288,7 @@ public  class UpdateDocumentDB extends JFrame {
 			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 				}
 			}else {
-				
+			
 			}
 		}if (documentid != null) {
 			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
