@@ -99,6 +99,7 @@ public class Bean {
 		this.username = username;
 		this.userid = userid;
 		this.admin = admin;
+		//UpdateDocumentDB 같이 사용
 	}
 	public Bean(String userid, String username, String useremail, String useraddtime, String userblindtime, int admin) {
 		super();

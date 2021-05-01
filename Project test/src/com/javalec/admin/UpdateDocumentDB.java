@@ -206,10 +206,10 @@ public  class UpdateDocumentDB extends JFrame {
         Outer_Table_dc.addColumn("seq");
         Outer_Table_dc.addColumn("제목");
         Outer_Table_dc.addColumn("내용");
+        Outer_Table_dc.addColumn("Imageid");
         Outer_Table_dc.addColumn("작성자");
         Outer_Table_dc.addColumn("작성날짜");
         Outer_Table_dc.addColumn("정지날짜");
-        Outer_Table_dc.addColumn("");
         Outer_Table_dc.setColumnCount(7);
 
         for(int j = 0 ; j < i ; j++){
@@ -223,17 +223,14 @@ public  class UpdateDocumentDB extends JFrame {
         TableColumn col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
         int width = 100;
         col.setPreferredWidth(width);
-
         vColIndex = 1;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
-
         vColIndex = 2;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
         width = 300;
         col.setPreferredWidth(width);
-
         vColIndex = 3;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
         width = 100;
@@ -250,6 +247,7 @@ public  class UpdateDocumentDB extends JFrame {
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
+       
 
 
 	}
@@ -260,7 +258,8 @@ public  class UpdateDocumentDB extends JFrame {
 		int listCount = beanList.size();
 		for (int index = 0; index < listCount; index++) {
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),beanList.get(index).getUser_userid(),beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(), "file"};
+			String temp2 = Integer.toString(beanList.get(index).getAdmin()); //imageid
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUser_userid(),beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_dc.addRow(qTxt);
 		}
 
@@ -315,10 +314,10 @@ public  class UpdateDocumentDB extends JFrame {
 	private void ScreenPartition() {
 		String WhereCheck = "";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not documentblindtime is null ";
+			WhereCheck = " and not blindtime is null ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where documentblindtime is null ";
+			WhereCheck = " and blindtime is null ";
 		}
 		TableInit();
 		SearchAction(WhereCheck);
@@ -331,20 +330,20 @@ public  class UpdateDocumentDB extends JFrame {
 			ConditionQueryColumn = "documentid";
 			break;
 		case 1:
-			ConditionQueryColumn = "documentname";
+			ConditionQueryColumn = "documenttitle";
 			break;
 		case 2:
-			ConditionQueryColumn = "documentemail";
+			ConditionQueryColumn = "documentcontent";
 			break;
 		default:
 			break;
 		}
-		String WhereCheck = " where ";
+		String WhereCheck = " and ";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not documentblindtime is null and ";
+			WhereCheck = " and not blindtime is null";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where documentblindtime is null and ";
+			WhereCheck = " and blindtime is null";
 		}
 		
 		TableInit();
