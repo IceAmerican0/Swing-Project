@@ -291,11 +291,11 @@ public  class UpdateDocumentDB extends JFrame {
 				
 			}
 		}if (documentid != null) {
-			int result = JOptionPane.showConfirmDialog(null, "해당 사용자를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION) {
 				boolean aaa = adminAction.UpdateDocumentBlindtime(tkSequence, 0);
 				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "사용자가 차단되었습니다!");
+			          JOptionPane.showMessageDialog(null, "게시글이 차단되었습니다!");
 			          TableInit();
 						ScreenPartition();
 			          

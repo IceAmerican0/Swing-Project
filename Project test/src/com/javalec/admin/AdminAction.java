@@ -343,9 +343,9 @@ import com.javalec.function.ShareVar;
 			String userid = null;
 			PreparedStatement ps = null;
 			//정상사용자인 경우에만 값이 나옴
-			String WhereDefault = "select clothid"
-					+ " from cloth "
-					+ " where blindtime is null and clothid = '" + tablePK +"'";
+			String WhereDefault = "select documentid"
+					+ " from document "
+					+ " where blindtime is null and ducumentid = '" + tablePK +"'";
 //			System.out.println(WhereDefault);
 			try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -431,10 +431,10 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				if (i == 0) {
-					A = "UPDATE cloth SET blindtime = now() where clothid = '"+tkSequence+"'";		        	  
+					A = "UPDATE ducument SET blindtime = now() where ducumentid = '"+tkSequence+"'";		        	  
 				}
 				if (i == 1) {
-					A = "UPDATE cloth SET blindtime = null WHERE clothid = '"+tkSequence+"'";		        	  		        	  
+					A = "UPDATE ducument SET blindtime = null WHERE ducumentid = '"+tkSequence+"'";		        	  		        	  
 				}
 				ps = conn_mysql.prepareStatement(A);
 				
