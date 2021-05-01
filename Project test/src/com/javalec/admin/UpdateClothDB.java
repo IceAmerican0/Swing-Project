@@ -79,7 +79,8 @@ public  class UpdateClothDB {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				TableInit();
-				ScreenPartition();
+				ConditionQuery();
+//				ScreenPartition();
 			}
 		});
 		frame.setBounds(100, 100, 928, 568);
@@ -134,7 +135,12 @@ public  class UpdateClothDB {
 	private JComboBox getCbtitle_cth() {
 		if (cbtitle_cth == null) {
 			cbtitle_cth = new JComboBox();
-			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
+			cbtitle_cth.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ConditionQuery();
+				}
+			});
+			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
 			cbtitle_cth.setBounds(531, 16, 98, 27);
 		}
 		return cbtitle_cth;
@@ -166,7 +172,7 @@ public  class UpdateClothDB {
 			rdbtnAll.setSelected(true);
 			rdbtnAll.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnAll);
@@ -179,7 +185,7 @@ public  class UpdateClothDB {
 			rdbtnBlocked = new JRadioButton("Blocked");
 			rdbtnBlocked.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnBlocked);
@@ -192,7 +198,8 @@ public  class UpdateClothDB {
 			rdbtnCommon = new JRadioButton("Normal");
 			rdbtnCommon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+//					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnCommon);
@@ -284,7 +291,8 @@ public  class UpdateClothDB {
 				if(aaa == true){
 			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
 			          TableInit();
-						ScreenPartition();
+//						ScreenPartition();
+			          ConditionQuery();
 				}else{
 			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 				}
@@ -298,8 +306,8 @@ public  class UpdateClothDB {
 				if(aaa == true){
 			          JOptionPane.showMessageDialog(null, "데이터가 차단되었습니다!");
 			          TableInit();
-						ScreenPartition();
-			          
+//						ScreenPartition();
+			          ConditionQuery();
 				}else{
 			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 				}
@@ -312,51 +320,63 @@ public  class UpdateClothDB {
 
 	}
 	
-	private void ScreenPartition() {
-		String WhereCheck = "";
-		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not blindtime is null ";
-			
-		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where blindtime is null ";
-		}
-		TableInit();
-		SearchAction(WhereCheck);
-	}
+//	private void ScreenPartition() {
+//		String WhereCheck = "";
+//		if (rdbtnAll.isSelected()) {
+//			
+//		}
+//		if (rdbtnBlocked.isSelected()) {
+//			WhereCheck = " where not blindtime is null ";
+//			
+//		}if (rdbtnCommon.isSelected()) {
+//			WhereCheck = " where blindtime is null ";
+//		}
+//		TableInit();
+//		SearchAction(WhereCheck);
+//	}
 	private void ConditionQuery() {
 		int i = cbtitle_cth.getSelectedIndex();
 		String ConditionQueryColumn = "";
 		switch (i) {
 		case 0:
-			ConditionQueryColumn = "'상의'";
+			ConditionQueryColumn = "";
 			break;
 		case 1:
-			ConditionQueryColumn = "'하의'";
+			ConditionQueryColumn = " clothtype = '상의' and";
 			break;
 		case 2:
-			ConditionQueryColumn = "'모자'";
+			ConditionQueryColumn = " clothtype = '하의' and";
 			break;
 		case 3:
-			ConditionQueryColumn = "'신발'";
+			ConditionQueryColumn = " clothtype = '모자' and";
 			break;
 		case 4:
-			ConditionQueryColumn = "'가방'";
+			ConditionQueryColumn = " clothtype = '신발' and";
 			break;
 		case 5:
-			ConditionQueryColumn = "'원피스'";
+			ConditionQueryColumn = " clothtype = '가방'and";
 			break;
 		case 6:
-			ConditionQueryColumn = "'아우터'";
+			ConditionQueryColumn = " clothtype = '원피스' and";
+			break;
+		case 7:
+			ConditionQueryColumn = " clothtype = '아우터' and";
 			break;
 		default:
 			break;
 		}
-		String WhereCheck = " where clothtype = ";
+		String WhereCheck = "";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not blindtime is null and clothtype = ";
+			WhereCheck = " where not blindtime is null and";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where blindtime is null and clothtype = ";
+			WhereCheck = " where blindtime is null and";
+		}if (rdbtnAll.isSelected()) {
+			WhereCheck = "where";
+		}
+		if (rdbtnAll.isSelected() && ConditionQueryColumn == "") {
+			WhereCheck = "";
+			ConditionQueryColumn = "where ";
 		}
 		
 		TableInit();

@@ -50,6 +50,17 @@ public class Bean {
 		this.tablePK = tablePK;
 		this.content = content;
 	}
+	public Bean(int tablePK, String title, String content, String user_userid, String addtime, String blindtime,
+			InputStream clothimage) {
+		super();
+		this.tablePK = tablePK;
+		this.title = title;
+		this.content = content;
+		this.User_userid = user_userid;
+		this.addtime = addtime;
+		this.blindtime = blindtime;
+		this.clothimage = clothimage;
+	}
 	public Bean(int tablePK, String title, String content, InputStream clothimage, String addtime, String blindtime,
 			 String user_userid) {
 		super();
@@ -59,7 +70,7 @@ public class Bean {
 		this.clothimage = clothimage;
 		this.addtime = addtime;
 		this.blindtime = blindtime;
-		User_userid = user_userid;
+		this.User_userid = user_userid;
 	}
 	public Bean(int tablePK, String title, String addtime, String username) {
 		super();

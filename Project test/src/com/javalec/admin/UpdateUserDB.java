@@ -32,7 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-public  class UpdateUserDB {
+public  class UpdateUserDB extends JFrame {
 
 	private final DefaultTableModel Outer_Table_mb = new DefaultTableModel();
 	private JFrame frame;
