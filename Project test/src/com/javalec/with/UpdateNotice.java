@@ -291,11 +291,13 @@ public class UpdateNotice {
        
 	}
 	private void AdiminCheck() {
-		if (ShareVar.admincheck == 1) {
+		WithAction withAction = new WithAction();
+		String checkid = withAction.WriterCheck(ShareVar.seqIndex, 1);
+		if (ShareVar.admincheck == 1 && ShareVar.nowId.equals(checkid)) {
 			btnDelete.setVisible(true);
 			btnUpdate.setVisible(true);
 		}
-		if (ShareVar.admincheck == 2) {
+		if (ShareVar.admincheck == 0) {
 		}
 
 	}

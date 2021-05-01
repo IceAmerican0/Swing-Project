@@ -79,6 +79,16 @@ public class Bean {
 		this.addtime = addtime;
 		this.username = username;
 	}
+	public Bean(int tablePK, String title, String content, String addtime, String username, String userid, int admin) {
+		super();
+		this.tablePK = tablePK;
+		this.title = title;
+		this.content = content;
+		this.addtime = addtime;
+		this.username = username;
+		this.userid = userid;
+		this.admin = admin;
+	}
 	public Bean(String userid, String username, String useremail, String useraddtime, String userblindtime, int admin) {
 		super();
 		this.userid = userid;
@@ -87,6 +97,12 @@ public class Bean {
 		this.useraddtime = useraddtime;
 		this.userblindtime = userblindtime;
 		this.admin = admin;
+	}
+	public Bean(String content, String User_userid) {
+		//1:1 문의 본인 댓글 확인
+		this.content = content;
+		this.User_userid = User_userid;
+		
 	}
 	public String getTitle() {
 		return title;

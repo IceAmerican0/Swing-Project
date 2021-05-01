@@ -240,7 +240,7 @@ import com.javalec.function.ShareVar;
 	public Bean QueryTableClick() {
 		Bean bean = null;
 		
-		String WhereDefault = "select q.queryid, q.querytitle, q.querycontent, q.addtime, u.username"
+		String WhereDefault = "select q.queryid, q.querytitle, q.querycontent, q.addtime, u.username, q.User_userid, u.admin "
 				+ " from query as q inner join user as u on q.user_userid = u.userid";
 		String WhereDefault2 = " where queryid = " + seq;
 		
@@ -260,9 +260,11 @@ import com.javalec.function.ShareVar;
 				String wkContent = rs.getString(3);
 				String wkTime = rs.getString(4);
 				String wkusername = rs.getString(5);
-				
+				String wkuserid = rs.getString(6);
+				int wkadmin = rs.getInt(7);
+//				System.out.println(wkuserid+wkadmin);
 //		            	
-				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime, wkusername);
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkTime, wkusername, wkuserid, wkadmin);
 				
 			}
 			conn_mysql.close();
@@ -310,9 +312,9 @@ import com.javalec.function.ShareVar;
 		return BeanList;
 	}
 	//댓글 클릭시
-	public String AnswerClick() {
-		String str = null;
-		String WhereDefault = "select answercontent from answer ";
+	public Bean AnswerClick(int seq) {
+		Bean bean  = null;
+		String WhereDefault = "select answercontent, User_userid from answer ";
 		String WhereDefault2 = "where answerid = " + seq;
 		
 		try{
@@ -324,15 +326,16 @@ import com.javalec.function.ShareVar;
 	
 			if(rs.next()){
 				String wkcontent = rs.getString(1);
-				str = wkcontent;
+				String wkUser_userid = rs.getString(2);
 				
-			}
+				bean = new Bean(wkcontent, wkUser_userid);
+			} 
 			conn_mysql.close();
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
-		return str;
+		return bean;
 	}
 //-----------------------------------------QUERY&ANSWER---------------------------------------------------
 	
@@ -499,7 +502,7 @@ import com.javalec.function.ShareVar;
 	          @SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 	
-	          String A = "UPDATE Answer SET blindtime = now() where answerid = ? ;";
+	          String A = "UPDATE Answer SET blindtime = now() where answerid = ? ";
 	
 	          ps = conn_mysql.prepareStatement(A);
 	          
@@ -513,6 +516,33 @@ import com.javalec.function.ShareVar;
 	      }
 	      return true;
 		}
+	//공지사항 작성자 체크
+	public String WriterCheck(int seqIndex, int documenttype) {
+		 String result = null;
+		 String A = "SELECT User_userid FROM document WHERE documentid = "+seqIndex+ " and documenttype = "+documenttype;
+	      try{
+	          Class.forName("com.mysql.cj.jdbc.Driver");
+	          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	          @SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+	
+	
+	          ResultSet rs = stmt_mysql.executeQuery(A);
+	          
+	          if(rs.next()){
+	            	String wkuserid = rs.getString(1);
+	            	
+	            	result = wkuserid;
+	            }
+	
+	          conn_mysql.close();
+	      } catch (Exception e){
+	          e.printStackTrace();
+	    
+	      }
+	      return result;
+		
+	}
 	
 	
 	}

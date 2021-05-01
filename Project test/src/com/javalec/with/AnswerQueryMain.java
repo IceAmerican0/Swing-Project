@@ -93,7 +93,6 @@ public class AnswerQueryMain {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				AdminCheck();
 				TableInit();
 				SearchAction();
 			}
@@ -367,6 +366,8 @@ public class AnswerQueryMain {
         taQuery.setText(bean.getContent());
         tfAddtime.setText(bean.getAddtime());
         tfUsername.setText(bean.getUsername());
+//        System.out.println(bean.getUserid()+ bean.getAdmin());
+        AdminCheck(bean.getUserid(), bean.getAdmin());
 //------------------------------------------------------------------------------
 		ArrayList<Bean> beanList = withAction.AnswerList(ShareVar.seqIndex);
 		
@@ -382,33 +383,27 @@ public class AnswerQueryMain {
 		  int i = Inner_Table.getSelectedRow();
 	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
 	        int seq = Integer.parseInt(tkSeq);
-	        WithAction withAction = new WithAction(seq);
-	        
-	        String Answer = withAction.AnswerClick();
-	        taAnswer.setText(Answer);
+	        WithAction withAction = new WithAction();
+	        Bean bean = withAction.AnswerClick(seq);
 	        if (ShareVar.admincheck == 1) {
-				//관리자
-				btnUpdate.setText("댓글수정");
-				btnDelete.setText("댓글삭제");
-				btnDelete.setVisible(true);
-			}
+	        	System.out.println(ShareVar.nowId + bean.getUser_userid());
+	        	if(ShareVar.nowId.equals(bean.getUser_userid())) {	
+	        		//관리자
+	        		btnUpdate.setText("댓글수정");
+	        		btnDelete.setText("댓글삭제");
+	        		btnDelete.setVisible(true);
+	        		taAnswer.setText(bean.getContent());
+	        	}else {
+	        		btnDelete.setVisible(false);
+	        	}
+	        }
+	        taAnswer.setText(bean.getContent());
 	}
 
-	private void AdminCheck() {
-		if (ShareVar.admincheck == 1) {
-			//관리자
-			btnUpdate.setVisible(true);
-			btnDelete.setVisible(false);
-			taAnswer.setEditable(false);
-			taQuery.setEditable(false);
-			tfTitle.setEditable(false);
-			tfTablePK.setEditable(false);
-			tfAddtime.setEditable(false);
-			tfUsername.setEditable(false);
-			btnDelete.setText("댓글삭제");
-			btnUpdate.setText("댓글작성");
-		}if (ShareVar.admincheck == 0) {
-			if(ShareVar.userName == tfUsername.getText()) {
+	private void AdminCheck(String userid, int admin) {
+//		System.out.println(userid+admin+ShareVar.nowId);
+		if (ShareVar.admincheck == 0 || admin == 0) {
+			if(ShareVar.nowId.equals(userid)) {
 				//작성유저
 				btnUpdate.setVisible(true);
 				btnDelete.setVisible(false);
@@ -421,7 +416,20 @@ public class AnswerQueryMain {
 				btnDelete.setText("문의삭제");
 				btnUpdate.setText("문의수정");
 			}
-		}
+		}if(ShareVar.admincheck == 1 || admin == 1) {
+			//관리자
+			btnUpdate.setVisible(true);
+			btnDelete.setVisible(false);
+			taAnswer.setEditable(false);
+			taQuery.setEditable(false);
+			tfTitle.setEditable(false);
+			tfTablePK.setEditable(false);
+			tfAddtime.setEditable(false);
+			tfUsername.setEditable(false);
+			btnDelete.setText("댓글삭제");
+			btnUpdate.setText("댓글작성");
+			}
+		
 	
 	}
 	private void FieldCheck() {
@@ -460,7 +468,9 @@ public class AnswerQueryMain {
 		}
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "입력 되었습니다!");
-	          AdminCheck();
+	          TableInit();
+	          SearchAction();
+	          taAnswer.setText("");
 
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
@@ -473,7 +483,8 @@ public class AnswerQueryMain {
 		boolean aaa = withAction.UpdateQuery(Title,query, seqno);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "문의 내용이 수정 되었습니다!");  
-	          AdminCheck();
+	          TableInit();
+	          SearchAction();
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
