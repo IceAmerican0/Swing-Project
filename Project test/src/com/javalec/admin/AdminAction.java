@@ -345,7 +345,8 @@ import com.javalec.function.ShareVar;
 			//정상사용자인 경우에만 값이 나옴
 			String WhereDefault = "select documentid"
 					+ " from document "
-					+ " where blindtime is null and ducumentid = '" + tablePK +"'";
+					+ " where blindtime is null and documentid = '" + tablePK +"'";
+			System.out.println(WhereDefault);
 //			System.out.println(WhereDefault);
 			try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -431,13 +432,13 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				if (i == 0) {
-					A = "UPDATE ducument SET blindtime = now() where ducumentid = '"+tkSequence+"'";		        	  
+					A = "UPDATE document SET blindtime = now() where documentid = '"+tkSequence+"'";		        	  
 				}
 				if (i == 1) {
-					A = "UPDATE ducument SET blindtime = null WHERE ducumentid = '"+tkSequence+"'";		        	  		        	  
+					A = "UPDATE document SET blindtime = null WHERE documentid = '"+tkSequence+"'";		        	  		        	  
 				}
 				ps = conn_mysql.prepareStatement(A);
-				
+				System.out.println(A);
 				
 				ps.executeUpdate();
 				
