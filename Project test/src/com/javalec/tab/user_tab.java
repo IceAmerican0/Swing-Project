@@ -2,6 +2,7 @@ package com.javalec.tab;
 
 import java.awt.EventQueue	;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -16,12 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.javalec.admin.AnswerQueryInsert;
 import com.javalec.admin.InsertNotice;
 import com.javalec.function.ShareVar;
 import com.javalec.login.Login;
 import com.javalec.user.InsertCloth;
 import com.javalec.user.InsertDocument;
 import com.javalec.user.InsertQuery;
+import com.javalec.user.ReadImage;
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,10 +33,12 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.JInternalFrame;
@@ -43,6 +48,7 @@ import java.awt.Canvas;
 import javax.swing.JScrollBar;
 import java.awt.FlowLayout;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Scrollable;
 import javax.swing.JDesktopPane;
 
 public class user_tab {
@@ -68,7 +74,6 @@ public class user_tab {
 	private JTable table_iq;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTable table;
 
 	//탭 전환하기 (2021.04.27 김민규)
 	public void switchPanels(JPanel panel) {
@@ -115,6 +120,7 @@ public class user_tab {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1200, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -125,6 +131,8 @@ public class user_tab {
 		layeredPane.setBounds(250, 63, 925, 537);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
+		
+		//마이프로필
 		
 		myprofile = new JPanel();
 		layeredPane.add(myprofile, "name_10014477907462");
@@ -220,6 +228,9 @@ public class user_tab {
 		btnBrowse.setBounds(85, 225, 117, 29);
 		myprofile.add(btnBrowse);
 		
+		
+		//베스트아이템
+		
 		bestitem = new JPanel();
 		layeredPane.add(bestitem, "name_10025409858196");
 		bestitem.setLayout(null);
@@ -246,9 +257,102 @@ public class user_tab {
 		btnLoad_nt_1_1.setBounds(854, 6, 65, 29);
 		bestitem.add(btnLoad_nt_1_1);
 		
+		
+		//모두의 옷장
+       
+        //여기서 시작
+
+        JPanel container = new ScrollablePanel();   									//스크롤페인 안에 컨테이너 생성해서 스크롤 만들기 
+        container.setLayout(new FlowLayout(FlowLayout.LEADING, 10, 10));                //요기까지
+////        container.setBounds(50,100,300,200);
+//        for( int i = 0; i < 30; ++i ) { // i만큼 라벨 생성 - 해당 부분을 이미지 데이터 수 만큼으로 변환하여야 함
+//        	
+//            JPanel panel = new JPanel();
+//            panel.setBorder(BorderFactory.createLineBorder(Color.RED));
+//            panel.setPreferredSize(new Dimension(200, 200));//panel 사이즈 = label 사이즈를 항상 맞출것
+//            panel.setLayout(null);
+//            
+//            JLabel lblLabel = new JLabel("" + i); 
+//            lblLabel.addMouseListener(new MouseAdapter() {
+//            	@Override
+//            	public void mouseClicked(MouseEvent e) {
+//    				ReadImage.main(null);
+//            	}
+//            });
+//            lblLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//            lblLabel.setBounds(0, 0, 200, 200); //panel 사이즈 = label 사이즈를 항상 맞출것
+//            panel.add(lblLabel);
+//
+//            container.add(panel);
+//       
+//
+//        JScrollPane scroll = new JScrollPane(container);
+//        scroll.setBounds(0, 0, 500, 478);
+//
+//        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//
+////        JFrame frame = new JFrame("왜 안되는거지?");
+////        frame.setMinimumSize(new Dimension(900, 500)); // 갤러리 화면 사이즈 
+////        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                    
+////        f.getContentPane().setLayout(null);
+////        frame.getContentPane().add(scroll);
+////        frame.pack();
+////        frame.setSize(257, 26);
+////        frame.setLocationRelativeTo(null);
+////        frame.setVisible(true);
+////        
+//        }
+//
+//
+//
+//		class ScrollablePanel extends JPanel implements Scrollable {
+//		public Dimension getPreferredSize() {
+//		return getPreferredScrollableViewportSize();
+//		}
+//		
+//		public Dimension getPreferredScrollableViewportSize() {
+//		if( getParent() == null )
+//		    return getSize();
+//		Dimension d = getParent().getSize();
+//		int c = (int)Math.floor((d.width - getInsets().left - getInsets().right) / 100.0);
+//		if( c == 0 )
+//		    return d;
+//		int r = 20 / c;             // 이건 무슨뜻인지잘 모르겠음.
+//		if( r * c < 20 )			// 이건 무슨뜻인지잘 모르겠음.
+//		    ++r;
+//		return new Dimension(c * 50, r * 600);//r 은 사이즈 500이상 할것
+//		}
+//		
+//		public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+//		return 50;
+//		}
+//		
+//		public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+//		return 10;
+//		}
+//		
+//		public boolean getScrollableTracksViewportHeight() {
+//		return false;
+//		}
+//		
+//		public boolean getScrollableTracksViewportWidth() {
+//		return getParent() != null ? getParent().getSize().width > getPreferredSize().width : true;
+//		}
+//	}
+//		        
+//        
+//        // 여기서 종료
+
+		
 		allcloset = new JPanel();
 		layeredPane.add(allcloset, "name_10028148525053");
 		allcloset.setLayout(null);
+		
+		
+		
+		
+		
 		
 		JLabel lblNewLabel_2 = new JLabel("모두의 옷장");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -278,15 +382,18 @@ public class user_tab {
 		btnLoad_nt_1.setBounds(737, 6, 65, 29);
 		allcloset.add(btnLoad_nt_1);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		// --- 스크롤페인 안에 스크롤생성
+		
+		JScrollPane scrollPane = new JScrollPane(container);
+		container.setLayout(null);
 		scrollPane.setBounds(6, 45, 913, 486);
 		allcloset.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//--- 여기까지
 		
-		
-		
+		//나의 옷장
 		
 		
 		mycloset = new JPanel();
@@ -316,6 +423,8 @@ public class user_tab {
 		btnNewButton_3.setBounds(218, 11, 75, 29);
 		mycloset.add(btnNewButton_3);
 		
+		//나의옷장-옷장
+		
 		inmycloset = new JLayeredPane();
 		inmycloset.setBounds(48, 79, 751, 428);
 		mycloset.add(inmycloset);
@@ -333,6 +442,8 @@ public class user_tab {
 		});
 		btnNewButton_2_1.setBounds(6, 6, 98, 29);
 		in_mycloset.add(btnNewButton_2_1);
+		
+		//나의 옷장-프리셋
 		
 		in_mypreset = new JPanel();
 		inmycloset.add(in_mypreset, "name_83833397636156");
@@ -548,6 +659,9 @@ public class user_tab {
 		lblbag.setBounds(543, 170, 100, 100);
 		in_mypreset.add(lblbag);
 		
+		
+		//공지사항
+		
 		notice = new JPanel();
 		layeredPane.add(notice, "name_10033259740421");
 		notice.setLayout(null);
@@ -577,6 +691,8 @@ public class user_tab {
 		JButton btnLoad_nt = new JButton("검색");
 		btnLoad_nt.setBounds(854, 6, 65, 29);
 		notice.add(btnLoad_nt);
+		
+		//1:1문의
 		
 		inquiry = new JPanel();
 		layeredPane.add(inquiry, "name_10036677548749");
@@ -615,6 +731,8 @@ public class user_tab {
 		});
 		btnWrite_iq.setBounds(854, 4, 65, 29);
 		inquiry.add(btnWrite_iq);
+		
+		//버튼으로 탭전환- switchPanels 사용
 		
 		JButton btnmyProfile = new JButton("내 프로필");
 		btnmyProfile.addActionListener(new ActionListener() {

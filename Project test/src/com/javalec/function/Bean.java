@@ -186,5 +186,6 @@ public class Bean {
 	public void setUserimage(String userimage) {
 		this.userimage = userimage;
 	}
+
 	
 }
