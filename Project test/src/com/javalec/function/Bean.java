@@ -61,7 +61,7 @@ public class Bean {
 		this.blindtime = blindtime;
 		this.clothimage = clothimage;
 	}
-	public Bean(int tablePK, String title, String content,String username, String user_userid, String addtime, int admin) {
+	public Bean(int tablePK, String title, String content, String addtime,String username, String user_userid, int admin) {
 		super();
 		this.tablePK = tablePK;
 		this.title = title;

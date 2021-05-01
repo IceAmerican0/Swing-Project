@@ -14,6 +14,7 @@ public class ShareVar {
 	public static int filename;
 	public static String IDIndex;
 	public static int seqIndex;
+	public static int commentIndex; //게시글 내 댓글 코멘트 불러오기용
 	public static int admincheck = 1;
 	
 }

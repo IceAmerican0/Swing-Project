@@ -501,12 +501,11 @@ import com.javalec.function.ShareVar;
 	          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	          @SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
-	
-	          String A = "UPDATE Answer SET blindtime = now() where answerid = ? ";
+	          String A = "UPDATE Answer SET blindtime = now() where answerid = "+answerid;
+	          System.out.println(A);
 	
 	          ps = conn_mysql.prepareStatement(A);
 	          
-	          ps.setInt(1, answerid);
 	          ps.executeUpdate();
 	
 	          conn_mysql.close();

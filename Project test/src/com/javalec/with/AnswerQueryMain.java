@@ -59,7 +59,6 @@ public class AnswerQueryMain {
 	private JButton btnDelete;
 	private JTextField tfTablePK;
 	private JLabel lblseq;
-	int answerIndex;
 
 	/**
 	 * Launch the application.
@@ -368,7 +367,7 @@ public class AnswerQueryMain {
         tfUsername.setText(bean.getUsername());
 //        System.out.println(bean.getUserid()+ bean.getAdmin());
         AdminCheck(bean.getUserid(), bean.getAdmin());
-//------------------------------------------------------------------------------
+	//---------------------------------------------
 		ArrayList<Bean> beanList = withAction.AnswerList(ShareVar.seqIndex);
 		
 		int listCount = beanList.size();
@@ -382,9 +381,9 @@ public class AnswerQueryMain {
 	private void TableClick() {
 		  int i = Inner_Table.getSelectedRow();
 	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
-	        int seq = Integer.parseInt(tkSeq);
+	        ShareVar.commentIndex = Integer.parseInt(tkSeq);
 	        WithAction withAction = new WithAction();
-	        Bean bean = withAction.AnswerClick(seq);
+	        Bean bean = withAction.AnswerClick(ShareVar.commentIndex);
 	        if (ShareVar.admincheck == 1) {
 	        	System.out.println(ShareVar.nowId + bean.getUser_userid());
 	        	if(ShareVar.nowId.equals(bean.getUser_userid())) {	
@@ -420,7 +419,7 @@ public class AnswerQueryMain {
 			//관리자
 			btnUpdate.setVisible(true);
 			btnDelete.setVisible(false);
-			taAnswer.setEditable(false);
+			taAnswer.setEditable(true);
 			taQuery.setEditable(false);
 			tfTitle.setEditable(false);
 			tfTablePK.setEditable(false);
@@ -457,11 +456,11 @@ public class AnswerQueryMain {
 		WithAction withAction = new WithAction();
 		
 		switch (btnUpdate.getText()) {
-		case "등록":
+		case "댓글작성":
 			aaa = withAction.InsertAnswer(Answer ,Integer.parseInt(tfTablePK.getText()));
 			break;
 		case "수정완료":
-			aaa = withAction.UpdateAnswer(Answer, answerIndex);
+			aaa = withAction.UpdateAnswer(Answer, ShareVar.seqIndex);
 			break;	
 		default:
 			break;
@@ -481,7 +480,7 @@ public class AnswerQueryMain {
 		WithAction withAction = new WithAction();
 		int seqno = Integer.parseInt(tfTablePK.getText());
 		boolean aaa = withAction.UpdateQuery(Title,query, seqno);
-		if(aaa == true){
+		if(aaa == true) {
 	          JOptionPane.showMessageDialog(null, "문의 내용이 수정 되었습니다!");  
 	          TableInit();
 	          SearchAction();
@@ -493,9 +492,6 @@ public class AnswerQueryMain {
 	private void BtnAction() {
 		switch (btnUpdate.getText()) {
 		case "댓글작성":
-			taAnswer.setEditable(true);
-			btnUpdate.setText("등록");
-			break;
 		case "등록":
 			FieldCheck();
 			break;
@@ -518,11 +514,13 @@ public class AnswerQueryMain {
 		}
 	}
 	private void DeleteAction() {
+		
+		
 		boolean aaa=null != null;
 		WithAction withAction = new WithAction();
 		switch (btnDelete.getText()) {
 		case "댓글삭제" :
-			aaa = withAction.DeleteAnswer(answerIndex);
+			aaa = withAction.DeleteAnswer(ShareVar.commentIndex);
 			break;
 		case "문의삭제" :
 			aaa = withAction.DeleteQuery(Integer.parseInt(tfTablePK.getText()));
@@ -532,8 +530,14 @@ public class AnswerQueryMain {
 		}
 			if(aaa == true){
 				JOptionPane.showMessageDialog(null, "삭제 되었습니다!");
-				if(btnDelete.getText()== "문의삭제" ) {
-					frame.dispose();		
+//				SearchAction();
+				if(btnDelete.getText()== "댓글삭제" ) {
+					TableInit();
+			          SearchAction();
+			          taAnswer.setText("");
+			          AdminCheck(null, 0);
+				}else {
+					frame.dispose();
 				}
 			}else{
 				JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
