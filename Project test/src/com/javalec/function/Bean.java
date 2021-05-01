@@ -90,16 +90,16 @@ public class Bean {
 		this.addtime = addtime;
 		this.username = username;
 	}
-	public Bean(int tablePK, String title, String content, String addtime, String username, String userid, int admin) {
+	public Bean(int tablePK, String title, String content, int admin, String userid, String addtime, String blindtime) {
 		super();
 		this.tablePK = tablePK;
 		this.title = title;
 		this.content = content;
-		this.addtime = addtime;
-		this.username = username;
-		this.userid = userid;
 		this.admin = admin;
 		//UpdateDocumentDB 같이 사용
+		this.userid = userid;
+		this.addtime = addtime;
+		this.blindtime = blindtime;
 	}
 	public Bean(String userid, String username, String useremail, String useraddtime, String userblindtime, int admin) {
 		super();

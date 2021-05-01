@@ -221,7 +221,7 @@ public  class UpdateDocumentDB extends JFrame {
 
         int vColIndex = 0;
         TableColumn col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
-        int width = 100;
+        int width = 60;
         col.setPreferredWidth(width);
         vColIndex = 1;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
@@ -233,7 +233,7 @@ public  class UpdateDocumentDB extends JFrame {
         col.setPreferredWidth(width);
         vColIndex = 3;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
-        width = 100;
+        width = 60;
         col.setPreferredWidth(width);
         vColIndex = 4;
         col = Inner_Table_dc.getColumnModel().getColumn(vColIndex);
@@ -259,7 +259,7 @@ public  class UpdateDocumentDB extends JFrame {
 		for (int index = 0; index < listCount; index++) {
 			String temp = Integer.toString(beanList.get(index).getTablePK());
 			String temp2 = Integer.toString(beanList.get(index).getAdmin()); //imageid
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_dc.addRow(qTxt);
 		}
 
@@ -358,7 +358,8 @@ public  class UpdateDocumentDB extends JFrame {
 		
 		for (int index = 0; index < listCount; index++) {
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),beanList.get(index).getUser_userid(),beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
+			String temp2 = Integer.toString(beanList.get(index).getAdmin()); 
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};			Outer_Table_dc.addRow(qTxt);
 			Outer_Table_dc.addRow(qTxt);
 		}
 

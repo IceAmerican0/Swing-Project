@@ -143,7 +143,7 @@ import com.javalec.function.ShareVar;
 //					}
 					
 					
-					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkuserid, wkaddtime, wkblindtime, wkcontentid);
+					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkcontentid, wkuserid, wkaddtime, wkblindtime);
 					BeanList.add(bean);
 				}
 				rs.close ();
@@ -249,7 +249,7 @@ import com.javalec.function.ShareVar;
 		public ArrayList<Bean> DocumentConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select documentid, documenttitle, documentcontent, User_userid, addtime, blindtime, Cloth_clothid"
+			String WhereDefault = "select documentid, documenttitle, documentcontent, Cloth_clothid, User_userid, addtime, blindtime"
 					+ " from document where documenttype = 0 ";
 			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
 			System.out.println(WhereDefault+WhereDefault2);
@@ -265,10 +265,10 @@ import com.javalec.function.ShareVar;
 	            	int wktablePK = rs.getInt(1);
 					String wktitle = rs.getString(2);
 					String wkcontent = rs.getString(3);
-					String wkuserid = rs.getString(4);
-					String wkaddtime = rs.getString(5);
-					String wkblindtime = rs.getString(6);
-					int wkcontentid = rs.getInt(7);
+					int wkcontentid = rs.getInt(4);
+					String wkuserid = rs.getString(5);
+					String wkaddtime = rs.getString(6);
+					String wkblindtime = rs.getString(7);
 //	            	//image처리
 //			        ShareVar.filename = ShareVar.filename + 1;
 //	            	File file = new File(Integer.toString(ShareVar.filename));
@@ -280,8 +280,8 @@ import com.javalec.function.ShareVar;
 //	                }
 			        
 			        
-					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkuserid, wkaddtime, wkblindtime, wkcontentid);
-	            	BeanList.add(bean);
+					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkcontentid, wkuserid, wkaddtime, wkblindtime);	            	BeanList.add(bean);
+					BeanList.add(bean);
 	            }
 	            
 	            conn_mysql.close();
