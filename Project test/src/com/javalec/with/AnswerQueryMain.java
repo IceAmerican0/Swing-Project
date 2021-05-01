@@ -532,7 +532,9 @@ public class AnswerQueryMain {
 		}
 			if(aaa == true){
 				JOptionPane.showMessageDialog(null, "삭제 되었습니다!");
-				frame.dispose();
+				if(btnDelete.getText()== "문의삭제" ) {
+					frame.dispose();		
+				}
 			}else{
 				JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 			}
