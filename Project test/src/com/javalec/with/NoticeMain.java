@@ -15,11 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.admin.InsertNotice;
-import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
-import com.javalec.user.ReadNotice;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;

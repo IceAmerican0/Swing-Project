@@ -16,6 +16,7 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.with.InsertNotice;
 import com.javalec.with.WithAction;
 
 import javax.swing.JScrollPane;

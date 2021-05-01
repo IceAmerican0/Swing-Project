@@ -1,3 +1,4 @@
+package com.javalec.function;
 import java.awt.EventQueue;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;

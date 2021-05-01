@@ -16,6 +16,7 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.with.InsertNotice;
 import com.javalec.with.WithAction;
 
 import javax.swing.JScrollPane;
@@ -235,7 +236,7 @@ public  class UpdateDocumentDB {
 
         vColIndex = 3;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 500;
+        width = 250;
         col.setPreferredWidth(width);
         vColIndex = 4;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
@@ -263,7 +264,7 @@ public  class UpdateDocumentDB {
 			String[] qTxt = {temp, beanList.get(index).getTitle(), beanList.get(index).getContent(),"filePath",beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(),beanList.get(index).getUser_userid()};
 			
 			Outer_Table_cth.addRow(qTxt);
-			Outer_Table_cth.addRow(lblLabeli);
+			
 			
 		}
 

@@ -1,4 +1,4 @@
-package com.javalec.admin;
+package com.javalec.with;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
-import com.javalec.with.WithAction;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -243,8 +242,8 @@ public class AnswerQueryInsert {
 		// TODO Auto-generated method stub
 		String comment = textAreaAdmin.getText();
 		ShareVar.seqIndex = Integer.parseInt(lblSeq.getText());
-		AdminAction adminAction = new AdminAction();
-		boolean aaa = adminAction.InsertQueryComment(comment,ShareVar.seqIndex);
+		WithAction withAction = new WithAction();
+		boolean aaa = withAction.InsertAnswer(comment,ShareVar.seqIndex);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "답변이 등록 되었습니다.!");                    
 		}else{

@@ -16,12 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.javalec.admin.InsertNotice;
 import com.javalec.function.ShareVar;
 import com.javalec.login.Login;
 import com.javalec.user.InsertCloth;
 import com.javalec.user.InsertDocument;
-import com.javalec.user.InsertQuery;
+import com.javalec.with.InsertNotice;
+import com.javalec.with.InsertQuery;
 
 import java.awt.event.ActionListener;
 import java.io.File;

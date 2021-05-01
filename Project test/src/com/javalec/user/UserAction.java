@@ -21,44 +21,9 @@ import com.javalec.function.ShareVar;
 		private final String pw_mysql=ShareVar.pw_mysql;
 		
 		
-		int seqno;
-		int loginnumber = 1;
-		String userid;//유저 아이디
-		String title; //공지사항 제목
-		String post; //공지사항 내용
-		String date; //공지사항 제목
-		FileInputStream file;
+		
 //--------------------------------------------------------------------------------------------
-	//1:1 질문 등록
-	public boolean InsertQuery(String title, String content) {
-		PreparedStatement ps = null;
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			@SuppressWarnings("unused")
-			Statement stmt_mysql = conn_mysql.createStatement();
-			
-			String A = "insert into Query ( Querytitle, Querycontent";
-			String B = ") values (?, ?)";
-			ps = conn_mysql.prepareStatement(A+B);
-			ps.setString(1, title);
-			ps.setString(2, content);
-			ps.executeUpdate();
-//			String C = "insert into writequery (User_userid, query_queryid";
-//			String D = ") values (?, ?)";
-			
-			
-//			ps.setString(3, Bean.useridIndex);
-//			ps.setString(4, "10");
-			
-			
-			conn_mysql.close();
-		} catch (Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+	
 	//옷데이터 등록
 	public boolean InsertCloth(String clothtype, String clothname, FileInputStream input) {
 		PreparedStatement ps = null;

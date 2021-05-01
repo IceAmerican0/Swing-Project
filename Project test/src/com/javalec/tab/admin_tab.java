@@ -15,11 +15,11 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import com.javalec.admin.AnswerQueryInsert;
-import com.javalec.admin.InsertNotice;
 import com.javalec.function.ShareVar;
 import com.javalec.login.Login;
 import com.javalec.user.InsertCloth;
+import com.javalec.with.AnswerQueryInsert;
+import com.javalec.with.InsertNotice;
 
 import java.awt.event.ActionListener;
 import java.io.File;

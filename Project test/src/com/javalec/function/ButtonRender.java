@@ -1,3 +1,4 @@
+package com.javalec.function;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JTable;

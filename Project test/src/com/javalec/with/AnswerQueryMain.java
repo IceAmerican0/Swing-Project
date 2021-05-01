@@ -15,11 +15,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.admin.UpdateNotice;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
-import com.javalec.user.ReadNotice;
-import com.javalec.user.UpdateQuery;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -93,13 +90,6 @@ public class AnswerQueryMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				TableInit();
-				SearchAction();
-			}
-		});
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -176,6 +166,7 @@ public class AnswerQueryMain {
 	private JButton getBtnUpdate() {
 		if (btnUpdate == null) {
 			btnUpdate = new JButton("Update");
+			btnUpdate.setVisible(false);
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BtnAction();
@@ -406,18 +397,30 @@ public class AnswerQueryMain {
 	private void AdminCheck() {
 		if (ShareVar.admincheck == 1) {
 			//관리자
+			btnUpdate.setVisible(true);
 			btnDelete.setVisible(false);
 			taAnswer.setEditable(false);
 			taQuery.setEditable(false);
+			tfTitle.setEditable(false);
+			tfTablePK.setEditable(false);
+			tfAddtime.setEditable(false);
+			tfUsername.setEditable(false);
 			btnDelete.setText("댓글삭제");
 			btnUpdate.setText("댓글작성");
 		}if (ShareVar.admincheck == 0) {
-			//유저
-			btnDelete.setVisible(false);
-			taAnswer.setEditable(false);
-			taQuery.setEditable(false);
-			btnDelete.setText("문의삭제");
-			btnUpdate.setText("문의수정");
+			if(ShareVar.userName == tfUsername.getText()) {
+				//작성유저
+				btnUpdate.setVisible(true);
+				btnDelete.setVisible(false);
+				taAnswer.setEditable(false);
+				taQuery.setEditable(false);
+				tfTitle.setEditable(false);
+				tfTablePK.setEditable(false);
+				tfAddtime.setEditable(false);
+				tfUsername.setEditable(false);
+				btnDelete.setText("문의삭제");
+				btnUpdate.setText("문의수정");
+			}
 		}
 	
 	}
@@ -466,8 +469,8 @@ public class AnswerQueryMain {
 	private void UpdateAction(String Title, String query) {
 		//질문수정
 		WithAction withAction = new WithAction();
-		boolean aaa = withAction.UpdateQuery(Title,
-				query, Integer.parseInt(tfTablePK.getText()));
+		int seqno = Integer.parseInt(tfTablePK.getText());
+		boolean aaa = withAction.UpdateQuery(Title,query, seqno);
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, "문의 내용이 수정 되었습니다!");  
 	          AdminCheck();
@@ -495,6 +498,7 @@ public class AnswerQueryMain {
 		case "문의수정":
 			btnDelete.setVisible(true);
 			taQuery.setEditable(true);
+			tfTitle.setEditable(true);
 			btnUpdate.setText("수정완료");
 			btnDelete.setText("문의삭제");
 			break;
@@ -517,8 +521,7 @@ public class AnswerQueryMain {
 		}
 			if(aaa == true){
 				JOptionPane.showMessageDialog(null, "삭제 되었습니다!");
-				AdminCheck();
-				
+				frame.dispose();
 			}else{
 				JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 			}

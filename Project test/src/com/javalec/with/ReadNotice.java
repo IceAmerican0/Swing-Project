@@ -1,4 +1,4 @@
-package com.javalec.user;
+package com.javalec.with;
 
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
-import com.javalec.with.WithAction;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

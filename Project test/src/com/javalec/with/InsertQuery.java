@@ -1,4 +1,4 @@
-package com.javalec.user;
+package com.javalec.with;
 
 import java.awt.EventQueue;
 
@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.javalec.function.ShareVar;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -128,14 +131,15 @@ public class InsertQuery {
 		String text = "";
 		if (textArea.getText().trim().length() == 0) {
 			text = "내용을";
+			JOptionPane.showMessageDialog(null, text+" 입력해주세요!");
 		}
 		if (titleF.getText().trim().length() == 0) {
 			text = "제목을";
+			JOptionPane.showMessageDialog(null, text+" 입력해주세요!");
 		}
 		else {
 			insertAction();
 		}
-		JOptionPane.showMessageDialog(null, text+" 입력해주세요!");
 
 	}
 	private void insertAction() {
@@ -144,10 +148,10 @@ public class InsertQuery {
 		String content = textArea.getText();
 		//작성자 정보 가져오기
 		
-		UserAction useraction = new UserAction();
-		boolean aaa = useraction.InsertQuery(title, content);
+		WithAction withAction = new WithAction();
+		boolean aaa = withAction.InsertQuery(title, content);
 		if(aaa == true){
-	          JOptionPane.showMessageDialog(null, " 님의 질문이 입력 되었습니다!");
+	          JOptionPane.showMessageDialog(null, ShareVar.nowId+" 님의 질문이 입력 되었습니다!");
 	          frame.dispose();
 
 		}else{
