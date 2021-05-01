@@ -252,7 +252,7 @@ import com.javalec.function.ShareVar;
 			String WhereDefault = "select documentid, documenttitle, documentcontent, User_userid, addtime, blindtime, Cloth_clothid"
 					+ " from document where documenttype = 0 ";
 			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
-//			System.out.println(WhereDefault+WhereDefault2);
+			System.out.println(WhereDefault+WhereDefault2);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -263,24 +263,24 @@ import com.javalec.function.ShareVar;
 	            while(rs.next()){
 	            	
 	            	int wktablePK = rs.getInt(1);
-	            	String wktitle = rs.getString(2);
-	            	String wkcontent = rs.getString(3);
-	            	
-			        String wkaddtime = rs.getString(5);
-			        String wkblindtime = rs.getString(6);
-			        String wkusername = rs.getString(7);
-	            	//image처리
-			        ShareVar.filename = ShareVar.filename + 1;
-	            	File file = new File(Integer.toString(ShareVar.filename));
-	            	FileOutputStream output = new FileOutputStream(file);
-	            	InputStream wkclothimage = rs.getBinaryStream(4);
-	                byte[] buffer = new byte[1024];
-	                while (wkclothimage.read(buffer) > 0) {
-	                    output.write(buffer);
-	                }
+					String wktitle = rs.getString(2);
+					String wkcontent = rs.getString(3);
+					String wkuserid = rs.getString(4);
+					String wkaddtime = rs.getString(5);
+					String wkblindtime = rs.getString(6);
+					int wkcontentid = rs.getInt(7);
+//	            	//image처리
+//			        ShareVar.filename = ShareVar.filename + 1;
+//	            	File file = new File(Integer.toString(ShareVar.filename));
+//	            	FileOutputStream output = new FileOutputStream(file);
+//	            	InputStream wkclothimage = rs.getBinaryStream(4);
+//	                byte[] buffer = new byte[1024];
+//	                while (wkclothimage.read(buffer) > 0) {
+//	                    output.write(buffer);
+//	                }
 			        
 			        
-	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkusername);
+					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkuserid, wkaddtime, wkblindtime, wkcontentid);
 	            	BeanList.add(bean);
 	            }
 	            

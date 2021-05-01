@@ -259,7 +259,7 @@ public  class UpdateDocumentDB extends JFrame {
 		for (int index = 0; index < listCount; index++) {
 			String temp = Integer.toString(beanList.get(index).getTablePK());
 			String temp2 = Integer.toString(beanList.get(index).getAdmin()); //imageid
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUser_userid(),beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_dc.addRow(qTxt);
 		}
 
@@ -327,23 +327,23 @@ public  class UpdateDocumentDB extends JFrame {
 		String ConditionQueryColumn = "";
 		switch (i) {
 		case 0:
-			ConditionQueryColumn = "documentid";
+			ConditionQueryColumn = " and documenttitle";
 			break;
 		case 1:
-			ConditionQueryColumn = "documenttitle";
+			ConditionQueryColumn = " and User_userid";
 			break;
 		case 2:
-			ConditionQueryColumn = "documentcontent";
+			ConditionQueryColumn = "and documentcontent or documenttitle";
 			break;
 		default:
 			break;
 		}
-		String WhereCheck = " and ";
+		String WhereCheck = "";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " and not blindtime is null";
+			WhereCheck = " and not blindtime is null ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " and blindtime is null";
+			WhereCheck = " and blindtime is null ";
 		}
 		
 		TableInit();
