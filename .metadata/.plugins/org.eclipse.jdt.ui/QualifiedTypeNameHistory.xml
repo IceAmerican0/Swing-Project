@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
-    <fullyQualifiedTypeName name="com.javalec.tab.Test"/>
-    <fullyQualifiedTypeName name="com.sun.java.util.jar.pack.Package.File"/>
-    <fullyQualifiedTypeName name="com.mysql.cj.x.protobuf.MysqlxConnection.Close"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="com.javalec.login.Login"/>
-    <fullyQualifiedTypeName name="com.javalec.profile.CloseAcount"/>
-    <fullyQualifiedTypeName name="com.javalec.tab.user_tab"/>
-    <fullyQualifiedTypeName name="com.javalec.profile.CloseAcountAction"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.util.Calendar"/>
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-    <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="java.lang.Character"/>
-    <fullyQualifiedTypeName name="javax.xml.stream.events.Characters"/>
-    <fullyQualifiedTypeName name="com.javalec.profile.ChangePassword"/>
-    <fullyQualifiedTypeName name="com.javalec.profile.ChangePasswordAction"/>
-    <fullyQualifiedTypeName name="com.javalec.profile.ChangeImageAction"/>
+    <fullyQualifiedTypeName name="com.javalec.user.DocumentForAll"/>
+    <fullyQualifiedTypeName name="java.lang.Class"/>
     <fullyQualifiedTypeName name="com.javalec.function.ShareVar"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.javalec.function.Bean"/>
+    <fullyQualifiedTypeName name="com.javalec.user.ClothList2Action"/>
 </qualifiedTypeNameHistroy>
