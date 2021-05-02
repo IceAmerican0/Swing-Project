@@ -99,7 +99,7 @@ public class NoticeMain {
 					OpenAction();
 				}
 			});
-			btnNotice.setBounds(336, 19, 96, 29);
+			btnNotice.setBounds(767, 19, 117, 29);
 		}
 		return btnNotice;
 	}

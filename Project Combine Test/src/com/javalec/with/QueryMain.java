@@ -137,7 +137,7 @@ public class QueryMain {
 					OpenAction();
 				}
 			});
-			btnQuery.setBounds(280, 19, 117, 29);
+			btnQuery.setBounds(767, 19, 117, 29);
 		}
 		return btnQuery;
 	}
