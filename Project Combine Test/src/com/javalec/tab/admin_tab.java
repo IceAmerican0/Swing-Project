@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.javalec.admin.AdminAction;
-import com.javalec.admin.UpdateClothDB;
+import com.javalec.admin.UpdateClothDB2;
 import com.javalec.admin.UpdateDocumentDB;
 import com.javalec.admin.UpdateUserDB;
 import com.javalec.function.Bean;
@@ -391,7 +391,7 @@ public class admin_tab extends JFrame{
 		btnCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(closet);//탭전환
-				UpdateClothDB.main(null);
+				UpdateClothDB2.main(null);
 				frame.dispose();
 			}
 		});
