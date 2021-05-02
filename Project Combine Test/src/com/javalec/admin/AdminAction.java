@@ -160,7 +160,7 @@ import com.javalec.function.ShareVar;
 		public ArrayList<Bean> UserConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid from user ";
+			String WhereDefault = "select userid,username,useremail,useraddtime,userblindtime,admin from user ";
 			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
 			System.out.println(WhereDefault+WhereDefault2);
 	        try{
@@ -172,25 +172,15 @@ import com.javalec.function.ShareVar;
 
 	            while(rs.next()){
 	            	
-	            	int wktablePK = rs.getInt(1);
-	            	String wktitle = rs.getString(2);
-	            	String wkcontent = rs.getString(3);
-	            	
-			        String wkaddtime = rs.getString(5);
-			        String wkblindtime = rs.getString(6);
-			        String wkusername = rs.getString(7);
-	            	//image처리
-			        ShareVar.filename = ShareVar.filename + 1;
-	            	File file = new File(Integer.toString(ShareVar.filename));
-	            	FileOutputStream output = new FileOutputStream(file);
-	            	InputStream wkclothimage = rs.getBinaryStream(4);
-	                byte[] buffer = new byte[1024];
-	                while (wkclothimage.read(buffer) > 0) {
-	                    output.write(buffer);
-	                }
+	            	String wkuserid = rs.getString(1);
+	            	String wkusername = rs.getString(2);
+	            	String wkuseremail = rs.getString(3);
+			        String wkaddtime = rs.getString(4);
+			        String wkblindtime = rs.getString(5);
+			        int wkadmin=rs.getInt(6);
 			        
 			        
-	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkusername);
+	            	Bean bean = new Bean(wkuserid, wkusername, wkuseremail, wkaddtime, wkblindtime, wkadmin);
 	            	BeanList.add(bean);
 	            }
 	            
@@ -280,7 +270,7 @@ import com.javalec.function.ShareVar;
 //	                }
 			        
 			        
-					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkcontentid, wkuserid, wkaddtime, wkblindtime);	            	BeanList.add(bean);
+					Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkcontentid, wkuserid, wkaddtime, wkblindtime);
 					BeanList.add(bean);
 	            }
 	            

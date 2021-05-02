@@ -14,7 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
+import com.javalec.admin.AdminAction;
+import com.javalec.admin.UpdateClothDB;
+import com.javalec.admin.UpdateUserDB;
+import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.login.Login;
 import com.javalec.profile.ChangePassword;
@@ -24,6 +29,7 @@ import com.javalec.with.InsertNotice;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
@@ -40,12 +46,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPasswordField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JTabbedPane;
 
 
 
-public class admin_tab {
+public class admin_tab extends JFrame{
 
 	private JFrame frame;
+	private JFrame frame1;
 	private JPanel notice;
 	private JPanel inquiry;
 	private JPanel board;
@@ -53,7 +61,6 @@ public class admin_tab {
 	private JPanel member;
 	private JPanel admin;
 	private JLayeredPane layeredPane;
-	private JTable Inner_Table_mb;
 	private JTextField tfresult_bd;
 	private JTextField tfname;
 	private JTextField tfid;
@@ -70,13 +77,16 @@ public class admin_tab {
 	private JTable table_iq;
 	private JTable table_cs;
 	private JTable table_bd;
+	private JScrollPane scrollPane_mb;
+	private JTextField textField;
+	private JButton btnLoad_mb;
+	private JComboBox cbtitle_mb;
 	private JRadioButton rdbtnAll;
 	private JRadioButton rdbtnBlocked;
 	private JRadioButton rdbtnCommon;
-	private JComboBox cbtitle_mb;
-	private JTextField textField;
-	private JButton btnLoad_mb;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTable Inner_Table_mb;
+	private final DefaultTableModel Outer_Table_mb = new DefaultTableModel();
 	//--------------------------------------------
 	
 	
@@ -190,19 +200,13 @@ public class admin_tab {
 		lblmember.setBounds(6, 6, 104, 36);
 		member.add(lblmember);
 		lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		JScrollPane scrollPane_mb = new JScrollPane();
-		scrollPane_mb.setBounds(6, 54, 913, 477);
-		member.add(scrollPane_mb);
-		
-		Inner_Table_mb = new JTable();
-		scrollPane_mb.setViewportView(Inner_Table_mb);
-		member.add(getRdbtnAll());
-		member.add(getRdbtnBlocked());
-		member.add(getRdbtnCommon());
-		member.add(getCbtitle_mb());
-		member.add(getTextField());
-		member.add(getBtnLoad_mb());
+		member.add(getScrollPane_mb());
+		member.add(getTextField_1());
+		member.add(getBtnLoad_mb_1());
+		member.add(getCbtitle_mb_1());
+		member.add(getRdbtnAll_1());
+		member.add(getRdbtnBlocked_1());
+		member.add(getRdbtnCommon_1());
 		
 		closet = new JPanel();
 		layeredPane.add(closet, "name_10028148525053");
@@ -381,6 +385,7 @@ public class admin_tab {
 		btnCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(closet);//탭전환
+				
 			}
 		});
 		btnCloset.setBounds(52, 187, 151, 50);
@@ -451,56 +456,231 @@ public class admin_tab {
 		return table_nt;
 	//--------------------------------------------	여기까지
 	}
-	private JRadioButton getRdbtnAll() {
+	private JScrollPane getScrollPane_mb() {
+		if (scrollPane_mb == null) {
+			scrollPane_mb = new JScrollPane();
+			scrollPane_mb.setBounds(12, 45, 913, 477);
+			scrollPane_mb.setViewportView(getInner_Table_mb());
+		}
+		return scrollPane_mb;
+	}
+	private JTextField getTextField_1() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setColumns(10);
+			textField.setBounds(647, 7, 208, 26);
+		}
+		return textField;
+	}
+	private JButton getBtnLoad_mb_1() {
+		if (btnLoad_mb == null) {
+			btnLoad_mb = new JButton("조회");
+			btnLoad_mb.setBounds(859, 6, 65, 29);
+		}
+		return btnLoad_mb;
+	}
+	private JComboBox getCbtitle_mb_1() {
+		if (cbtitle_mb == null) {
+			cbtitle_mb = new JComboBox();
+			cbtitle_mb.setModel(new DefaultComboBoxModel(new String[] {"ID", "NAME", "E-MAIL"}));
+			cbtitle_mb.setBounds(537, 7, 98, 27);
+		}
+		return cbtitle_mb;
+	}
+	private JRadioButton getRdbtnAll_1() {
 		if (rdbtnAll == null) {
 			rdbtnAll = new JRadioButton("ALL");
 			buttonGroup.add(rdbtnAll);
 			rdbtnAll.setSelected(true);
-			rdbtnAll.setBounds(287, 16, 55, 23);
+			rdbtnAll.setBounds(292, 9, 55, 23);
 		}
 		return rdbtnAll;
 	}
-	private JRadioButton getRdbtnBlocked() {
+	private JRadioButton getRdbtnBlocked_1() {
 		if (rdbtnBlocked == null) {
 			rdbtnBlocked = new JRadioButton("Blocked");
 			buttonGroup.add(rdbtnBlocked);
-			rdbtnBlocked.setBounds(354, 16, 86, 23);
+			rdbtnBlocked.setBounds(359, 9, 86, 23);
 		}
 		return rdbtnBlocked;
 	}
-	private JRadioButton getRdbtnCommon() {
+	private JRadioButton getRdbtnCommon_1() {
 		if (rdbtnCommon == null) {
 			rdbtnCommon = new JRadioButton("Normal");
 			buttonGroup.add(rdbtnCommon);
-			rdbtnCommon.setBounds(441, 16, 79, 23);
+			rdbtnCommon.setBounds(446, 9, 79, 23);
 		}
 		return rdbtnCommon;
 	}
-	private JComboBox getCbtitle_mb() {
-		if (cbtitle_mb == null) {
-			cbtitle_mb = new JComboBox();
-			cbtitle_mb.setModel(new DefaultComboBoxModel(new String[] {"ID", "NAME", "E-MAIL"}));
-			cbtitle_mb.setBounds(532, 14, 98, 27);
+	private JTable getInner_Table_mb() {
+		if (Inner_Table_mb == null) {
+			Inner_Table_mb = new JTable();
 		}
-		return cbtitle_mb;
-	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setColumns(10);
-			textField.setBounds(642, 14, 208, 26);
-		}
-		return textField;
-	}
-	private JButton getBtnLoad_mb() {
-		if (btnLoad_mb == null) {
-			btnLoad_mb = new JButton("조회");
-			btnLoad_mb.setBounds(854, 13, 65, 29);
-		}
-		return btnLoad_mb;
+		return Inner_Table_mb;
 	}
 	
 	
+	private void TableInit(){
+        int i = Outer_Table_mb.getRowCount();
+        
+        Outer_Table_mb.addColumn("UserID");
+        Outer_Table_mb.addColumn("UserName");
+        Outer_Table_mb.addColumn("UserE-mail");
+        Outer_Table_mb.addColumn("가입날짜");
+        Outer_Table_mb.addColumn("정지날짜");
+        Outer_Table_mb.addColumn("Admin");
+        Outer_Table_mb.addColumn("");
+        Outer_Table_mb.setColumnCount(7);
+
+        for(int j = 0 ; j < i ; j++){
+            Outer_Table_mb.removeRow(0);
+        }
+
+        Inner_Table_mb.setAutoResizeMode(Inner_Table_mb.AUTO_RESIZE_OFF);
+        
+
+        int vColIndex = 0;
+        TableColumn col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        int width = 100;
+        col.setPreferredWidth(width);
+
+        vColIndex = 1;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+
+        vColIndex = 2;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 300;
+        col.setPreferredWidth(width);
+
+        vColIndex = 3;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+        vColIndex = 4;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+        vColIndex = 5;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+        vColIndex = 6;
+        col = Inner_Table_mb.getColumnModel().getColumn(vColIndex);
+        width = 100;
+        col.setPreferredWidth(width);
+
+	}
+	private void SearchAction(String WhereCheck){
+		AdminAction adminAction = new AdminAction();
+		ArrayList<Bean> beanList = adminAction.UserList(WhereCheck);
+		
+		int listCount = beanList.size();
+		for (int index = 0; index < listCount; index++) {
+			String temp = Integer.toString(beanList.get(index).getAdmin());
+			String[] qTxt = {beanList.get(index).getUserid(), beanList.get(index).getUsername(),beanList.get(index).getUseremail(),beanList.get(index).getUseraddtime(),beanList.get(index).getUserblindtime(), temp};
+			Outer_Table_mb.addRow(qTxt);
+		}
+
+	}
+	private void OpenAction() {
+		InsertNotice.main(null);
+
+	}
+	private void TableClick() {
+		//선택한 번호
+		int i = Inner_Table_mb.getSelectedRow();
+		String tkSequence = (String)Inner_Table_mb.getValueAt(i, 0);
+		
+		AdminAction adminAction = new AdminAction();
+		String userid = adminAction.UserBlindCheck(tkSequence);
+		if (userid == null) {
+			//차단된 사용자
+			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 1);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
+			          TableInit();
+						ScreenPartition();
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+				
+			}
+		}if (userid != null) {
+			int result = JOptionPane.showConfirmDialog(null, "해당 사용자를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 0);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "사용자가 차단되었습니다!");
+			          TableInit();
+						ScreenPartition();
+			          
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+				
+			}
+		}
+		
+		
+
+	}
 	
-	
+	private void ScreenPartition() {
+		String WhereCheck = "";
+		if (rdbtnBlocked.isSelected()) {
+			WhereCheck = " where not userblindtime is null ";
+			
+		}if (rdbtnCommon.isSelected()) {
+			WhereCheck = " where userblindtime is null ";
+		}
+		TableInit();
+		SearchAction(WhereCheck);
+	}
+	private void ConditionQuery() {
+		int i = cbtitle_mb.getSelectedIndex();
+		String ConditionQueryColumn = "";
+		switch (i) {
+		case 0:
+			ConditionQueryColumn = "userid";
+			break;
+		case 1:
+			ConditionQueryColumn = "username";
+			break;
+		case 2:
+			ConditionQueryColumn = "useremail";
+			break;
+		default:
+			break;
+		}
+		String WhereCheck = " where ";
+		if (rdbtnBlocked.isSelected()) {
+			WhereCheck = " where not userblindtime is null and ";
+			
+		}if (rdbtnCommon.isSelected()) {
+			WhereCheck = " where userblindtime is null and ";
+		}
+		
+		TableInit();
+		ConditionQueryAction(ConditionQueryColumn, WhereCheck);
+
+	}
+	private void ConditionQueryAction(String ConditionQueryColumn, String WhereCheck) {
+		AdminAction adminAction = new AdminAction();
+		ArrayList<Bean> beanList = adminAction.UserConditionList(ConditionQueryColumn, textField.getText().trim(), WhereCheck);
+		
+		int listCount = beanList.size();
+		
+		for (int index = 0; index < listCount; index++) {
+			String temp = Integer.toString(beanList.get(index).getAdmin());
+			String[] qTxt = {beanList.get(index).getUserid(), beanList.get(index).getUsername(), beanList.get(index).getUseremail(),beanList.get(index).getUseraddtime(),beanList.get(index).getUserblindtime(), temp};
+			Outer_Table_mb.addRow(qTxt);
+		}
+
+	}
 }  //-------------

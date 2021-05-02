@@ -1,5 +1,6 @@
 package com.javalec.admin;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -84,7 +85,7 @@ public  class UpdateClothDB {
 			}
 		});
 		frame.setBounds(100, 100, 928, 568);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblcloth());
 		frame.getContentPane().add(getScrollPane_cth());
@@ -94,6 +95,7 @@ public  class UpdateClothDB {
 		frame.getContentPane().add(getRdbtnAll());
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
+		frame.setLocationRelativeTo(null);
 	}
 
 	private JLabel getLblcloth() {
