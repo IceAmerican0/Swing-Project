@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.javalec.frame.ClothList;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.with.WithAction;
@@ -145,6 +146,12 @@ public class SelectDocument {
 	private JLabel getClothData() {
 		if (ClothData == null) {
 			ClothData = new JLabel((Icon) null);
+			ClothData.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+//					ClothList.main(null);
+				}
+			});
 			ClothData.setHorizontalAlignment(SwingConstants.CENTER);
 			ClothData.setBounds(16, 74, 430, 211);
 		}

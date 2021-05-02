@@ -612,4 +612,72 @@ import com.javalec.function.ShareVar;
 		      }
 		      return true;
 		}
+		public ArrayList<Bean> ClothList(String Where){
+			
+			
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select c.clothid, c.clothtype, c.clothname, u.username"
+					+ " from cloth as c inner join user as u on c.User_Userid = u.userid Where blindtime is null"+Where;
+					
+			System.out.println(WhereDefault);
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+	            while(rs.next()){
+	            	
+	            	int wktablePK = rs.getInt(1);
+	            	String wktitle = rs.getString(2);
+	            	String wkcontent = rs.getString(3);
+			        String wkusername = rs.getString(4);
+//	            	
+	                Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkusername);
+	            	BeanList.add(bean);
+	            }
+	            rs.close ();
+	            stmt_mysql.close ();
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+		} 	
+		public InputStream ClothListClick(int i) {
+			InputStream input = null;
+			
+			String WhereDefault = "select clothimage from cloth ";
+			String WhereDefault2 = " where clothid = " + i;
+			System.out.println(WhereDefault+WhereDefault2);
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+				
+				if(rs.next()) {
+					// File
+	            	ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	input = rs.getBinaryStream(1);
+	                byte[] buffer = new byte[1024];
+	                while (input.read(buffer) > 0) {
+	                    output.write(buffer);
+	                }
+					
+				}
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return input;
+		}
 }

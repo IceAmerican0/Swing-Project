@@ -1,6 +1,7 @@
 package com.javalec.function;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Bean {
 
@@ -121,6 +122,7 @@ public class Bean {
 	}
 	public Bean(int tablePK, String title, String addtime, String username) {
 		//DocumentForAllCommentList
+		//public ArrayList<Bean> ClothList
 		super();
 		this.tablePK = tablePK;
 		this.title = title;
