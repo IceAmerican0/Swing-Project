@@ -330,29 +330,29 @@ import com.javalec.function.ShareVar;
 			}
 		return userid;
 		}
-		public String DocumentBlindCheck(String tablePK) {
+		public String DocumentBlindCheck() {
 			String userid = null;
-			PreparedStatement ps = null;
-			//정상사용자인 경우에만 값이 나옴
-			String WhereDefault = "select documentid"
-					+ " from document "
-					+ " where blindtime is null and documentid = '" + tablePK +"'";
-			System.out.println(WhereDefault);
+//			PreparedStatement ps = null;
+//			//정상사용자인 경우에만 값이 나옴
+//			String WhereDefault = "select documentid"
+//					+ " from document "
+//					+ " where blindtime is null and documentid = '" + ShareVar.seqIndex +"'";
 //			System.out.println(WhereDefault);
-			try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			Statement stmt_mysql = conn_mysql.createStatement();
-			
-			ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
-	
-				if(rs.next()){
-					userid  = rs.getString(1);
-					conn_mysql.close();
-				}
-			}catch (Exception e){
-			e.printStackTrace();
-			}
+////			System.out.println(WhereDefault);
+//			try{
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//			Statement stmt_mysql = conn_mysql.createStatement();
+//			
+//			ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+//	
+//				if(rs.next()){
+//					userid  = rs.getString(1);
+//					conn_mysql.close();
+//				}
+//			}catch (Exception e){
+//			e.printStackTrace();
+//			}
 		return userid;
 		}
 		public boolean UpdateUserBlindtime(String tkSequence, int i) {
@@ -412,7 +412,7 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
-		public boolean UpdateDocumentBlindtime(String tkSequence, int i) {
+		public boolean UpdateDocumentBlindtime(int i) {
 			//공지와 일반게시물 같이사용 가능
 			
 			PreparedStatement ps = null;
@@ -423,10 +423,10 @@ import com.javalec.function.ShareVar;
 				@SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 				if (i == 0) {
-					A = "UPDATE document SET blindtime = now() where documentid = '"+tkSequence+"'";		        	  
+					A = "UPDATE document SET blindtime = now() where documentid = '"+ShareVar.seqIndex+"'";		        	  
 				}
 				if (i == 1) {
-					A = "UPDATE document SET blindtime = null WHERE documentid = '"+tkSequence+"'";		        	  		        	  
+					A = "UPDATE document SET blindtime = null WHERE documentid = '"+ShareVar.seqIndex+"'";		        	  		        	  
 				}
 				ps = conn_mysql.prepareStatement(A);
 				System.out.println(A);

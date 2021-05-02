@@ -60,6 +60,7 @@ public class SelectDocumentDB {
 	private JLabel ClothesData;
 	private JLabel lblBlind;
 	private JTextField tfBlindtime;
+	private JButton btnDelete;
 
 	/**
 	 * Launch the application.
@@ -117,6 +118,7 @@ public class SelectDocumentDB {
 		frame.getContentPane().add(getClothesData());
 		frame.getContentPane().add(getLblBlind());
 		frame.getContentPane().add(getTfBlindtime());
+		frame.getContentPane().add(getBtnDelete());
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -321,6 +323,9 @@ public class SelectDocumentDB {
         tfBlindtime.setText(bean.getBlindtime());
         tfUserID.setText(bean.getUserid());
         
+        if(bean.getBlindtime() != null) {
+        	btnDelete.setText("차단해제");
+        }
 //----------------------------------------댓글 불러오기--------------------------------------
 		ArrayList<Bean> beanList = adminAction.DBCommentList();
 		
@@ -442,7 +447,7 @@ public class SelectDocumentDB {
 //		}
 		
 	}
-	private void DeleteAction() {
+//	private void DeleteAction() {
 //		boolean aaa=null != null;
 //		WithAction withAction = new WithAction();
 //		switch (btnDelete.getText()) {
@@ -469,7 +474,7 @@ public class SelectDocumentDB {
 //		}else{
 //			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 //		}
-		}
+//		}
 	private JLabel getLblBlind() {
 		if (lblBlind == null) {
 			lblBlind = new JLabel("blind :");
@@ -485,5 +490,51 @@ public class SelectDocumentDB {
 			tfBlindtime.setBounds(275, 36, 176, 26);
 		}
 		return tfBlindtime;
+	}
+	private JButton getBtnDelete() {
+		if (btnDelete == null) {
+			btnDelete = new JButton("차단하기");
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DeleteAction();
+				}
+			});
+			btnDelete.setBounds(334, 284, 117, 29);
+		}
+		return btnDelete;
+	}
+	private void DeleteAction() {
+		AdminAction adminAction = new AdminAction();
+		if (btnDelete.getText() == "차단해제") {
+			//차단된 사용자
+			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateDocumentBlindtime(1);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");    
+			          TableInit();
+			          SearchAction();
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+			
+			}
+		}if (btnDelete.getText() == "차단하기") {
+			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				boolean aaa = adminAction.UpdateDocumentBlindtime(0);
+				if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "게시글이 차단되었습니다!");
+			          TableInit();
+			          SearchAction();
+			          
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}else {
+				
+			}
+		}
 	}
 }
