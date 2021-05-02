@@ -33,6 +33,7 @@ public class UserRegister {
 	private JLabel lblNewLabel_3;
 	private JPasswordField Password1;
 	private JPasswordField Password2;
+	private String message="";
 
 	/**
 	 * Launch the application.
@@ -100,6 +101,7 @@ public class UserRegister {
 			btnTestid.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					IdCheck();
+					JOptionPane.showMessageDialog(null, message);
 				}
 			});
 			btnTestid.setBounds(317, 103, 117, 29);
@@ -121,6 +123,7 @@ public class UserRegister {
 			btnTestid_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					EmailCheck();
+					JOptionPane.showMessageDialog(null, message);
 				}
 			});
 			btnTestid_1.setBounds(317, 141, 117, 29);
@@ -232,13 +235,19 @@ public class UserRegister {
 		int Fieldchk=FieldCheck();
 		if (Fieldchk==1) {
 			int Idchk=IdCheck();
-			int Emailchk=EmailCheck();
 			
-			if(Idchk==1&&Emailchk==1) {
-				RegisterAction RegisterAction=new RegisterAction(id, pw1, name,email);
-				RegisterAction.Register();
-				frame.dispose();
-				Login.main(null);
+			if(Idchk==1) {
+				int Emailchk=EmailCheck();
+				if(Emailchk==1) {
+					RegisterAction RegisterAction=new RegisterAction(id, pw1, name,email);
+					RegisterAction.Register();
+					frame.dispose();
+					Login.main(null);
+				}else {
+					JOptionPane.showMessageDialog(null, message);
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, message);
 			}
 		}
 			
@@ -254,21 +263,27 @@ public class UserRegister {
 		
 		if(id.equals("")) {
 			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요!");
+			tfId.grabFocus();
 			return 0;
 		}else if(email.equals("")) {
 			JOptionPane.showMessageDialog(null, "이메일를 입력해주세요!");
+			tfEmail.grabFocus();
 			return 0;
 		}else if(pw1.equals("")) {
 			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요!");
+			Password1.grabFocus();
 			return 0;
 		}else if(pw2.equals("")) {
 			JOptionPane.showMessageDialog(null, "비밀번호를 한번 더 입력해주세요!");
+			Password2.grabFocus();
 			return 0;
 		}else if(name.equals("")) {
 			JOptionPane.showMessageDialog(null, "이름을 입력해주세요!");
+			tfName.grabFocus();
 			return 0;
 		}else if(!(pw1.equals(pw2))) {
 			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다!");
+			Password2.grabFocus();
 			return 0;
 		}else return 1;
 	}
@@ -276,17 +291,20 @@ public class UserRegister {
 	private int IdCheck() {
 		String id=tfId.getText().trim();
 		if(id.equals("")) {
-			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요!");
+			message="아이디를 입력해주세요!";
+			tfId.grabFocus();
 			return 0;
 		}else {
 			RegisterAction RegisterAction=new RegisterAction();
 			int chk=RegisterAction.Idchk(id);
 			if(chk==1) {
-				JOptionPane.showMessageDialog(null, "이미 가입된 아이디입니다!");
+				message="이미 가입된 아이디입니다!";
+				tfId.setText("");
+				tfId.grabFocus();
 				return 0;
 			}
 			if(chk==0) {
-				JOptionPane.showMessageDialog(null, "사용가능한 아이디입니다!");
+				message="사용가능한 아이디입니다!";
 				return 1;
 			}else return 0;
 		}
@@ -295,17 +313,20 @@ public class UserRegister {
 	private int EmailCheck() {
 		String email=tfEmail.getText().trim();
 		if(email.equals("")) {
-			JOptionPane.showMessageDialog(null, "이메일을 입력해주세요!");
+			message="이메일을 입력해주세요!";
+			tfEmail.grabFocus();
 			return 0;
 		}else {
 			RegisterAction RegisterAction=new RegisterAction();
 			int chk=RegisterAction.Emailchk(email);
 			if(chk==1) {
-				JOptionPane.showMessageDialog(null, "이미 가입된 이메일입니다!");
+				message="이미 가입된 이메일입니다!";
+				tfEmail.setText("");
+				tfEmail.grabFocus();
 				return 0;
 			}
 			if(chk==0) {
-				JOptionPane.showMessageDialog(null, "사용가능한 이메일입니다!");
+				message="사용가능한 이메일입니다!";
 				return 1;
 			}else return 0;
 		}

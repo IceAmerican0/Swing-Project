@@ -142,6 +142,7 @@ public class FindId {
 				JOptionPane.showMessageDialog(null,name+" 님의 정보가 존재하지 않습니다!","ErrorMessage",JOptionPane.ERROR_MESSAGE);
 				tfName.setText("");
 				tfEmail.setText("");
+				tfName.grabFocus();
 			}
 			else {
 				JOptionPane.showMessageDialog(null, name+" 님의 아이디\n"+id);

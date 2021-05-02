@@ -178,7 +178,10 @@ public class Login {
 					admin_tab.main(null);
 				}
 				
-			}else JOptionPane.showMessageDialog(null, "아이디 및 비밀번호를 입력해주세요!","ErrorMessage",JOptionPane.ERROR_MESSAGE);
+			}else {
+				JOptionPane.showMessageDialog(null, "아이디 및 비밀번호를 입력해주세요!","ErrorMessage",JOptionPane.ERROR_MESSAGE);
+				tfId.grabFocus();
+			}
 		}else JOptionPane.showMessageDialog(null, "정지된 아이디 입니다.","ErrorMessage",JOptionPane.ERROR_MESSAGE);
 		
 	}

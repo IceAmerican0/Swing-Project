@@ -45,8 +45,8 @@ public class RegisterAction {
 	        ps=conn_mysql.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, pw1);
-			ps.setString(3, name);
-			ps.setString(4, email);
+			ps.setString(3, email);
+			ps.setString(4, name);
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, name+"님의 정보가 입력됐습니다!");
@@ -63,6 +63,7 @@ public class RegisterAction {
 		String sql2=" user.userid='"+inputId+"'";
 		String userid="";
 		
+		System.out.println(sql1+sql2);
 		try{
 	          Class.forName("com.mysql.cj.jdbc.Driver");
 	          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -81,7 +82,7 @@ public class RegisterAction {
 
 //1= 이미 가입된 아이디입니다
 //0= 가입가능
-		if(userid.equals(id)) return 1;
+		if(userid.equals(inputId)) return 1;
 		else return 0;
 	}
 	
@@ -108,7 +109,7 @@ public class RegisterAction {
 
 		//1= 이미 가입된 이메일입니다
 		//0= 가입가능
-		if(useremail.equals(email)) return 1;
+		if(useremail.equals(inputEmail)) return 1;
 		else return 0;
 	}
 }
