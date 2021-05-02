@@ -53,6 +53,17 @@ public class Bean {
 		this.tablePK = tablePK;
 		this.content = content;
 	}
+	public Bean(int tablePK, String title, String content, String username, String addtime, InputStream clothimage, String userid) {
+		//DocumentForAllTableClick
+		super();
+		this.username = username;
+		this.tablePK = tablePK;
+		this.content = content;
+		this.title = title;
+		this.addtime = addtime;
+		this.clothimage = clothimage;
+		this.userid = userid;
+	}
 	public Bean(int tablePK, String title, String content, String user_userid, String addtime, String blindtime,
 			InputStream clothimage) {
 		//Cloth DB 사진 불러오기
@@ -109,6 +120,7 @@ public class Bean {
 		this.User_userid = user_userid;
 	}
 	public Bean(int tablePK, String title, String addtime, String username) {
+		//DocumentForAllCommentList
 		super();
 		this.tablePK = tablePK;
 		this.title = title;

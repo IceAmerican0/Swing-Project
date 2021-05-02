@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.javalec.admin.SelectDocumentDB;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
 import com.javalec.tab.admin_tab;
@@ -298,13 +299,13 @@ public  class DocumentForAll extends JFrame {
 
 	}
 	private void TableClick() {
-		//선택한 번호
 		int i = Inner_Table_dc.getSelectedRow();
 		String tkSequence = (String)Inner_Table_dc.getValueAt(i, 0);
-		
-		DocumentForAllAction documentForAllAction = new DocumentForAllAction();
-		String documentid = documentForAllAction.DocumentBlindCheck(tkSequence);
-		
+		ShareVar.seqIndex = Integer.parseInt(tkSequence);
+//		System.out.println(ShareVar.seqIndex);
+		SelectDocument.main(null);
+
+	}
 		
 		
 		
@@ -344,7 +345,6 @@ public  class DocumentForAll extends JFrame {
 		
 		
 
-	}
 	
 	private void ScreenPartition() {
 		String WhereCheck = " where documenttype = 0 and blindtime is null ";

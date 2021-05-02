@@ -361,4 +361,186 @@ import com.javalec.function.ShareVar;
 		}
 		return BeanList;
 	}
+	//-----------------------------------------------아래로 새로 추가함----------------------------------------
+	public Bean DocumentForAllTableClick() {
+		Bean bean = null;
+		
+		String WhereDefault = "select d.documentid, d.documenttitle, d.documentcontent, u.username, d.addtime, c.clothimage, d.User_userid "
+				+ " from document as d inner join user as u on d.user_userid = u.userid "
+				+ " inner join cloth as c on d.Cloth_clothid = c.clothid";
+		String WhereDefault2 = " where d.documentid = " + ShareVar.seqIndex;
+		
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+			
+			
+			
+			if(rs.next()){
+				
+				int wkSeq = rs.getInt(1);
+				String wkTitle = rs.getString(2);
+				String wkContent = rs.getString(3);
+				String wkusername = rs.getString(4);
+				String wkaddtime = rs.getString(5);
+				String wkUser_userid = rs.getString(7);
+				// File
+            	ShareVar.filename = ShareVar.filename + 1;
+            	File file = new File(Integer.toString(ShareVar.filename));
+            	FileOutputStream output = new FileOutputStream(file);
+            	InputStream input = rs.getBinaryStream(6);
+                byte[] buffer = new byte[1024];
+                while (input.read(buffer) > 0) {
+                    output.write(buffer);
+		        }
+				bean = new Bean(wkSeq, wkTitle, wkContent, wkusername, wkaddtime, input, wkUser_userid);
+				
+			}
+			conn_mysql.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return bean;
+	}
+	public ArrayList<Bean> DocumentForAllCommentList(){
+		
+		ArrayList<Bean> BeanList = new ArrayList<Bean>();
+		
+		String WhereDefault = "select c.commentid, c.commentcontent, c.addtime, u.username "
+				+ " from comment as c inner join document as d on c.Document_documentid=d.documentid"
+				+ " inner join user as u on u.userid = c.User_userid "
+				+ " where d.documentid = "
+				+ ShareVar.seqIndex
+				+ " and c.blindtime is null"
+				+ " order by c.addtime Desc";
+		System.out.println(WhereDefault);
+		
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            Statement stmt_mysql = conn_mysql.createStatement();
+
+            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+            while(rs.next()){
+            	
+            	int wkSeq = rs.getInt(1);
+            	String wkcontent = rs.getString(2);
+		        String wkaddtime = rs.getString(3);
+		        String wkusername = rs.getString(4);
+            	
+            	Bean bean = new Bean(wkSeq, wkcontent, wkaddtime, wkusername);
+            	BeanList.add(bean);
+            }
+            
+            conn_mysql.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+		return BeanList;
+	}
+	//댓글 클릭시
+		public Bean CommentClick(int seq) {
+			Bean bean  = null;
+			String WhereDefault = "select commentcontent, User_userid from comment ";
+			String WhereDefault2 = "where commentid = " + seq;
+			
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+		
+				if(rs.next()){
+					String wkcontent = rs.getString(1);
+					String wkUser_userid = rs.getString(2);
+					
+					bean = new Bean(wkcontent, wkUser_userid);
+				} 
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return bean;
+		}
+		//Admin이 답변을 넣을 때
+		public boolean InsertComment(String comment , int documentid) {
+			PreparedStatement ps = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				String A = "insert into comment (commentcontent, user_userid, Document_documentid";
+				String B = ") values (?, ?, ?)";
+				ps = conn_mysql.prepareStatement(A+B);
+				System.out.println(A+B);
+				
+				ps.setString(1, comment);
+				ps.setString(2, ShareVar.nowId);
+				ps.setInt(3, documentid);
+				ps.executeUpdate();
+				
+				
+				conn_mysql.close();
+			} catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		//Admin이 답변을 수정할 때
+		public boolean UpdateComment(String comment) {
+			 PreparedStatement ps = null;
+			  try{
+			      Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			      @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+			
+			      String A = "update comment set commentcontent = '"+comment;
+			      String B = "' where commentid = "+ShareVar.commentIndex;
+			System.out.println(A+B);
+			      ps = conn_mysql.prepareStatement(A+B);
+			    
+			      ps.executeUpdate();
+			
+			      conn_mysql.close();
+			  } catch (Exception e){
+			      e.printStackTrace();
+			      return false;
+			  }
+			
+			  return true;
+		}
+		public boolean DeleteComment(int answerid) {
+			//공지와 일반게시물 같이사용 가능
+			 PreparedStatement ps = null;
+		      try{
+		          Class.forName("com.mysql.cj.jdbc.Driver");
+		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		          @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+		
+		          String A = "UPDATE Comment SET blindtime = now() where Commentid = "+answerid;
+		          System.out.println(A);
+		          ps = conn_mysql.prepareStatement(A);
+		        
+		          ps.executeUpdate();
+		
+		          conn_mysql.close();
+		      } catch (Exception e){
+		          e.printStackTrace();
+		          return false;
+		      }
+		      return true;
+			}
 }
