@@ -651,5 +651,28 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
+		public String SelectClothType() {
+			String Type = null;
+			PreparedStatement ps = null;
+			String A = "Select clothtype from cloth Where clothid = '"+ShareVar.seqIndex+"'";		        	  
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+			
+				ResultSet rs = stmt_mysql.executeQuery(A);
+				
+//				System.out.println(A);
+				Type = rs.getString(1);
+				
+				conn_mysql.close();
+				
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			return Type;
+		}
+			
 	
 }
