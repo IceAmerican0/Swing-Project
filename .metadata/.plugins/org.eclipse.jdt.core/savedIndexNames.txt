@@ -1,5 +1,0 @@
-INDEX VERSION 1.131+C:\Users\Marry\Documents\GitHub\Swing-Project_jyworking\.metadata\.plugins\org.eclipse.jdt.core
-591385055.index
-213770927.index
-374654359.index
-1707873429.index
