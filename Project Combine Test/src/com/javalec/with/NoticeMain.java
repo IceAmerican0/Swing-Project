@@ -130,6 +130,7 @@ public class NoticeMain {
 					}
 				}
 			});
+			 
 		}
 		return Inner_Table;
 	}
@@ -168,8 +169,10 @@ public class NoticeMain {
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
         width = 300;
         col.setPreferredWidth(width);
-
 	}
+
+
+
 	private void SearchAction(){
 		WithAction withAction = new WithAction();
 		ArrayList<Bean> beanList = withAction.NoticeList();

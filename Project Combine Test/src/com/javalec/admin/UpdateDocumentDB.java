@@ -147,6 +147,7 @@ public  class UpdateDocumentDB extends JFrame {
 		if (Inner_Table_dc == null) {
 			Inner_Table_dc = new JTable();
 			Inner_Table_dc.setModel(Outer_Table_dc);
+			
 			Inner_Table_dc.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
