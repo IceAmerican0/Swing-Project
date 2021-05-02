@@ -83,7 +83,8 @@ public  class UpdateClothDB extends JFrame {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				ConditionQuery();
+				TableInit();
+				ScreenPartition();
 			}
 		});
 		frame.setBounds(100, 100, 930, 570);
@@ -140,6 +141,11 @@ public  class UpdateClothDB extends JFrame {
 	private JComboBox getCbtitle_cth() {
 		if (cbtitle_cth == null) {
 			cbtitle_cth = new JComboBox();
+			cbtitle_cth.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ConditionQuery();
+				}
+			});
 			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
 			cbtitle_cth.setBounds(531, 16, 98, 27);
 		}
@@ -172,7 +178,7 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnAll.setSelected(true);
 			rdbtnAll.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnAll);
@@ -185,7 +191,7 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnBlocked = new JRadioButton("Blocked");
 			rdbtnBlocked.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnBlocked);
@@ -198,7 +204,7 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnCommon = new JRadioButton("Normal");
 			rdbtnCommon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnCommon);
@@ -258,10 +264,8 @@ public  class UpdateClothDB extends JFrame {
 		
 		int listCount = beanList.size();
 		for (int index = 0; index < listCount; index++) {
-			
-			
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			System.out.println(beanList.get(index).getUser_userid());
+//			System.out.println(beanList.get(index).getUser_userid());
 			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_cth.addRow(qTxt);
 		}
@@ -279,10 +283,10 @@ public  class UpdateClothDB extends JFrame {
 	private void ScreenPartition() {
 		String WhereCheck = "";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " and not blindtime is null ";
+			WhereCheck = " where not blindtime is null ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " and blindtime is null ";
+			WhereCheck = " where blindtime is null ";
 		}
 		TableInit();
 		SearchAction(WhereCheck);

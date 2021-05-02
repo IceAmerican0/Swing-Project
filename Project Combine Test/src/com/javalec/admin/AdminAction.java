@@ -68,7 +68,7 @@ import com.javalec.function.ShareVar;
 			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid"
 					+ " from cloth"
 					+ WhereCheck;
-			System.out.println(WhereDefault+WhereCheck);
+			System.out.println(WhereDefault);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -94,7 +94,7 @@ import com.javalec.function.ShareVar;
 //	                while (wkclothimage.read(buffer) > 0) {
 //	                    output.write(buffer);
 //	                }
-			        System.out.println(wktablePK+ wktitle+ wkcontent+ wkaddtime+ wkblindtime+ wkuserid);
+//			        System.out.println(wktablePK+ wktitle+ wkcontent+ wkaddtime+ wkblindtime+ wkuserid);
 	                Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkaddtime, wkblindtime, wkuserid);
 	            	BeanList.add(bean);
 	            }
@@ -168,7 +168,7 @@ import com.javalec.function.ShareVar;
 	            Statement stmt_mysql = conn_mysql.createStatement();
 
 	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
-
+	            System.out.println(WhereDefault+WhereDefault2);
 	            while(rs.next()){
 	            	
 	            	String wkuserid = rs.getString(1);
@@ -222,7 +222,7 @@ import com.javalec.function.ShareVar;
 //			                while (wkclothimage.read(buffer) > 0) {
 //			                    output.write(buffer);
 //			                }
-			        System.out.println(wktablePK+ wktitle+ wkcontent+ wkaddtime+ wkblindtime+ wkuserid);
+//			        System.out.println(wktablePK+ wktitle+ wkcontent+ wkaddtime+ wkblindtime+ wkuserid);
 	                Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkaddtime, wkblindtime, wkuserid);
 	            	BeanList.add(bean);
 				}

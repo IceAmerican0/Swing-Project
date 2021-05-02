@@ -81,7 +81,6 @@ public  class UpdateDocumentDB extends JFrame {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				TableInit();
 				ScreenPartition();
 			}
 		});
