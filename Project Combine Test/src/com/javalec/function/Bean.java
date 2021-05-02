@@ -74,6 +74,7 @@ public class Bean {
 	public Bean(int tablePK, String title, String content, String addtime,
 			String blindtime, String userid) {
 		//Document DB Table 클릭시 데이터 불러오는 용
+		//ClothDB table 불러오기
 		super();
 		this.userid = userid;
 		this.tablePK = tablePK;
@@ -93,7 +94,6 @@ public class Bean {
 	}
 	public Bean(int tablePK, String title, String content, InputStream clothimage, String addtime, String blindtime,
 			 String user_userid) {
-		//ClothDB table 불러오기
 		super();
 		this.tablePK = tablePK;
 		this.title = title;

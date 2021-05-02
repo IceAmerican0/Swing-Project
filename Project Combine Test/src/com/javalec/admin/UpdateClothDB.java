@@ -212,11 +212,10 @@ public  class UpdateClothDB extends JFrame {
         Outer_Table_cth.addColumn("seq");
         Outer_Table_cth.addColumn("분류");
         Outer_Table_cth.addColumn("이름");
-        Outer_Table_cth.addColumn("ImageData");
         Outer_Table_cth.addColumn("등록User");
         Outer_Table_cth.addColumn("등록날짜");
         Outer_Table_cth.addColumn("차단날짜");
-        Outer_Table_cth.setColumnCount(7);
+        Outer_Table_cth.setColumnCount(6);
 
         for(int j = 0 ; j < i ; j++){
             Outer_Table_cth.removeRow(0);
@@ -249,10 +248,6 @@ public  class UpdateClothDB extends JFrame {
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
-        vColIndex = 6;
-        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 100;
-        col.setPreferredWidth(width);
        
 
 
@@ -266,9 +261,8 @@ public  class UpdateClothDB extends JFrame {
 			
 			
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-//			String temp2 = beanList.get(index).getClothimage(); //imageid
 			System.out.println(beanList.get(index).getUser_userid());
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),"temp2",beanList.get(index).getUser_userid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_cth.addRow(qTxt);
 		}
 
@@ -350,8 +344,7 @@ public  class UpdateClothDB extends JFrame {
 		for (int index = 0; index < listCount; index++) {
 			
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String temp2 = Integer.toString(beanList.get(index).getAdmin()); 
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_cth.addRow(qTxt);
 		}
 
