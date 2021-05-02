@@ -212,7 +212,7 @@ public  class UpdateUserDB extends JFrame {
         Outer_Table_mb.addColumn("UserE-mail");
         Outer_Table_mb.addColumn("가입날짜");
         Outer_Table_mb.addColumn("정지날짜");
-        Outer_Table_mb.addColumn("Admin");
+        Outer_Table_mb.addColumn("Admin/User");
         Outer_Table_mb.addColumn("");
         Outer_Table_mb.setColumnCount(7);
 
@@ -262,7 +262,12 @@ public  class UpdateUserDB extends JFrame {
 		
 		int listCount = beanList.size();
 		for (int index = 0; index < listCount; index++) {
-			String temp = Integer.toString(beanList.get(index).getAdmin());
+			String temp = null;
+			if(beanList.get(index).getAdmin() == 0) {
+				temp = "User";
+			}if(beanList.get(index).getAdmin() == 1) {
+				temp = "Admin";
+			}
 			String[] qTxt = {beanList.get(index).getUserid(), beanList.get(index).getUsername(),beanList.get(index).getUseremail(),beanList.get(index).getUseraddtime(),beanList.get(index).getUserblindtime(), temp};
 			Outer_Table_mb.addRow(qTxt);
 		}
@@ -279,35 +284,39 @@ public  class UpdateUserDB extends JFrame {
 		
 		AdminAction adminAction = new AdminAction();
 		String userid = adminAction.UserBlindCheck(tkSequence);
-		if (userid == null) {
-			//차단된 사용자
-			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-				boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 1);
-				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
-			          TableInit();
+		if (ShareVar.nowId.equals(userid)) {
+			JOptionPane.showMessageDialog(null, "차단할 수 없습니다.");
+		}else {
+			if (userid == null) {
+				//차단된 사용자
+				int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 1);
+					if(aaa == true){
+						JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
+						TableInit();
 						ScreenPartition();
-				}else{
-			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+					}else{
+						JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+					}
+				}else {
+					
 				}
-			}else {
-				
-			}
-		}if (userid != null) {
-			int result = JOptionPane.showConfirmDialog(null, "해당 사용자를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-				boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 0);
-				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "사용자가 차단되었습니다!");
-			          TableInit();
+			}if (userid != null) {
+				int result = JOptionPane.showConfirmDialog(null, "해당 사용자를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					boolean aaa = adminAction.UpdateUserBlindtime(tkSequence, 0);
+					if(aaa == true){
+						JOptionPane.showMessageDialog(null, "사용자가 차단되었습니다!");
+						TableInit();
 						ScreenPartition();
-			          
-				}else{
-			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+						
+					}else{
+						JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+					}
+				}else {
+					
 				}
-			}else {
-				
 			}
 		}
 		

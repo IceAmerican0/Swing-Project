@@ -441,7 +441,78 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
-	
+		public Bean DocumentDBTableClick() {
+			Bean bean = null;
+			
+			String WhereDefault = "select d.documentid, d.documenttitle, d.documentcontent, d.addtime, d.blindtime, u.userid "
+					+ " from document as d inner join user as u on d.user_userid = u.userid";
+			String WhereDefault2 = " where d.documentid = " + ShareVar.seqIndex;
+			
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+				
+				
+				
+				if(rs.next()){
+					
+					int wkSeq = rs.getInt(1);
+					String wkTitle = rs.getString(2);
+					String wkContent = rs.getString(3);
+					String wkaddtime = rs.getString(4);
+					String wkblindtime = rs.getString(5);
+					String wkuserid = rs.getString(6);
+
+//			            	
+					bean = new Bean(wkSeq, wkTitle, wkContent, wkaddtime, wkblindtime, wkuserid);
+					
+				}
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return bean;
+		}
+		public ArrayList<Bean> DBCommentList(){
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select c.commentid, c.commentcontent, c.addtime, c.blindtime, c.User_userid "
+					+ " from comment as c inner join document as d on c.Document_documentid=d.documentid"
+					+ " where d.documentid = "
+					+ ShareVar.seqIndex
+					+ " order by c.addtime Desc";
+			
+	        try{
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	            Statement stmt_mysql = conn_mysql.createStatement();
+
+	            ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+	            while(rs.next()){
+	            	
+	            	int wkSeq = rs.getInt(1);
+	            	String wkcontent = rs.getString(2);
+			        String wkaddtime = rs.getString(3);
+			        String wkblindtime = rs.getString(4);
+			        String wkUser_userid = rs.getString(5);
+	            	
+	            	Bean bean = new Bean(wkUser_userid, wkSeq, wkcontent, wkaddtime, wkblindtime);
+	            	BeanList.add(bean);
+	            }
+	            
+	            conn_mysql.close();
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+			return BeanList;
+		}
 	
 	
 	

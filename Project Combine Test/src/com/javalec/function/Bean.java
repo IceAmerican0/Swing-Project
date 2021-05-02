@@ -71,6 +71,26 @@ public class Bean {
 		this.addtime = addtime;
 		this.admin = admin;
 	}
+	public Bean(int tablePK, String title, String content, String addtime,
+			String blindtime, String userid) {
+		//Document DB Table 클릭시 데이터 불러오는 용
+		super();
+		this.userid = userid;
+		this.tablePK = tablePK;
+		this.content = content;
+		this.title = title;
+		this.addtime = addtime;
+		this.blindtime = blindtime;
+	}
+	public Bean(String userid, int tablePK, String content, String addtime, String blindtime) {
+		//Document DB Table 클릭시 댓글 데이터 불러오기
+		super();
+		this.userid = userid;
+		this.tablePK = tablePK;
+		this.content = content;
+		this.addtime = addtime;
+		this.blindtime = blindtime;
+	}
 	public Bean(int tablePK, String title, String content, InputStream clothimage, String addtime, String blindtime,
 			 String user_userid) {
 		super();

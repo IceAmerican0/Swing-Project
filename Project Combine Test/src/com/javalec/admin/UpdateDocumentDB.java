@@ -275,45 +275,47 @@ public  class UpdateDocumentDB extends JFrame {
 	}
 	private void TableClick() {
 		//선택한 번호
+//		int i = Inner_Table_dc.getSelectedRow();
+//		String tkSequence = (String)Inner_Table_dc.getValueAt(i, 0);
+//		
+//		AdminAction adminAction = new AdminAction();
+//		String documentid = adminAction.DocumentBlindCheck(tkSequence);
+//		if (documentid == null) {
+//			//차단된 사용자
+//			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+//			if (result == JOptionPane.YES_OPTION) {
+//				boolean aaa = adminAction.UpdateDocumentBlindtime(tkSequence, 1);
+//				if(aaa == true){
+//			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
+//			          TableInit();
+//						ScreenPartition();
+//				}else{
+//			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+//				}
+//			}else {
+//			
+//			}
+//		}if (documentid != null) {
+//			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+//			if (result == JOptionPane.YES_OPTION) {
+//				boolean aaa = adminAction.UpdateDocumentBlindtime(tkSequence, 0);
+//				if(aaa == true){
+//			          JOptionPane.showMessageDialog(null, "게시글이 차단되었습니다!");
+//			          TableInit();
+//						ScreenPartition();
+//			          
+//				}else{
+//			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+//				}
+//			}else {
+//				
+//			}
+//		}
 		int i = Inner_Table_dc.getSelectedRow();
 		String tkSequence = (String)Inner_Table_dc.getValueAt(i, 0);
-		
-		AdminAction adminAction = new AdminAction();
-		String documentid = adminAction.DocumentBlindCheck(tkSequence);
-		if (documentid == null) {
-			//차단된 사용자
-			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-				boolean aaa = adminAction.UpdateDocumentBlindtime(tkSequence, 1);
-				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
-			          TableInit();
-						ScreenPartition();
-				}else{
-			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
-				}
-			}else {
-			
-			}
-		}if (documentid != null) {
-			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-				boolean aaa = adminAction.UpdateDocumentBlindtime(tkSequence, 0);
-				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "게시글이 차단되었습니다!");
-			          TableInit();
-						ScreenPartition();
-			          
-				}else{
-			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
-				}
-			}else {
-				
-			}
-		}
-		
-		
-
+		ShareVar.seqIndex = Integer.parseInt(tkSequence);
+		System.out.println(ShareVar.seqIndex);
+		SelectDocumentDB.main(null);
 	}
 	
 	private void ScreenPartition() {
