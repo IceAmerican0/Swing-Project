@@ -68,7 +68,7 @@ import com.javalec.function.ShareVar;
 			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid"
 					+ " from cloth"
 					+ WhereCheck;
-//			System.out.println(WhereDefault);
+			System.out.println(WhereDefault+WhereCheck);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -96,8 +96,7 @@ import com.javalec.function.ShareVar;
 	                }
 			        
 			        
-	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, 
-	            			wkclothimage, wkaddtime, wkblindtime, wkuserid);
+	                Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkuserid);
 	            	BeanList.add(bean);
 	            }
 	            rs.close ();

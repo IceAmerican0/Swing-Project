@@ -233,30 +233,27 @@ public  class UpdateClothDB {
 
         int vColIndex = 0;
         TableColumn col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        int width = 50;
+        int width = 60;
         col.setPreferredWidth(width);
-
         vColIndex = 1;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
-
         vColIndex = 2;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 100;
+        width = 300;
         col.setPreferredWidth(width);
-
         vColIndex = 3;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 500;
+        width = 60;
         col.setPreferredWidth(width);
         vColIndex = 4;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 150;
+        width = 100;
         col.setPreferredWidth(width);
         vColIndex = 5;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
-        width = 150;
+        width = 100;
         col.setPreferredWidth(width);
         vColIndex = 6;
         col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
@@ -270,11 +267,9 @@ public  class UpdateClothDB {
 		
 		int listCount = beanList.size();
 		for (int index = 0; index < listCount; index++) {
-
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String[] qTxt = {temp, beanList.get(index).getTitle(), beanList.get(index).getContent(),
-					"filePath",beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(),
-					beanList.get(index).getUser_userid()};
+			String temp2 = Integer.toString(beanList.get(index).getAdmin()); //imageid
+			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
 			Outer_Table_cth.addRow(qTxt);
 		}
 
@@ -329,14 +324,11 @@ public  class UpdateClothDB {
 	
 	private void ScreenPartition() {
 		String WhereCheck = "";
-		if (rdbtnAll.isSelected()) {
-			
-		}
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " where not blindtime is null ";
+			WhereCheck = " and not blindtime is null ";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " where blindtime is null ";
+			WhereCheck = " and blindtime is null ";
 		}
 		TableInit();
 		SearchAction(WhereCheck);
