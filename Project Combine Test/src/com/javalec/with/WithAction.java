@@ -203,13 +203,20 @@ import com.javalec.function.ShareVar;
 
 
 	// 1:1 게시판 출력
-	public ArrayList<Bean> QueryList(){
-		
+	public ArrayList<Bean> QueryList(int admin){
+		String WhereDefault = null;
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
-		
-		String WhereDefault = "select q.queryid, q.querytitle, q.addtime, u.username"
-				+ " from user as u inner join query as q on u.userid=q.user_userid"
-				+ " where q.blindtime is null";
+		if (admin == 1) {
+			WhereDefault = "select q.queryid, q.querytitle, q.addtime, u.username"
+					+ " from user as u inner join query as q on u.userid=q.user_userid"
+					+ " where q.blindtime is null";
+			System.out.println(WhereDefault);
+		}if (admin == 0) {
+			WhereDefault = "select q.queryid, q.querytitle, q.addtime, u.username"
+					+ " from user as u inner join query as q on u.userid=q.user_userid"
+					+ " where q.User_userid = '"+ShareVar.nowId+"' and q.blindtime is null";
+			System.out.println(WhereDefault);
+		}
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -453,6 +460,8 @@ import com.javalec.function.ShareVar;
 			String A = "insert into Answer (Answercontent, user_userid, query_queryid";
 			String B = ") values (?, ?, ?)";
 			ps = conn_mysql.prepareStatement(A+B);
+			System.out.println(A+B);
+			
 			ps.setString(1, Answer);
 			ps.setString(2, ShareVar.nowId);
 			ps.setInt(3, queryid);
@@ -475,13 +484,10 @@ import com.javalec.function.ShareVar;
 		      @SuppressWarnings("unused")
 				Statement stmt_mysql = conn_mysql.createStatement();
 		
-		      String A = "update Answer set answercontent = ?";
-		      String B = " where answerid = ? ";
-		
+		      String A = "update Answer set answercontent = '"+answer;
+		      String B = "' where answerid = "+answerid;
+		System.out.println(A+B);
 		      ps = conn_mysql.prepareStatement(A+B);
-		      
-		      ps.setString(1, answer);
-		      ps.setInt(2, answerid);
 		    
 		      ps.executeUpdate();
 		

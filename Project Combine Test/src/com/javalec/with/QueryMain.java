@@ -87,7 +87,7 @@ public class QueryMain {
 					AdminCheck();
 				}
 			});
-		frame.setBounds(100, 100, 403, 360);
+		frame.setBounds(100, 100, 928, 568);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getScrollPane());
@@ -101,7 +101,7 @@ public class QueryMain {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 59, 391, 230);
+			scrollPane.setBounds(6, 54, 913, 477);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -164,23 +164,29 @@ public class QueryMain {
 
         vColIndex = 1;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 150;
+        width = 300;
         col.setPreferredWidth(width);
 
         vColIndex = 2;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 80;
+        width = 100;
         col.setPreferredWidth(width);
 
         vColIndex = 3;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 100;
+        width = 300;
         col.setPreferredWidth(width);
 
 	}
 	private void SearchAction(){
+		int i = 2;
+		if(ShareVar.admincheck == 1) {
+			i = 1;
+		}if(ShareVar.admincheck == 0) {
+			i = 0;
+		}
 		WithAction withAction = new WithAction();
-		ArrayList<Bean> beanList = withAction.QueryList();
+		ArrayList<Bean> beanList = withAction.QueryList(i);
 		
 		int listCount = beanList.size();
 		

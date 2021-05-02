@@ -1,5 +1,6 @@
 package com.javalec.with;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -53,7 +54,7 @@ public class InsertNotice {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 455, 390);
+		frame.setBounds(100, 100, 460, 388);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTextField());
@@ -76,7 +77,7 @@ public class InsertNotice {
 	private JLabel getLblNoticeTitle() {
 		if (lblNoticeTitle == null) {
 			lblNoticeTitle = new JLabel("제목 :");
-			lblNoticeTitle.setBounds(11, 11, 61, 16);
+			lblNoticeTitle.setBounds(6, 11, 61, 16);
 		}
 		return lblNoticeTitle;
 	}
@@ -90,7 +91,8 @@ public class InsertNotice {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(11, 61, 424, 248);
+			panel.setLayout(new BorderLayout());
+			panel.setBounds(6, 61, 445, 248);
 			panel.add(getTextArea());
 		}
 		return panel;
@@ -98,7 +100,7 @@ public class InsertNotice {
 	private JLabel getLblNoticePost() {
 		if (lblNoticePost == null) {
 			lblNoticePost = new JLabel("내용 :");
-			lblNoticePost.setBounds(11, 39, 61, 16);
+			lblNoticePost.setBounds(6, 34, 61, 16);
 		}
 		return lblNoticePost;
 	}
@@ -110,7 +112,7 @@ public class InsertNotice {
 					check();
 				}
 			});
-			btnInsertDB.setBounds(133, 321, 81, 29);
+			btnInsertDB.setBounds(144, 321, 81, 29);
 		}
 		return btnInsertDB;
 	}
@@ -122,7 +124,7 @@ public class InsertNotice {
 					frame.dispose();
 				}
 			});
-			btnCancel.setBounds(226, 321, 81, 29);
+			btnCancel.setBounds(227, 321, 81, 29);
 		}
 		return btnCancel;
 	}

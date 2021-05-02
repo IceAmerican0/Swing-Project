@@ -83,7 +83,7 @@ public class NoticeMain {
 				AdminCheck();
 			}
 		});
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 928, 568);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNotice());
@@ -106,7 +106,7 @@ public class NoticeMain {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(32, 60, 400, 182);
+			scrollPane.setBounds(6, 54, 913, 477);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -156,17 +156,17 @@ public class NoticeMain {
 
         vColIndex = 1;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 150;
+        width = 300;
         col.setPreferredWidth(width);
 
         vColIndex = 2;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 80;
+        width = 100;
         col.setPreferredWidth(width);
 
         vColIndex = 3;
         col = Inner_Table.getColumnModel().getColumn(vColIndex);
-        width = 100;
+        width = 300;
         col.setPreferredWidth(width);
 
 	}

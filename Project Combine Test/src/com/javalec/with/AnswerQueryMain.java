@@ -1,5 +1,6 @@
 package com.javalec.with;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -97,7 +98,7 @@ public class AnswerQueryMain {
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 454, 550);
+		frame.setBounds(100, 100, 460, 550);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTfTitle());
@@ -133,15 +134,15 @@ public class AnswerQueryMain {
 	private JLabel getLblTitle() {
 		if (lblTitle == null) {
 			lblTitle = new JLabel("제목 :");
-			lblTitle.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblTitle.setBounds(6, 11, 47, 16);
+			lblTitle.setBounds(6, 15, 47, 16);
 		}
 		return lblTitle;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(6, 82, 424, 187);
+			panel.setLayout(new BorderLayout());
+			panel.setBounds(6, 88, 445, 182);
 			panel.add(getTaQuery());
 		}
 		return panel;
@@ -157,7 +158,6 @@ public class AnswerQueryMain {
 	private JLabel getLblContent() {
 		if (lblContent == null) {
 			lblContent = new JLabel("내용 :");
-			lblContent.setHorizontalAlignment(SwingConstants.TRAILING);
 			lblContent.setBounds(6, 64, 47, 16);
 		}
 		return lblContent;
@@ -171,7 +171,7 @@ public class AnswerQueryMain {
 					BtnAction();
 				}
 			});
-			btnUpdate.setBounds(349, 276, 81, 29);
+			btnUpdate.setBounds(370, 271, 81, 29);
 		}
 		return btnUpdate;
 	}
@@ -187,7 +187,7 @@ public class AnswerQueryMain {
 					}
 				}
 			});
-			btnDelete.setBounds(268, 276, 81, 29);
+			btnDelete.setBounds(290, 271, 81, 29);
 		}
 		return btnDelete;
 	}
@@ -199,14 +199,13 @@ public class AnswerQueryMain {
 					frame.dispose();
 				}
 			});
-			btnOK.setBounds(174, 476, 81, 29);
+			btnOK.setBounds(174, 484, 81, 29);
 		}
 		return btnOK;
 	}
 	private JLabel getLblUserName() {
 		if (lblUserName == null) {
 			lblUserName = new JLabel("작성자 :");
-			lblUserName.setHorizontalAlignment(SwingConstants.TRAILING);
 			lblUserName.setBounds(6, 41, 47, 16);
 		}
 		return lblUserName;
@@ -215,7 +214,7 @@ public class AnswerQueryMain {
 		if (tfUsername == null) {
 			tfUsername = new JTextField();
 			tfUsername.setEditable(false);
-			tfUsername.setBounds(61, 40, 88, 26);
+			tfUsername.setBounds(60, 36, 88, 26);
 			tfUsername.setColumns(10);
 		}
 		return tfUsername;
@@ -224,7 +223,7 @@ public class AnswerQueryMain {
 		if (tfAddtime == null) {
 			tfAddtime = new JTextField();
 			tfAddtime.setEditable(false);
-			tfAddtime.setBounds(254, 41, 176, 26);
+			tfAddtime.setBounds(270, 36, 176, 26);
 			tfAddtime.setColumns(10);
 		}
 		return tfAddtime;
@@ -232,14 +231,14 @@ public class AnswerQueryMain {
 	private JLabel getLblDate() {
 		if (lblDate == null) {
 			lblDate = new JLabel("date :");
-			lblDate.setBounds(206, 46, 55, 16);
+			lblDate.setBounds(230, 41, 55, 16);
 		}
 		return lblDate;
 	}
 	private JLabel getLblAnswerlist() {
 		if (lblAnswerlist == null) {
 			lblAnswerlist = new JLabel("답변 :");
-			lblAnswerlist.setBounds(6, 362, 61, 16);
+			lblAnswerlist.setBounds(6, 366, 61, 16);
 		}
 		return lblAnswerlist;
 	}
@@ -253,14 +252,15 @@ public class AnswerQueryMain {
 	private JLabel getLblAnswer() {
 		if (lblAnswer == null) {
 			lblAnswer = new JLabel("답변 작성하기");
-			lblAnswer.setBounds(6, 286, 82, 16);
+			lblAnswer.setBounds(6, 277, 82, 16);
 		}
 		return lblAnswer;
 	}
 	private JPanel getCommentpanel() {
 		if (commentpanel == null) {
 			commentpanel = new JPanel();
-			commentpanel.setBounds(11, 301, 419, 58);
+			commentpanel.setLayout(new BorderLayout());
+			commentpanel.setBounds(6, 300, 445, 60);
 			commentpanel.add(getTaAnswer());
 		}
 		return commentpanel;
@@ -278,7 +278,7 @@ public class AnswerQueryMain {
 			tfTablePK = new JTextField();
 			tfTablePK.setEditable(false);
 			tfTablePK.setColumns(10);
-			tfTablePK.setBounds(388, 10, 42, 26);
+			tfTablePK.setBounds(405, 10, 42, 26);
 		}
 		return tfTablePK;
 	}
@@ -286,14 +286,14 @@ public class AnswerQueryMain {
 		if (lblseq == null) {
 			lblseq = new JLabel("seq.");
 			lblseq.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblseq.setBounds(327, 15, 61, 16);
+			lblseq.setBounds(341, 15, 61, 16);
 		}
 		return lblseq;
 	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 379, 424, 85);
+			scrollPane.setBounds(6, 390, 445, 90);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -366,8 +366,9 @@ public class AnswerQueryMain {
         taQuery.setText(bean.getContent());
         tfAddtime.setText(bean.getAddtime());
         tfUsername.setText(bean.getUsername());
-//        System.out.println(bean.getUserid()+ bean.getAdmin());
-        AdminCheck(bean.getUserid(), bean.getAdmin());
+        System.out.println(bean.getUser_userid()+ bean.getAdmin());
+        AdminCheck(bean.getUser_userid(), bean.getAdmin());
+        
 //------------------------------------------------------------------------------
 		ArrayList<Bean> beanList = withAction.AnswerList(ShareVar.seqIndex);
 		
@@ -382,45 +383,44 @@ public class AnswerQueryMain {
 	private void TableClick() {
 		  int i = Inner_Table.getSelectedRow();
 	        String tkSeq = (String)Inner_Table.getValueAt(i, 0);
-	        int seq = Integer.parseInt(tkSeq);
+	        ShareVar.commentIndex = Integer.parseInt(tkSeq);
 	        WithAction withAction = new WithAction();
-	        Bean bean = withAction.AnswerClick(seq);
-	        if (ShareVar.admincheck == 1) {
+	        Bean bean = withAction.AnswerClick(ShareVar.commentIndex);
+	        if (ShareVar.admincheck == 1 && ShareVar.nowId.equals(bean.getUser_userid())) {
 	        	System.out.println(ShareVar.nowId + bean.getUser_userid());
-	        	if(ShareVar.nowId.equals(bean.getUser_userid())) {	
 	        		//관리자
 	        		btnUpdate.setText("댓글수정");
 	        		btnDelete.setText("댓글삭제");
 	        		btnDelete.setVisible(true);
 	        		taAnswer.setText(bean.getContent());
 	        	}else {
+	        		btnUpdate.setText("댓글작성");
 	        		btnDelete.setVisible(false);
 	        	}
-	        }
 	        taAnswer.setText(bean.getContent());
+	        
 	}
 
 	private void AdminCheck(String userid, int admin) {
-//		System.out.println(userid+admin+ShareVar.nowId);
+		System.out.println(userid+admin+ShareVar.nowId);
 		if (ShareVar.admincheck == 0 || admin == 0) {
-			if(ShareVar.nowId.equals(userid)) {
-				//작성유저
-				btnUpdate.setVisible(true);
-				btnDelete.setVisible(false);
-				taAnswer.setEditable(false);
-				taQuery.setEditable(false);
-				tfTitle.setEditable(false);
-				tfTablePK.setEditable(false);
-				tfAddtime.setEditable(false);
-				tfUsername.setEditable(false);
-				btnDelete.setText("문의삭제");
-				btnUpdate.setText("문의수정");
-			}
+			btnUpdate.setVisible(true);
+			btnDelete.setVisible(false);
+			taAnswer.setEditable(false);
+			taQuery.setEditable(false);
+			tfTitle.setEditable(false);
+			tfTablePK.setEditable(false);
+			tfAddtime.setEditable(false);
+			tfUsername.setEditable(false);
+			lblAnswer.setText("답변보기");
+			btnDelete.setText("문의삭제");
+			btnUpdate.setText("문의수정");
+			
 		}if(ShareVar.admincheck == 1 || admin == 1) {
 			//관리자
 			btnUpdate.setVisible(true);
 			btnDelete.setVisible(false);
-			taAnswer.setEditable(false);
+			taAnswer.setEditable(true);
 			taQuery.setEditable(false);
 			tfTitle.setEditable(false);
 			tfTablePK.setEditable(false);
@@ -457,7 +457,7 @@ public class AnswerQueryMain {
 		WithAction withAction = new WithAction();
 		
 		switch (btnUpdate.getText()) {
-		case "등록":
+		case "댓글작성":
 			aaa = withAction.InsertAnswer(Answer ,Integer.parseInt(tfTablePK.getText()));
 			break;
 		case "수정완료":
@@ -493,9 +493,6 @@ public class AnswerQueryMain {
 	private void BtnAction() {
 		switch (btnUpdate.getText()) {
 		case "댓글작성":
-			taAnswer.setEditable(true);
-			btnUpdate.setText("등록");
-			break;
 		case "등록":
 			FieldCheck();
 			break;
@@ -522,7 +519,7 @@ public class AnswerQueryMain {
 		WithAction withAction = new WithAction();
 		switch (btnDelete.getText()) {
 		case "댓글삭제" :
-			aaa = withAction.DeleteAnswer(answerIndex);
+			aaa = withAction.DeleteAnswer(ShareVar.commentIndex);
 			break;
 		case "문의삭제" :
 			aaa = withAction.DeleteQuery(Integer.parseInt(tfTablePK.getText()));
@@ -530,12 +527,20 @@ public class AnswerQueryMain {
 		default:
 			break;
 		}
-			if(aaa == true){
-				JOptionPane.showMessageDialog(null, "삭제 되었습니다!");
+		if(aaa == true){
+			JOptionPane.showMessageDialog(null, "삭제 되었습니다!");
+//			SearchAction();
+			if(btnDelete.getText()== "댓글삭제" ) {
+				TableInit();
+		          SearchAction();
+		          taAnswer.setText("");
+		          AdminCheck(null, 0);
+			}else {
 				frame.dispose();
-			}else{
-				JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 			}
+		}else{
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
 		}
 
 	
