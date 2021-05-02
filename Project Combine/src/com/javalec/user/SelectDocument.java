@@ -66,6 +66,8 @@ public class SelectDocument {
 	private JTextArea taComment;
 	private JButton btnCommentInsert;
 	private JButton btnCommentDelete;
+	private JButton btnDocumentUpdate;
+	private JButton btnDocumentDelete;
 
 	/**
 	 * Launch the application.
@@ -101,6 +103,7 @@ public class SelectDocument {
 			public void windowOpened(WindowEvent e) {
 				TableInit();
 				SearchAction();
+				UserCheck();
 			}
 		});
 		frame.setBounds(100, 100, 460, 700);
@@ -124,6 +127,8 @@ public class SelectDocument {
 		frame.getContentPane().add(getCommentpanel());
 		frame.getContentPane().add(getBtnCommentInsert());
 		frame.getContentPane().add(getBtnCommentDelete());
+		frame.getContentPane().add(getBtnDocumentUpdate());
+		frame.getContentPane().add(getBtnDocumentDelete());
 //		frame.getContentPane().add(getBtnUpdate());
 		frame.setLocationRelativeTo(null);
 	}
@@ -329,11 +334,11 @@ public class SelectDocument {
 				public void actionPerformed(ActionEvent e) {
 					int result = JOptionPane.showConfirmDialog(null, "정말 삭제할까요?", "EVENT", JOptionPane.YES_NO_OPTION);
 					if (result == JOptionPane.YES_OPTION) {
-						DeleteAction();
+						DeleteCommentAction();
 					}
 				}
 			});
-			btnCommentDelete.setBounds(277, 422, 81, 29);
+			btnCommentDelete.setBounds(291, 422, 81, 29);
 		}
 		return btnCommentDelete;
 	}
@@ -429,16 +434,12 @@ public class SelectDocument {
 				JOptionPane.showMessageDialog(null, "입력하신 댓글을 다시 확인해주세요!");
 					//answer Insert or update
 			}else {
-				UpdateAction(taComment.getText());
+				UpdateCommentAction(taComment.getText());
 //				System.out.println("test1");
 			}
-//			if(taDocument.getText().trim().length() == 0) {
-//				JOptionPane.showMessageDialog(null, "수정하신 내용을 다시 확인해주세요!");
-//			}else {
-//				UpdateAction(tfTitle.getText() ,taDocument.getText());
-//			}
+//			
 	}
-	private void UpdateAction(String Answer) {
+	private void UpdateCommentAction(String Answer) {
 		//답변수정
 		boolean aaa=null != null;
 		UserAction userAction = new UserAction();
@@ -463,7 +464,7 @@ public class SelectDocument {
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}
 	}
-	private void DeleteAction() {
+	private void DeleteCommentAction() {
 		boolean aaa=null != null;
 		UserAction userAction = new UserAction();
 		aaa = userAction.DeleteComment(ShareVar.commentIndex);
@@ -478,4 +479,93 @@ public class SelectDocument {
 		}
 	}
 
+	private JButton getBtnDocumentUpdate() {
+		if (btnDocumentUpdate == null) {
+			btnDocumentUpdate = new JButton("수정하기");
+			btnDocumentUpdate.setVisible(false);
+			btnDocumentUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					switch (btnDocumentUpdate.getText()) {
+					case "수정하기":
+						taDocument.setEditable(true);
+						tfTitle.setEditable(true);
+						btnDocumentUpdate.setText("수정완료");
+						break;
+					case "수정완료":
+						DocumentFieldCheck();
+						break;
+					default:
+						break;
+					}
+				}
+			});
+			btnDocumentUpdate.setBounds(370, 292, 81, 29);
+		}
+		return btnDocumentUpdate;
+	}
+	private JButton getBtnDocumentDelete() {
+		if (btnDocumentDelete == null) {
+			btnDocumentDelete = new JButton("글 삭제");
+			btnDocumentDelete.setVisible(false);
+			btnDocumentDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "정말 삭제할까요?", "EVENT", JOptionPane.YES_NO_OPTION);
+					if (result == JOptionPane.YES_OPTION) {
+						DeleteDocumentAction();
+					}
+				}
+			});
+			btnDocumentDelete.setBounds(291, 292, 81, 29);
+		}
+		return btnDocumentDelete;
+	}
+	private void UserCheck() {
+		UserAction userAction = new UserAction();
+		String user_userid = userAction.WriterCheck();
+		if(ShareVar.nowId.equals(user_userid)) {
+			btnDocumentUpdate.setVisible(true);
+			btnDocumentDelete.setVisible(true);
+		}else {
+			
+		}
+
+	}
+	private void DocumentFieldCheck() {
+		if(taDocument.getText().trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "수정하신 내용을 다시 확인해주세요!");
+		}else {
+			UpdateDocumentAction(tfTitle.getText() ,taDocument.getText());
+		}
+
+	}
+	private void UpdateDocumentAction(String title, String document) {
+		//글 수정
+		UserAction userAction = new UserAction();
+		boolean aaa = userAction.UpdateDocument(title , document);
+
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "글이 수정 되었습니다!");
+	          TableInit();
+	          SearchAction();
+	          tfTitle.setEditable(false);
+	          taDocument.setEditable(false);
+	          btnDocumentUpdate.setText("수정하기");
+
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+	}
+	private void DeleteDocumentAction() {
+		
+		UserAction userAction = new UserAction();
+		boolean aaa = userAction.DeleteDocument();
+		if(aaa == true){
+	          JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다!");
+	          frame.dispose();
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+		
+	}
+	
 }

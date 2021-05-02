@@ -543,4 +543,73 @@ import com.javalec.function.ShareVar;
 		      }
 		      return true;
 			}
+		public String WriterCheck() {
+			String check  = null;
+			String WhereDefault = "select User_userid from document ";
+			String WhereDefault2 = "where documentid = " + ShareVar.seqIndex;
+			System.out.println(WhereDefault+WhereDefault2);
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+				 if(rs.next()){
+					 check = rs.getString(1);
+				 }
+				conn_mysql.close();
+				System.out.println(check);
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return check;
+		}
+		public boolean UpdateDocument(String title, String document) {
+			PreparedStatement ps = null;
+			  try{
+			      Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			      @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+			
+			      String A = "update document set documenttitle = ?, documentcontent = ? ";
+			      String B = " where documentid = ? ";
+			
+			      ps = conn_mysql.prepareStatement(A+B);
+			      
+			      ps.setString(1, title);
+			      ps.setString(2, document);
+			      ps.setInt(3, ShareVar.seqIndex);
+			    
+			      ps.executeUpdate();
+			
+			      conn_mysql.close();
+			  } catch (Exception e){
+			      e.printStackTrace();
+			      return false;
+			  }
+			
+			  return true;
+		}
+		public boolean DeleteDocument() {
+			 PreparedStatement ps = null;
+		      try{
+		          Class.forName("com.mysql.cj.jdbc.Driver");
+		          Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		          @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+		
+		          String A = "UPDATE document SET blindtime = now() where documentid = "+ShareVar.seqIndex;
+		
+		          ps = conn_mysql.prepareStatement(A);
+		          ps.executeUpdate();
+		
+		          conn_mysql.close();
+		      } catch (Exception e){
+		          e.printStackTrace();
+		          return false;
+		      }
+		      return true;
+		}
 }
