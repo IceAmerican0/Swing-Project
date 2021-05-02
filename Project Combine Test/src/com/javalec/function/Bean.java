@@ -52,6 +52,7 @@ public class Bean {
 	}
 	public Bean(int tablePK, String title, String content, String user_userid, String addtime, String blindtime,
 			InputStream clothimage) {
+		//Cloth DB 사진 불러오기
 		super();
 		this.tablePK = tablePK;
 		this.title = title;

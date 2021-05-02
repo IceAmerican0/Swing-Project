@@ -510,8 +510,115 @@ import com.javalec.function.ShareVar;
 	        }
 			return BeanList;
 		}
-	
-	
+		public ArrayList<Bean> DBDocumentList(){
+			
+			ArrayList<Bean> BeanList = new ArrayList<Bean>();
+			
+			String WhereDefault = "select d.documentid, d.documenttitle, d.addtime, d.blindtime, d.User_userid "
+					+ " from cloth as c inner join document as d on c.clothid=d.Cloth_clothid"
+					+ " where c.clothid = "
+					+ ShareVar.seqIndex
+					+ " order by c.addtime Desc";
+			
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+				
+				while(rs.next()){
+					
+					int wkSeq = rs.getInt(1);
+					String wkcontent = rs.getString(2);
+					String wkaddtime = rs.getString(3);
+					String wkblindtime = rs.getString(4);
+					String wkUser_userid = rs.getString(5);
+					
+					Bean bean = new Bean(wkUser_userid, wkSeq, wkcontent, wkaddtime, wkblindtime);
+					BeanList.add(bean);
+				}
+				
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return BeanList;
+		}
+		public Bean ClothDBTableClick() {
+			Bean bean = null;
+			
+			String WhereDefault = "select c.clothid, c.clothtype, c.clothname, c.addtime, c.blindtime, u.userid, c.clothimage "
+					+ " from cloth as c inner join user as u on c.user_userid = u.userid";
+			String WhereDefault2 = " where c.clothid = " + ShareVar.seqIndex;
+			
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+				
+				
+				
+				if(rs.next()){
+					
+					int wkSeq = rs.getInt(1);
+					String wkTitle = rs.getString(2);
+					String wkContent = rs.getString(3);
+					String wkaddtime = rs.getString(4);
+					String wkblindtime = rs.getString(5);
+					String wkuserid = rs.getString(6);
+					// File
+	            	ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	InputStream input = rs.getBinaryStream(7);
+	                byte[] buffer = new byte[1024];
+	                while (input.read(buffer) > 0) {
+	                    output.write(buffer);
+	                }
+//			            	
+					bean = new Bean(wkSeq, wkTitle, wkContent, wkuserid, wkaddtime, wkblindtime ,input);
+					
+				}
+				conn_mysql.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+			return bean;
+		}
+		public boolean UpdateClothBlindtime(int i) {
+			//공지와 일반게시물 같이사용 가능
+			
+			PreparedStatement ps = null;
+			String A = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+				if (i == 0) {
+					A = "UPDATE Cloth SET blindtime = now() where clothid = '"+ShareVar.seqIndex+"'";		        	  
+				}
+				if (i == 1) {
+					A = "UPDATE Cloth SET blindtime = null WHERE clothid = '"+ShareVar.seqIndex+"'";		        	  		        	  
+				}
+				ps = conn_mysql.prepareStatement(A);
+				System.out.println(A);
+				
+				ps.executeUpdate();
+				
+				conn_mysql.close();
+				
+			}catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
 	
 	
 }

@@ -272,12 +272,11 @@ public  class UpdateClothDB extends JFrame {
 
 	}
 	private void TableClick() {
-//		
-//		int i = Inner_Table_cth.getSelectedRow();
-//		String tkSequence = (String)Inner_Table_cth.getValueAt(i, 0);
-//		ShareVar.seqIndex = Integer.parseInt(tkSequence);
-//		System.out.println(ShareVar.seqIndex);
-//		SelectDocumentDB.main(null);
+		int i = Inner_Table_cth.getSelectedRow();
+		String tkSequence = (String)Inner_Table_cth.getValueAt(i, 0);
+		ShareVar.seqIndex = Integer.parseInt(tkSequence);
+		System.out.println(ShareVar.seqIndex);
+		SelectClothDB.main(null);
 	}
 	
 	private void ScreenPartition() {

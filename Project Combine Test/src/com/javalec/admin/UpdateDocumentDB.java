@@ -273,11 +273,10 @@ public  class UpdateDocumentDB extends JFrame {
 
 	}
 	private void TableClick() {
-		
 		int i = Inner_Table_dc.getSelectedRow();
 		String tkSequence = (String)Inner_Table_dc.getValueAt(i, 0);
 		ShareVar.seqIndex = Integer.parseInt(tkSequence);
-		System.out.println(ShareVar.seqIndex);
+//		System.out.println(ShareVar.seqIndex);
 		SelectDocumentDB.main(null);
 	}
 	
