@@ -627,6 +627,29 @@ import com.javalec.function.ShareVar;
 			}
 			return true;
 		}
-	
+		public boolean UpdateClothType(Object ClothType) {
+			
+			PreparedStatement ps = null;
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				@SuppressWarnings("unused")
+				Statement stmt_mysql = conn_mysql.createStatement();
+			
+				String A = "UPDATE cloth SET clothtype = '"+ClothType+"' where clothid = '"+ShareVar.seqIndex+"'";		        	  
+				
+				System.out.println(A);
+				ps = conn_mysql.prepareStatement(A);
+				
+				ps.executeUpdate();
+				
+				conn_mysql.close();
+				
+			}catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
 	
 }

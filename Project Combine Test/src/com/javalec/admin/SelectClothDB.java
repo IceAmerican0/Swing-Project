@@ -64,7 +64,7 @@ public class SelectClothDB {
 	private JButton btnDelete;
 	private JLabel lbltype;
 	private JComboBox comboBox;
-
+	private String combopre;
 	/**
 	 * Launch the application.
 	 */
@@ -306,8 +306,9 @@ public class SelectClothDB {
         tfBlindtime.setText(bean.getBlindtime());
         tfUserID.setText(bean.getUserid());
 //---------------------------------------combo값 지정하기--------------------------------------
-//        comboBox.getSelectedItem(bean.getTitle());
-    
+        comboBox.setSelectedItem(bean.getTitle());
+        combopre = bean.getTitle();
+   
 //----------------------------------------파일 불러오기--------------------------------------
         String filePath = Integer.toString(ShareVar.filename);
 		ClothData.setIcon(new ImageIcon(filePath));
@@ -427,9 +428,30 @@ public class SelectClothDB {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+						UpdateAction();
+				}
+			});
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
 			comboBox.setBounds(322, 9, 124, 27);
 		}
 		return comboBox;
+	}
+	private void UpdateAction() {
+		if (combopre != comboBox.getSelectedItem()) {
+			int result = JOptionPane.showConfirmDialog(null, "데이터의 목록을 변경하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			AdminAction adminAction = new AdminAction();
+			boolean aaa = adminAction.UpdateClothType(comboBox.getSelectedItem());
+			if(aaa == true){
+			          JOptionPane.showMessageDialog(null, "목록이 변경되었습니다!");    
+			          TableInit();
+			          SearchAction();
+				}else{
+			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+				}
+			}
+		}
 	}
 }
