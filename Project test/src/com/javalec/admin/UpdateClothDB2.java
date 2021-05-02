@@ -32,16 +32,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-public  class UpdateClothDB extends JFrame {
+public  class UpdateClothDB2 {
 
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private final DefaultTableModel Outer_Table_cth = new DefaultTableModel();
 	private JFrame frame;
-	private JLabel lblmember;
-	private JScrollPane scrollPane;
+	private JLabel lblcloth;
+	private JScrollPane scrollPane_cth;
 	private JTextField textField;
-	private JButton btnLoad_dc;
-	private JComboBox cbtitle;
-	private JTable Inner_Table;
+	private JButton btnLoad_cth;
+	private JComboBox cbtitle_cth;
+	private JTable Inner_Table_cth;
 	private JRadioButton rdbtnAll;
 	private JRadioButton rdbtnBlocked;
 	private JRadioButton rdbtnCommon;
@@ -54,7 +54,7 @@ public  class UpdateClothDB extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateClothDB window = new UpdateClothDB();
+					UpdateClothDB2 window = new UpdateClothDB2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +66,7 @@ public  class UpdateClothDB extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public UpdateClothDB() {
+	public UpdateClothDB2() {
 		initialize();
 	}
 
@@ -79,37 +79,38 @@ public  class UpdateClothDB extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				TableInit();
-				ScreenPartition();
+				ConditionQuery();
+//				ScreenPartition();
 			}
 		});
 		frame.setBounds(100, 100, 928, 568);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLblmember());
-		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getLblcloth());
+		frame.getContentPane().add(getScrollPane_cth());
 		frame.getContentPane().add(getTextField());
-		frame.getContentPane().add(getBtnLoad_dc());
-		frame.getContentPane().add(getCbtitle());
+		frame.getContentPane().add(getBtnLoad_cth());
+		frame.getContentPane().add(getCbtitle_cth());
 		frame.getContentPane().add(getRdbtnAll());
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
 	}
 
-	private JLabel getLblmember() {
-		if (lblmember == null) {
-			lblmember = new JLabel("회원관리");
-			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 6, 104, 36);
+	private JLabel getLblcloth() {
+		if (lblcloth == null) {
+			lblcloth = new JLabel("옷 데이터 관리");
+			lblcloth.setHorizontalAlignment(SwingConstants.CENTER);
+			lblcloth.setBounds(6, 6, 104, 36);
 		}
-		return lblmember;
+		return lblcloth;
 	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 54, 913, 477);
-			scrollPane.setViewportView(getInner_Table());
+	private JScrollPane getScrollPane_cth() {
+		if (scrollPane_cth == null) {
+			scrollPane_cth = new JScrollPane();
+			scrollPane_cth.setBounds(6, 54, 913, 477);
+			scrollPane_cth.setViewportView(getInner_Table_cth());
 		}
-		return scrollPane;
+		return scrollPane_cth;
 	}
 	private JTextField getTextField() {
 		if (textField == null) {
@@ -119,37 +120,43 @@ public  class UpdateClothDB extends JFrame {
 		}
 		return textField;
 	}
-	private JButton getBtnLoad_dc() {
-		if (btnLoad_dc == null) {
-			btnLoad_dc = new JButton("조회");
-			btnLoad_dc.addActionListener(new ActionListener() {
+	private JButton getBtnLoad_cth() {
+		if (btnLoad_cth == null) {
+			btnLoad_cth = new JButton("조회");
+			btnLoad_cth.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ConditionQuery();
 				}
 			});
-			btnLoad_dc.setBounds(853, 15, 65, 29);
+			btnLoad_cth.setBounds(853, 15, 65, 29);
 		}
-		return btnLoad_dc;
+		return btnLoad_cth;
 	}
-	private JComboBox getCbtitle() {
-		if (cbtitle == null) {
-			cbtitle = new JComboBox();
-			cbtitle.setModel(new DefaultComboBoxModel(new String[] {"제목", "작성자", "제목+내용"}));
-			cbtitle.setBounds(531, 16, 98, 27);
+	private JComboBox getCbtitle_cth() {
+		if (cbtitle_cth == null) {
+			cbtitle_cth = new JComboBox();
+			cbtitle_cth.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ConditionQuery();
+				}
+			});
+			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
+			cbtitle_cth.setBounds(531, 16, 98, 27);
 		}
-		return cbtitle;
+		return cbtitle_cth;
 	}
-	private JTable getInner_Table() {
-		if (Inner_Table == null) {
-			Inner_Table = new JTable();
-			Inner_Table.setModel(Outer_Table);
-			Inner_Table.addKeyListener(new KeyAdapter() {
+	private JTable getInner_Table_cth() {
+		if (Inner_Table_cth == null) {
+			Inner_Table_cth = new JTable();
+			Inner_Table_cth.setModel(Outer_Table_cth);
+			Inner_Table_cth.isCellEditable(0, 100);
+			Inner_Table_cth.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
 					TableClick();
 				}
 			});
-			Inner_Table.addMouseListener(new MouseAdapter() {
+			Inner_Table_cth.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getButton() == 1){
@@ -158,7 +165,7 @@ public  class UpdateClothDB extends JFrame {
 				}
 			});
 		}
-		return Inner_Table;
+		return Inner_Table_cth;
 	}
 	private JRadioButton getRdbtnAll() {
 		if (rdbtnAll == null) {
@@ -166,7 +173,7 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnAll.setSelected(true);
 			rdbtnAll.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnAll);
@@ -179,7 +186,7 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnBlocked = new JRadioButton("Blocked");
 			rdbtnBlocked.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnBlocked);
@@ -192,7 +199,8 @@ public  class UpdateClothDB extends JFrame {
 			rdbtnCommon = new JRadioButton("Normal");
 			rdbtnCommon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ScreenPartition();
+//					ScreenPartition();
+					ConditionQuery();
 				}
 			});
 			buttonGroup.add(rdbtnCommon);
@@ -201,54 +209,53 @@ public  class UpdateClothDB extends JFrame {
 		return rdbtnCommon;
 	}
 	private void TableInit(){
-        int i = Outer_Table.getRowCount();
+        int i = Outer_Table_cth.getRowCount();
         
-        Outer_Table.addColumn("seq");
-        Outer_Table.addColumn("분류");
-        Outer_Table.addColumn("이름");
-        Outer_Table.addColumn("ImageData");
-        Outer_Table.addColumn("등록User");
-        Outer_Table.addColumn("등록날짜");
-        Outer_Table.addColumn("삭제날짜");
-        Outer_Table.setColumnCount(7);
+        Outer_Table_cth.addColumn("seq");
+        Outer_Table_cth.addColumn("분류");
+        Outer_Table_cth.addColumn("이름");
+        Outer_Table_cth.addColumn("ImageData");
+        Outer_Table_cth.addColumn("등록날짜");
+        Outer_Table_cth.addColumn("삭제날짜");
+        Outer_Table_cth.addColumn("등록User");
+        Outer_Table_cth.setColumnCount(7);
 
         for(int j = 0 ; j < i ; j++){
-            Outer_Table.removeRow(0);
+            Outer_Table_cth.removeRow(0);
         }
 
-        Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+        Inner_Table_cth.setAutoResizeMode(Inner_Table_cth.AUTO_RESIZE_OFF);
         
 
         int vColIndex = 0;
-        TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        TableColumn col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         int width = 60;
         col.setPreferredWidth(width);
         vColIndex = 1;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
         vColIndex = 2;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 300;
         col.setPreferredWidth(width);
         vColIndex = 3;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 60;
         col.setPreferredWidth(width);
         vColIndex = 4;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
         vColIndex = 5;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
         vColIndex = 6;
-        col = Inner_Table.getColumnModel().getColumn(vColIndex);
+        col = Inner_Table_cth.getColumnModel().getColumn(vColIndex);
         width = 100;
         col.setPreferredWidth(width);
        
-
 
 	}
 	private void SearchAction(String WhereCheck){
@@ -260,7 +267,7 @@ public  class UpdateClothDB extends JFrame {
 			String temp = Integer.toString(beanList.get(index).getTablePK());
 			String temp2 = Integer.toString(beanList.get(index).getAdmin()); //imageid
 			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};
-			Outer_Table.addRow(qTxt);
+			Outer_Table_cth.addRow(qTxt);
 		}
 
 	}
@@ -270,12 +277,12 @@ public  class UpdateClothDB extends JFrame {
 	}
 	private void TableClick() {
 		//선택한 번호
-		int i = Inner_Table.getSelectedRow();
-		String tkSequence = (String)Inner_Table.getValueAt(i, 0);
+		int i = Inner_Table_cth.getSelectedRow();
+		String tkSequence = (String)Inner_Table_cth.getValueAt(i, 0);
 		
 		AdminAction adminAction = new AdminAction();
-		String clothid = adminAction.ClothBlindCheck(tkSequence);
-		if (clothid == null) {
+		String Clothid = adminAction.ClothBlindCheck(tkSequence);
+		if (Clothid == null) {
 			//차단된 사용자
 			int result = JOptionPane.showConfirmDialog(null, "차단을 해제하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION) {
@@ -283,22 +290,23 @@ public  class UpdateClothDB extends JFrame {
 				if(aaa == true){
 			          JOptionPane.showMessageDialog(null, "차단이 해제되었습니다!");      
 			          TableInit();
-						ScreenPartition();
+//						ScreenPartition();
+			          ConditionQuery();
 				}else{
 			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 				}
 			}else {
-			
+				
 			}
-		}if (clothid != null) {
-			int result = JOptionPane.showConfirmDialog(null, "해당 게시글을 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
+		}if (Clothid != null) {
+			int result = JOptionPane.showConfirmDialog(null, "해당 데이터를 차단하시겠습니까?", "EVENT", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION) {
 				boolean aaa = adminAction.UpdateClothBlindtime(tkSequence, 0);
 				if(aaa == true){
-			          JOptionPane.showMessageDialog(null, "게시글이 차단되었습니다!");
+			          JOptionPane.showMessageDialog(null, "데이터가 차단되었습니다!");
 			          TableInit();
-						ScreenPartition();
-			          
+//						ScreenPartition();
+			          ConditionQuery();
 				}else{
 			          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 				}
@@ -311,39 +319,63 @@ public  class UpdateClothDB extends JFrame {
 
 	}
 	
-	private void ScreenPartition() {
-		String WhereCheck = "";
-		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " and not blindtime is null ";
-			
-		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " and blindtime is null ";
-		}
-		TableInit();
-		SearchAction(WhereCheck);
-	}
+//	private void ScreenPartition() {
+//		String WhereCheck = "";
+//		if (rdbtnAll.isSelected()) {
+//			
+//		}
+//		if (rdbtnBlocked.isSelected()) {
+//			WhereCheck = " where not blindtime is null ";
+//			
+//		}if (rdbtnCommon.isSelected()) {
+//			WhereCheck = " where blindtime is null ";
+//		}
+//		TableInit();
+//		SearchAction(WhereCheck);
+//	}
 	private void ConditionQuery() {
-		int i = cbtitle.getSelectedIndex();
+		int i = cbtitle_cth.getSelectedIndex();
 		String ConditionQueryColumn = "";
 		switch (i) {
 		case 0:
-			ConditionQueryColumn = " and clothtitle";
+			ConditionQueryColumn = "";
 			break;
 		case 1:
-			ConditionQueryColumn = " and User_userid";
+			ConditionQueryColumn = " clothtype = '상의' and";
 			break;
 		case 2:
-			ConditionQueryColumn = "and clothcontent or clothtitle";
+			ConditionQueryColumn = " clothtype = '하의' and";
+			break;
+		case 3:
+			ConditionQueryColumn = " clothtype = '모자' and";
+			break;
+		case 4:
+			ConditionQueryColumn = " clothtype = '신발' and";
+			break;
+		case 5:
+			ConditionQueryColumn = " clothtype = '가방'and";
+			break;
+		case 6:
+			ConditionQueryColumn = " clothtype = '원피스' and";
+			break;
+		case 7:
+			ConditionQueryColumn = " clothtype = '아우터' and";
 			break;
 		default:
 			break;
 		}
 		String WhereCheck = "";
 		if (rdbtnBlocked.isSelected()) {
-			WhereCheck = " and not blindtime is null ";
+			WhereCheck = " where not blindtime is null and";
 			
 		}if (rdbtnCommon.isSelected()) {
-			WhereCheck = " and blindtime is null ";
+			WhereCheck = " where blindtime is null and";
+		}if (rdbtnAll.isSelected()) {
+			WhereCheck = "where";
+		}
+		if (rdbtnAll.isSelected() && ConditionQueryColumn == "") {
+			WhereCheck = "";
+			ConditionQueryColumn = "where ";
 		}
 		
 		TableInit();
@@ -357,10 +389,10 @@ public  class UpdateClothDB extends JFrame {
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
+			
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String temp2 = Integer.toString(beanList.get(index).getAdmin()); 
-			String[] qTxt = {temp, beanList.get(index).getTitle(),beanList.get(index).getContent(),temp2,beanList.get(index).getUserid(), beanList.get(index).getAddtime(),beanList.get(index).getBlindtime()};			Outer_Table.addRow(qTxt);
-			Outer_Table.addRow(qTxt);
+			String[] qTxt = {temp, beanList.get(index).getTitle(), beanList.get(index).getContent(),"filePath",beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(),beanList.get(index).getUser_userid()};
+			Outer_Table_cth.addRow(qTxt);
 		}
 
 	}

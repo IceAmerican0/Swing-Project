@@ -68,7 +68,7 @@ import com.javalec.function.ShareVar;
 			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid"
 					+ " from cloth"
 					+ WhereCheck;
-//			System.out.println(WhereDefault);
+			System.out.println(WhereDefault);
 	        try{
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -160,7 +160,7 @@ import com.javalec.function.ShareVar;
 		public ArrayList<Bean> UserConditionList(String conditionQueryColumn, String querykey, String WhereCheck) {
 			ArrayList<Bean> BeanList = new ArrayList<Bean>();
 			
-			String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid from user ";
+			String WhereDefault = "select userid, username, useremail, useraddtime, userblindtime, admin from user ";
 			String WhereDefault2 = WhereCheck+ conditionQueryColumn + " like '%" + querykey + "%'";
 			System.out.println(WhereDefault+WhereDefault2);
 	        try{
