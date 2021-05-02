@@ -13,6 +13,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.tab.admin_tab;
+import com.javalec.tab.user_tab;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -40,6 +42,7 @@ public class QueryMain {
 	private JTable Inner_Table;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JButton btnQuery;
+	private JButton btnMain;
 
 	/**
 	 * Launch the application.
@@ -89,6 +92,7 @@ public class QueryMain {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getScrollPane());
 		frame.getContentPane().add(getBtnQuery());
+		frame.getContentPane().add(getBtnMain());
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -212,4 +216,23 @@ public class QueryMain {
 
 	}
 
+	private JButton getBtnMain() {
+		if (btnMain == null) {
+			btnMain = new JButton("메인으로");
+			btnMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(ShareVar.admincheck==1) {
+						admin_tab.main(null);
+						frame.dispose();
+					}
+					if(ShareVar.admincheck==0) {
+						user_tab.main(null);
+						frame.dispose();
+					}
+				}
+			});
+			btnMain.setBounds(12, 22, 97, 23);
+		}
+		return btnMain;
+	}
 }

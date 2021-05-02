@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.javalec.tab.user_tab;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -136,6 +137,8 @@ public class ClothList {
 			btnCancel = new JButton("취소");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					frame.dispose();
+					user_tab.main(null);
 				}
 			});
 			btnCancel.setBounds(178, 362, 89, 29);

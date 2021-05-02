@@ -17,6 +17,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.tab.admin_tab;
+import com.javalec.tab.user_tab;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -36,6 +38,7 @@ public class NoticeMain {
 	private JButton btnNotice;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
+	private JButton btnMain;
 	
 	/**
 	 * Launch the application.
@@ -85,6 +88,7 @@ public class NoticeMain {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNotice());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getBtnMain());
 		frame.setLocationRelativeTo(null);
 	}
 	private JButton getBtnNotice() {
@@ -200,5 +204,24 @@ public class NoticeMain {
         ShareVar.seqIndex = Integer.parseInt(tkSequence);
 		UpdateNotice.main(null);
 
+	}
+	private JButton getBtnMain() {
+		if (btnMain == null) {
+			btnMain = new JButton("메인으로");
+			btnMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(ShareVar.admincheck==1) {
+						admin_tab.main(null);
+						frame.dispose();
+					}
+					if(ShareVar.admincheck==0) {
+						user_tab.main(null);
+						frame.dispose();
+					}
+				}
+			});
+			btnMain.setBounds(32, 22, 97, 23);
+		}
+		return btnMain;
 	}
 }

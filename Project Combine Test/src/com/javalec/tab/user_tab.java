@@ -22,9 +22,14 @@ import com.javalec.profile.ChangeImageAction;
 import com.javalec.profile.ChangePassword;
 import com.javalec.profile.CloseAcount;
 import com.javalec.profile.CloseAcountAction;
+import com.javalec.user.ClothList;
+import com.javalec.user.ClothMain;
 import com.javalec.user.InsertCloth;
 import com.javalec.user.InsertDocument;
+import com.javalec.user.UpdateCloth;
 import com.javalec.with.InsertQuery;
+import com.javalec.with.NoticeMain;
+import com.javalec.with.QueryMain;
 import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 import java.awt.event.ActionListener;
@@ -373,6 +378,8 @@ public class user_tab {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels2(in_mycloset);
+				ClothMain.main(null);
+				frame.dispose();
 			}
 		});
 		btnNewButton_2.setBounds(144, 11, 75, 29);
@@ -400,6 +407,8 @@ public class user_tab {
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InsertCloth.main(null);
+				UpdateCloth.main(null);
+				frame.dispose();
 			}
 		});
 		btnNewButton_2_1.setBounds(6, 6, 98, 29);
@@ -717,7 +726,8 @@ public class user_tab {
 		JButton btnmyCloset = new JButton("나의 옷장");
 		btnmyCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(mycloset);//탭전환
+				ClothList.main(null);
+				frame.dispose();
 			}
 		});
 		btnmyCloset.setBounds(52, 249, 151, 50);
@@ -726,7 +736,8 @@ public class user_tab {
 		JButton btnNotice = new JButton("공지사항");
 		btnNotice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(notice);//탭전환
+				NoticeMain.main(null);
+				frame.dispose();
 			}
 		});
 		btnNotice.setBounds(52, 311, 151, 50);
@@ -735,7 +746,8 @@ public class user_tab {
 		JButton btnInquiry = new JButton("1:1 문의");
 		btnInquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(inquiry);//탭전환
+				QueryMain.main(null);
+				frame.dispose();
 			}
 		});
 		btnInquiry.setBounds(52, 373, 151, 50);

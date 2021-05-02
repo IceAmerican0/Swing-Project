@@ -18,6 +18,7 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.admin.AdminAction;
 import com.javalec.admin.UpdateClothDB;
+import com.javalec.admin.UpdateDocumentDB;
 import com.javalec.admin.UpdateUserDB;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
@@ -26,6 +27,10 @@ import com.javalec.profile.ChangePassword;
 import com.javalec.user.InsertCloth;
 import com.javalec.with.AnswerQueryInsert;
 import com.javalec.with.InsertNotice;
+import com.javalec.with.NoticeMain;
+import com.javalec.with.QueryMain;
+import com.javalec.with.UpdateNotice;
+import com.mysql.cj.protocol.x.Notice;
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -375,7 +380,8 @@ public class admin_tab extends JFrame{
 		JButton btnMember = new JButton("회원관리");
 		btnMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(member);//탭전환
+				UpdateUserDB.main(null);
+				frame.dispose();
 			}
 		});
 		btnMember.setBounds(52, 125, 151, 50);
@@ -385,7 +391,8 @@ public class admin_tab extends JFrame{
 		btnCloset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(closet);//탭전환
-				
+				UpdateClothDB.main(null);
+				frame.dispose();
 			}
 		});
 		btnCloset.setBounds(52, 187, 151, 50);
@@ -395,6 +402,8 @@ public class admin_tab extends JFrame{
 		btnBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(board);//탭전환
+				UpdateDocumentDB.main(null);
+				frame.dispose();
 			}
 		});
 		btnBoard.setBounds(52, 249, 151, 50);
@@ -404,6 +413,8 @@ public class admin_tab extends JFrame{
 		btnInquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(inquiry);//탭전환
+				frame.dispose();
+				QueryMain.main(null);
 			}
 		});
 		btnInquiry.setBounds(52, 311, 151, 50);
@@ -413,6 +424,8 @@ public class admin_tab extends JFrame{
 		btnNotice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(notice);//탭전환
+				frame.dispose();
+				NoticeMain.main(null);
 			}
 		});
 		btnNotice.setBounds(52, 373, 151, 50);

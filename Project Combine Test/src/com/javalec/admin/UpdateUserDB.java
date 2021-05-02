@@ -16,6 +16,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.tab.admin_tab;
+import com.javalec.tab.user_tab;
 import com.javalec.with.InsertNotice;
 import com.javalec.with.WithAction;
 
@@ -46,6 +48,7 @@ public  class UpdateUserDB extends JFrame {
 	private JRadioButton rdbtnBlocked;
 	private JRadioButton rdbtnCommon;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnMain;
 
 	/**
 	 * Launch the application.
@@ -78,7 +81,6 @@ public  class UpdateUserDB extends JFrame {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				TableInit();
 				ScreenPartition();
 			}
 		});
@@ -93,6 +95,7 @@ public  class UpdateUserDB extends JFrame {
 		frame.getContentPane().add(getRdbtnAll());
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
+		frame.getContentPane().add(getBtnMain());
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -100,7 +103,7 @@ public  class UpdateUserDB extends JFrame {
 		if (lblmember == null) {
 			lblmember = new JLabel("회원관리");
 			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 6, 104, 36);
+			lblmember.setBounds(14, 11, 104, 36);
 		}
 		return lblmember;
 	}
@@ -365,4 +368,23 @@ public  class UpdateUserDB extends JFrame {
 
 	}
 	
+	private JButton getBtnMain() {
+		if (btnMain == null) {
+			btnMain = new JButton("메인으로");
+			btnMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(ShareVar.admincheck==1) {
+						admin_tab.main(null);
+						frame.dispose();
+					}
+					if(ShareVar.admincheck==0) {
+						user_tab.main(null);
+						frame.dispose();
+					}
+				}
+			});
+			btnMain.setBounds(130, 17, 97, 23);
+		}
+		return btnMain;
+	}
 }

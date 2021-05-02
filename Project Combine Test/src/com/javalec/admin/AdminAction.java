@@ -96,7 +96,8 @@ import com.javalec.function.ShareVar;
 	                }
 			        
 			        
-	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, wkclothimage, wkaddtime, wkblindtime, wkuserid);
+	            	Bean bean = new Bean(wktablePK, wktitle, wkcontent, 
+	            			wkclothimage, wkaddtime, wkblindtime, wkuserid);
 	            	BeanList.add(bean);
 	            }
 	            rs.close ();

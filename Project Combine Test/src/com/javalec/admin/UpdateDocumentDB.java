@@ -16,6 +16,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.tab.admin_tab;
+import com.javalec.tab.user_tab;
 import com.javalec.with.InsertNotice;
 import com.javalec.with.WithAction;
 
@@ -46,6 +48,7 @@ public  class UpdateDocumentDB extends JFrame {
 	private JRadioButton rdbtnBlocked;
 	private JRadioButton rdbtnCommon;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnMain;
 
 	/**
 	 * Launch the application.
@@ -82,7 +85,7 @@ public  class UpdateDocumentDB extends JFrame {
 				ScreenPartition();
 			}
 		});
-		frame.setBounds(100, 100, 928, 568);
+		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblmember());
@@ -93,14 +96,15 @@ public  class UpdateDocumentDB extends JFrame {
 		frame.getContentPane().add(getRdbtnAll());
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
+		frame.getContentPane().add(getBtnMain());
 		frame.setLocationRelativeTo(null);
 	}
 
 	private JLabel getLblmember() {
 		if (lblmember == null) {
-			lblmember = new JLabel("회원관리");
+			lblmember = new JLabel("게시글 관리");
 			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 6, 104, 36);
+			lblmember.setBounds(6, 10, 104, 36);
 		}
 		return lblmember;
 	}
@@ -366,4 +370,23 @@ public  class UpdateDocumentDB extends JFrame {
 
 	}
 	
+	private JButton getBtnMain() {
+		if (btnMain == null) {
+			btnMain = new JButton("메인으로");
+			btnMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(ShareVar.admincheck==1) {
+						admin_tab.main(null);
+						frame.dispose();
+					}
+					if(ShareVar.admincheck==0) {
+						user_tab.main(null);
+						frame.dispose();
+					}
+				}
+			});
+			btnMain.setBounds(133, 17, 97, 23);
+		}
+		return btnMain;
+	}
 }

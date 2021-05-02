@@ -17,6 +17,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.tab.admin_tab;
+import com.javalec.tab.user_tab;
 import com.javalec.with.InsertNotice;
 import com.javalec.with.WithAction;
 
@@ -47,6 +49,7 @@ public  class UpdateClothDB {
 	private JRadioButton rdbtnBlocked;
 	private JRadioButton rdbtnCommon;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnMain;
 
 	/**
 	 * Launch the application.
@@ -79,9 +82,7 @@ public  class UpdateClothDB {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				TableInit();
-				ConditionQuery();
-//				ScreenPartition();
+				ScreenPartition();
 			}
 		});
 		frame.setBounds(100, 100, 928, 568);
@@ -95,6 +96,7 @@ public  class UpdateClothDB {
 		frame.getContentPane().add(getRdbtnAll());
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
+		frame.getContentPane().add(getBtnMain());
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -102,7 +104,7 @@ public  class UpdateClothDB {
 		if (lblcloth == null) {
 			lblcloth = new JLabel("옷 데이터 관리");
 			lblcloth.setHorizontalAlignment(SwingConstants.CENTER);
-			lblcloth.setBounds(6, 6, 104, 36);
+			lblcloth.setBounds(12, 10, 104, 36);
 		}
 		return lblcloth;
 	}
@@ -270,7 +272,9 @@ public  class UpdateClothDB {
 		for (int index = 0; index < listCount; index++) {
 
 			String temp = Integer.toString(beanList.get(index).getTablePK());
-			String[] qTxt = {temp, beanList.get(index).getTitle(), beanList.get(index).getContent(),"filePath",beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(),beanList.get(index).getUser_userid()};
+			String[] qTxt = {temp, beanList.get(index).getTitle(), beanList.get(index).getContent(),
+					"filePath",beanList.get(index).getAddtime(),beanList.get(index).getBlindtime(),
+					beanList.get(index).getUser_userid()};
 			Outer_Table_cth.addRow(qTxt);
 		}
 
@@ -323,20 +327,21 @@ public  class UpdateClothDB {
 
 	}
 	
-//	private void ScreenPartition() {
-//		String WhereCheck = "";
-//		if (rdbtnAll.isSelected()) {
-//			
-//		}
-//		if (rdbtnBlocked.isSelected()) {
-//			WhereCheck = " where not blindtime is null ";
-//			
-//		}if (rdbtnCommon.isSelected()) {
-//			WhereCheck = " where blindtime is null ";
-//		}
-//		TableInit();
-//		SearchAction(WhereCheck);
-//	}
+	private void ScreenPartition() {
+		String WhereCheck = "";
+		if (rdbtnAll.isSelected()) {
+			
+		}
+		if (rdbtnBlocked.isSelected()) {
+			WhereCheck = " where not blindtime is null ";
+			
+		}if (rdbtnCommon.isSelected()) {
+			WhereCheck = " where blindtime is null ";
+		}
+		TableInit();
+		SearchAction(WhereCheck);
+	}
+	
 	private void ConditionQuery() {
 		int i = cbtitle_cth.getSelectedIndex();
 		String ConditionQueryColumn = "";
@@ -401,4 +406,23 @@ public  class UpdateClothDB {
 
 	}
 	
+	private JButton getBtnMain() {
+		if (btnMain == null) {
+			btnMain = new JButton("메인으로");
+			btnMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(ShareVar.admincheck==1) {
+						admin_tab.main(null);
+						frame.dispose();
+					}
+					if(ShareVar.admincheck==0) {
+						user_tab.main(null);
+						frame.dispose();
+					}
+				}
+			});
+			btnMain.setBounds(145, 17, 97, 23);
+		}
+		return btnMain;
+	}
 }
