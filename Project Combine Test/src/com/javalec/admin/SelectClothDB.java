@@ -306,7 +306,7 @@ public class SelectClothDB {
         tfBlindtime.setText(bean.getBlindtime());
         tfUserID.setText(bean.getUserid());
 //---------------------------------------combo값 지정하기--------------------------------------
-        comboBox.getSelectedItem(bean.getTitle());
+//        comboBox.getSelectedItem(bean.getTitle());
     
 //----------------------------------------파일 불러오기--------------------------------------
         String filePath = Integer.toString(ShareVar.filename);

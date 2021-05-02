@@ -441,8 +441,9 @@ import com.javalec.function.ShareVar;
 		public Bean DocumentDBTableClick() {
 			Bean bean = null;
 			
-			String WhereDefault = "select d.documentid, d.documenttitle, d.documentcontent, d.addtime, d.blindtime, u.userid "
-					+ " from document as d inner join user as u on d.user_userid = u.userid";
+			String WhereDefault = "select d.documentid, d.documenttitle, d.documentcontent, d.addtime, d.blindtime, u.userid, c.clothimage "
+					+ " from document as d inner join user as u on d.user_userid = u.userid "
+					+ " inner join cloth as c on d.Cloth_clothid = c.clothid";
 			String WhereDefault2 = " where d.documentid = " + ShareVar.seqIndex;
 			
 			try{
@@ -462,9 +463,16 @@ import com.javalec.function.ShareVar;
 					String wkaddtime = rs.getString(4);
 					String wkblindtime = rs.getString(5);
 					String wkuserid = rs.getString(6);
-
-//			            	
-					bean = new Bean(wkSeq, wkTitle, wkContent, wkaddtime, wkblindtime, wkuserid);
+					// File
+	            	ShareVar.filename = ShareVar.filename + 1;
+	            	File file = new File(Integer.toString(ShareVar.filename));
+	            	FileOutputStream output = new FileOutputStream(file);
+	            	InputStream input = rs.getBinaryStream(7);
+	                byte[] buffer = new byte[1024];
+	                while (input.read(buffer) > 0) {
+	                    output.write(buffer);
+			        }
+					bean = new Bean(wkSeq, wkTitle, wkContent, wkuserid, wkaddtime, wkblindtime, input);
 					
 				}
 				conn_mysql.close();

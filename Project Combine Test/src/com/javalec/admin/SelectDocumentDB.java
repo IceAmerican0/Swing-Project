@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -35,6 +36,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class SelectDocumentDB {
 
@@ -57,7 +59,7 @@ public class SelectDocumentDB {
 	private JTextField tfTablePK;
 	private JLabel lblseq;
 	int answerIndex;
-	private JLabel ClothesData;
+	private JLabel ClothData;
 	private JLabel lblBlind;
 	private JTextField tfBlindtime;
 	private JButton btnDelete;
@@ -115,7 +117,7 @@ public class SelectDocumentDB {
 		frame.getContentPane().add(getScrollPane());
 		frame.getContentPane().add(getTfTablePK());
 		frame.getContentPane().add(getLblseq());
-		frame.getContentPane().add(getClothesData());
+		frame.getContentPane().add(getClothData());
 		frame.getContentPane().add(getLblBlind());
 		frame.getContentPane().add(getTfBlindtime());
 		frame.getContentPane().add(getBtnDelete());
@@ -131,13 +133,13 @@ public class SelectDocumentDB {
 		}
 		return tfTitle;
 	}
-	private JLabel getClothesData() {
-		if (ClothesData == null) {
-			ClothesData = new JLabel((Icon) null);
-			ClothesData.setHorizontalAlignment(SwingConstants.CENTER);
-			ClothesData.setBounds(16, 74, 430, 211);
+	private JLabel getClothData() {
+		if (ClothData == null) {
+			ClothData = new JLabel((Icon) null);
+			ClothData.setHorizontalAlignment(SwingConstants.CENTER);
+			ClothData.setBounds(16, 74, 430, 211);
 		}
-		return ClothesData;
+		return ClothData;
 	}
 	private JLabel getLblTitle() {
 		if (lblTitle == null) {
@@ -321,11 +323,17 @@ public class SelectDocumentDB {
         taContent.setText(bean.getContent());
         tfAddtime.setText(bean.getAddtime());
         tfBlindtime.setText(bean.getBlindtime());
-        tfUserID.setText(bean.getUserid());
+        tfUserID.setText(bean.getUser_userid());
         
         if(bean.getBlindtime() != null) {
         	btnDelete.setText("차단해제");
         }
+//---------------------------------------파일 데이터 불러오기--------------------------------------
+        String filePath = Integer.toString(ShareVar.filename);
+		ClothData.setIcon(new ImageIcon(filePath));
+		ClothData.setHorizontalAlignment(SwingConstants.CENTER);
+		File file = new File(filePath);
+		file.delete();
 //----------------------------------------댓글 불러오기--------------------------------------
 		ArrayList<Bean> beanList = adminAction.DBCommentList();
 		
