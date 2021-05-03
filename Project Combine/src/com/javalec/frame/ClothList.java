@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -14,6 +15,7 @@ import javax.swing.table.TableColumn;
 import com.javalec.admin.AdminAction;
 import com.javalec.function.Bean;
 import com.javalec.function.ShareVar;
+import com.javalec.user.SelectDocument;
 import com.javalec.user.UserAction;
 
 import javax.swing.JComboBox;
@@ -125,6 +127,7 @@ public class ClothList {
 			btnOK.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					TossAction();
+					frame.dispose();
 				}
 			});
 			btnOK.setBounds(266, 236, 75, 29);
@@ -230,6 +233,13 @@ public class ClothList {
 		default:
 			break;
 		}
+		//----------------------------------------파일 불러오기--------------------------------------
+		String filePath = Integer.toString(ShareVar.filename);
+		ClothData.setIcon(new ImageIcon(filePath));
+		ClothData.setHorizontalAlignment(SwingConstants.CENTER);
+		File file = new File(filePath);
+		file.delete();
+		//----------------------------------------파일 불러오기---------------------------------------------
 		
 		
 		UserAction userAction = new UserAction();
@@ -248,10 +258,10 @@ public class ClothList {
 	private void TableClick() {
 		int i = Inner_Table.getSelectedRow();
 		String tkSequence = (String)Inner_Table.getValueAt(i, 0);
-		int imageseq = Integer.parseInt(tkSequence);
+		ShareVar.imageIndex = Integer.parseInt(tkSequence);
 		
 		UserAction userAction = new UserAction();
-		InputStream input = userAction.ClothListClick(imageseq);
+		InputStream input = userAction.ClothListClick();
 //----------------------------------------파일 불러오기--------------------------------------
         String filePath = Integer.toString(ShareVar.filename);
 		ClothData.setIcon(new ImageIcon(filePath));
@@ -261,7 +271,16 @@ public class ClothList {
 //----------------------------------------파일 불러오기--------------------------------------
 	}
 	private void TossAction() {
-		// TODO Auto-generated method stub
-		frame.dispose();
+		UserAction userAction = new UserAction();
+		boolean aaa = userAction.UpdateDocumentCloth();
+
+		if(aaa == true){
+			frame.dispose();
+	          JOptionPane.showMessageDialog(null, "사진이 수정 되었습니다!");
+
+		}else{
+	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
+		}
+		
 	}
 }

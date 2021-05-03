@@ -69,7 +69,9 @@ public class SelectDocument {
 	private JButton btnCommentDelete;
 	private JButton btnDocumentUpdate;
 	private JButton btnDocumentDelete;
-
+	private String user_userid;
+	private JLabel lbltext;
+ 
 	/**
 	 * Launch the application.
 	 */
@@ -99,6 +101,13 @@ public class SelectDocument {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+//				TableInit();
+				SearchAction();
+			}
+		});
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -130,6 +139,7 @@ public class SelectDocument {
 		frame.getContentPane().add(getBtnCommentDelete());
 		frame.getContentPane().add(getBtnDocumentUpdate());
 		frame.getContentPane().add(getBtnDocumentDelete());
+//		frame.getContentPane().add(getLbltext());
 //		frame.getContentPane().add(getBtnUpdate());
 		frame.setLocationRelativeTo(null);
 	}
@@ -146,12 +156,18 @@ public class SelectDocument {
 	private JLabel getClothData() {
 		if (ClothData == null) {
 			ClothData = new JLabel((Icon) null);
-			ClothData.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-//					ClothList.main(null);
-				}
-			});
+				ClothData.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(ShareVar.nowId.equals(user_userid) && btnDocumentUpdate.getText() == "수정완료") {
+							ClothList.main(null);
+							//Frame의 ClothList
+							SearchAction();
+							
+						}
+					}
+				});
+
 			ClothData.setHorizontalAlignment(SwingConstants.CENTER);
 			ClothData.setBounds(16, 74, 430, 211);
 		}
@@ -386,7 +402,7 @@ public class SelectDocument {
         col.setPreferredWidth(width);
 
 	}
-	private void SearchAction() {
+	public void SearchAction() {
 		UserAction userAction = new UserAction();
         Bean bean = userAction.DocumentForAllTableClick();
         
@@ -496,6 +512,7 @@ public class SelectDocument {
 					case "수정하기":
 						taDocument.setEditable(true);
 						tfTitle.setEditable(true);
+//						lbltext.setVisible(false);
 						btnDocumentUpdate.setText("수정완료");
 						break;
 					case "수정완료":
@@ -528,7 +545,7 @@ public class SelectDocument {
 	}
 	private void UserCheck() {
 		UserAction userAction = new UserAction();
-		String user_userid = userAction.WriterCheck();
+		user_userid = userAction.WriterCheck();
 		if(ShareVar.nowId.equals(user_userid)) {
 			btnDocumentUpdate.setVisible(true);
 			btnDocumentDelete.setVisible(true);
@@ -556,6 +573,7 @@ public class SelectDocument {
 	          SearchAction();
 	          tfTitle.setEditable(false);
 	          taDocument.setEditable(false);
+//	          lbltext.setVisible(false);
 	          btnDocumentUpdate.setText("수정하기");
 
 		}else{
@@ -574,5 +592,13 @@ public class SelectDocument {
 		}
 		
 	}
-	
+//	private JLabel getLbltext() {
+//		if (lbltext == null) {
+//			lbltext.setVisible(false);
+//			lbltext.setHorizontalAlignment(SwingConstants.CENTER);
+//			lbltext = new JLabel("사진을 변경할 수 있습니다.");
+//			lbltext.setBounds(157, 166, 178, 16);
+//		}
+//		return lbltext;
+//	}
 }

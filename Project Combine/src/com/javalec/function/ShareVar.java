@@ -4,10 +4,10 @@ public class ShareVar {
 	public static String url_mysql = "jdbc:mysql://127.0.0.1/Project?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
 	public static String id_mysql = "root";
 	public static String pw_mysql = "qwer1234";
-	public static String nowId="yang";
+	public static String nowId="kim";
 	public static String nowPw="";
 	public static String userEmail="";
-	public static String userName="YangPunch";
+	public static String userName="간지gogo";
 	public static String blindTime=null;
 	public static String cloth="";
 
@@ -27,6 +27,7 @@ public class ShareVar {
 	public static int seqIndex;
 	public static int admincheck;
 	public static int commentIndex;
+	public static int imageIndex;
 	
 	public static int closeIndex;
 	

@@ -417,8 +417,7 @@ import com.javalec.function.ShareVar;
 				+ ShareVar.seqIndex
 				+ " and c.blindtime is null"
 				+ " order by c.addtime Desc";
-		System.out.println(WhereDefault);
-		
+//		System.out.println(WhereDefault);
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -648,11 +647,11 @@ import com.javalec.function.ShareVar;
 	        }
 			return BeanList;
 		} 	
-		public InputStream ClothListClick(int i) {
+		public InputStream ClothListClick() {
 			InputStream input = null;
 			
 			String WhereDefault = "select clothimage from cloth ";
-			String WhereDefault2 = " where clothid = " + i;
+			String WhereDefault2 = " where clothid = " + ShareVar.imageIndex;
 			System.out.println(WhereDefault+WhereDefault2);
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -679,5 +678,30 @@ import com.javalec.function.ShareVar;
 				e.printStackTrace();
 			}
 			return input;
+		}
+		public boolean UpdateDocumentCloth() {
+			PreparedStatement ps = null;
+			  try{
+			      Class.forName("com.mysql.cj.jdbc.Driver");
+			      Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			      @SuppressWarnings("unused")
+					Statement stmt_mysql = conn_mysql.createStatement();
+			
+			      String A = "update document set Cloth_clothid = "+ShareVar.imageIndex;
+			      String B = " where documentid = "+ShareVar.seqIndex;
+			
+			      ps = conn_mysql.prepareStatement(A+B);
+			      
+			      System.out.println(A+B);
+			    
+			      ps.executeUpdate();
+			
+			      conn_mysql.close();
+			  } catch (Exception e){
+			      e.printStackTrace();
+			      return false;
+			  }
+			
+			  return true;
 		}
 }
