@@ -229,36 +229,39 @@ public  class MyClothList extends JFrame {
 		SearchAction();
 	}
 	private void ConditionQuery() {
-		int i = cbtitle_cth.getSelectedIndex();
+		String clothType= cbtitle_cth.getSelectedItem().toString();
 		String ConditionQueryColumn = "";
-		switch (i) {
-		case 0:
-			ConditionQueryColumn = "";
-			break;
-		case 1:
-			ConditionQueryColumn = " clothtype = '상의' and";
-			break;
-		case 2:
-			ConditionQueryColumn = " clothtype = '하의' and";
-			break;
-		case 3:
-			ConditionQueryColumn = " clothtype = '모자' and";
-			break;
-		case 4:
-			ConditionQueryColumn = " clothtype = '신발' and";
-			break;
-		case 5:
-			ConditionQueryColumn = " clothtype = '가방'and";
-			break;
-		case 6:
-			ConditionQueryColumn = " clothtype = '원피스' and";
-			break;
-		case 7:
-			ConditionQueryColumn = " clothtype = '아우터' and";
-			break;
-		default:
-			break;
-		}
+		
+		if(clothType.equals("All")) ConditionQueryColumn="";
+		else ConditionQueryColumn=" clothtype = '"+clothType+"' and ";
+//		switch (i) {
+//		case 0:
+//			ConditionQueryColumn = "";
+//			break;
+//		case 1:
+//			ConditionQueryColumn = " clothtype = '상의' and";
+//			break;
+//		case 2:
+//			ConditionQueryColumn = " clothtype = '하의' and";
+//			break;
+//		case 3:
+//			ConditionQueryColumn = " clothtype = '모자' and";
+//			break;
+//		case 4:
+//			ConditionQueryColumn = " clothtype = '신발' and";
+//			break;
+//		case 5:
+//			ConditionQueryColumn = " clothtype = '가방' and";
+//			break;
+//		case 6:
+//			ConditionQueryColumn = " clothtype = '원피스' and";
+//			break;
+//		case 7:
+//			ConditionQueryColumn = " clothtype = '아우터' and";
+//			break;
+//		default:
+//			break;
+//		}
 		String WhereCheck = " where ";
 		if (ConditionQueryColumn == "") {
 			WhereCheck = "";

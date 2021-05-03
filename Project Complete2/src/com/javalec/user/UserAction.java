@@ -135,8 +135,9 @@ import com.javalec.function.ShareVar;
 		ArrayList<Bean> BeanList = new ArrayList<Bean>();
 		
 		String WhereDefault = "select clothid, clothtype, clothname, clothimage, addtime, blindtime, User_userid from cloth ";
-		String WhereDefault2 = whereCheck+ conditionQueryColumn + " clothname like '%" + trim + "%'";
+		String WhereDefault2 = whereCheck+ conditionQueryColumn + "blindtime is null and User_userid='"+ShareVar.nowId+"'and clothname like '%" + trim + "%'";
 		
+		System.out.println(WhereDefault + WhereDefault2);
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -720,7 +721,6 @@ import com.javalec.function.ShareVar;
 			
 			String WhereDefault = "select clothimage from cloth ";
 			String WhereDefault2 = " where clothid = " + ShareVar.imageIndex;
-			System.out.println(WhereDefault+WhereDefault2);
 			try{
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);

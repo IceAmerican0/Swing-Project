@@ -187,8 +187,6 @@ public class user_tab {
 //		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		File file = new File(filePath);
-		file.delete();
-		
 		
 		
 //		File selectedImageFile = browseImageFile.getSelectedFile();
