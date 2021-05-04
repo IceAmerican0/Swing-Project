@@ -35,6 +35,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.Font;
 
 public  class UpdateClothDB extends JFrame {
 
@@ -87,7 +88,7 @@ public  class UpdateClothDB extends JFrame {
 				ScreenPartition();
 			}
 		});
-		frame.setBounds(100, 100, 930, 570);
+		frame.setBounds(100, 100, 928, 568);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblmember());
@@ -104,9 +105,10 @@ public  class UpdateClothDB extends JFrame {
 
 	private JLabel getLblmember() {
 		if (lblmember == null) {
-			lblmember = new JLabel("게시글 관리");
+			lblmember = new JLabel("데이터 관리");
+			lblmember.setFont(new Font("Lucida Grande", Font.BOLD, 18));
 			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 10, 104, 36);
+			lblmember.setBounds(18, 25, 130, 26);
 		}
 		return lblmember;
 	}
@@ -122,7 +124,7 @@ public  class UpdateClothDB extends JFrame {
 		if (textField == null) {
 			textField = new JTextField();
 			textField.setColumns(10);
-			textField.setBounds(641, 16, 208, 26);
+			textField.setBounds(633, 27, 208, 26);
 		}
 		return textField;
 	}
@@ -134,7 +136,7 @@ public  class UpdateClothDB extends JFrame {
 					ConditionQuery();
 				}
 			});
-			btnLoad_cth.setBounds(853, 15, 65, 29);
+			btnLoad_cth.setBounds(854, 26, 65, 29);
 		}
 		return btnLoad_cth;
 	}
@@ -147,7 +149,7 @@ public  class UpdateClothDB extends JFrame {
 				}
 			});
 			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
-			cbtitle_cth.setBounds(531, 16, 98, 27);
+			cbtitle_cth.setBounds(531, 27, 98, 27);
 		}
 		return cbtitle_cth;
 	}
@@ -182,7 +184,7 @@ public  class UpdateClothDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnAll);
-			rdbtnAll.setBounds(286, 18, 55, 23);
+			rdbtnAll.setBounds(286, 29, 55, 23);
 		}
 		return rdbtnAll;
 	}
@@ -195,7 +197,7 @@ public  class UpdateClothDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnBlocked);
-			rdbtnBlocked.setBounds(353, 18, 86, 23);
+			rdbtnBlocked.setBounds(353, 29, 86, 23);
 		}
 		return rdbtnBlocked;
 	}
@@ -208,7 +210,7 @@ public  class UpdateClothDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnCommon);
-			rdbtnCommon.setBounds(440, 18, 79, 23);
+			rdbtnCommon.setBounds(440, 29, 79, 23);
 		}
 		return rdbtnCommon;
 	}
@@ -367,7 +369,7 @@ public  class UpdateClothDB extends JFrame {
 					}
 				}
 			});
-			btnMain.setBounds(133, 17, 97, 23);
+			btnMain.setBounds(160, 29, 97, 23);
 		}
 		return btnMain;
 	}

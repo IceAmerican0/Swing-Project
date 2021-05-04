@@ -60,6 +60,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JDesktopPane;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowEvent;
+import java.awt.Font;
 
 public class user_tab {
 
@@ -153,13 +154,13 @@ public class user_tab {
 		
 		// jy : 추가 end 
 		
-		frame.setBounds(100, 100, 1200, 650);
+		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(250, 63, 925, 537);
+		layeredPane.setBounds(250, 63, 600, 400);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -167,14 +168,9 @@ public class user_tab {
 		layeredPane.add(myprofile, "name_10014477907462");
 		myprofile.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("내 프로필");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(6, 6, 97, 26);
-		myprofile.add(lblNewLabel);
-		
 		JLabel lblImage = new JLabel("이미지 파일을 등록해주세요");
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImage.setBounds(43, 43, 208, 191);
+		lblImage.setBounds(25, 23, 280, 280);
 		myprofile.add(lblImage);
 		
 		
@@ -203,22 +199,22 @@ public class user_tab {
 		
 		JLabel lblNewLabel_6 = new JLabel("이름 :");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_6.setBounds(522, 86, 61, 16);
+		lblNewLabel_6.setBounds(314, 80, 61, 16);
 		myprofile.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_6_1 = new JLabel("아이디 :");
 		lblNewLabel_6_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_6_1.setBounds(522, 120, 61, 16);
+		lblNewLabel_6_1.setBounds(314, 114, 61, 16);
 		myprofile.add(lblNewLabel_6_1);
 		
 		JLabel lblNewLabel_6_1_1 = new JLabel("이메일 :");
 		lblNewLabel_6_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_6_1_1.setBounds(522, 154, 61, 16);
+		lblNewLabel_6_1_1.setBounds(314, 148, 61, 16);
 		myprofile.add(lblNewLabel_6_1_1);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(594, 82, 208, 26);
+		textField.setBounds(386, 76, 100, 26);
 		myprofile.add(textField);
 		textField.setColumns(10);
 		textField.setText(ShareVar.userName); // jy : 추가
@@ -226,14 +222,14 @@ public class user_tab {
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(595, 115, 207, 26);
+		textField_1.setBounds(387, 109, 99, 26);
 		myprofile.add(textField_1); 
 		textField_1.setText(ShareVar.nowId); // jy : 추가
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(595, 149, 207, 26);
+		textField_2.setBounds(387, 143, 179, 26);
 		myprofile.add(textField_2);
 		textField_2.setText(ShareVar.userEmail);
 		
@@ -243,7 +239,7 @@ public class user_tab {
 				ChangePassword.main(null); // jy : 추가
 			}
 		});
-		btnNewButton.setBounds(594, 244, 117, 29);
+		btnNewButton.setBounds(329, 336, 117, 29);
 		myprofile.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("탈퇴하기");
@@ -252,7 +248,7 @@ public class user_tab {
 				CloseAcount.main(null); // jy : 추가
 			}
 		});
-		btnNewButton_1.setBounds(723, 244, 117, 29);
+		btnNewButton_1.setBounds(449, 336, 117, 29);
 		myprofile.add(btnNewButton_1);
 		
 		JButton btnBrowse = new JButton("이미지등록");
@@ -298,7 +294,7 @@ public class user_tab {
 				
 			}
 		});
-		btnBrowse.setBounds(86, 244, 117, 29);
+		btnBrowse.setBounds(100, 336, 117, 29);
 		myprofile.add(btnBrowse);
 		
 		bestitem = new JPanel();
@@ -703,7 +699,7 @@ public class user_tab {
 				switchPanels(myprofile);//탭전환
 			}
 		});
-		btnmyProfile.setBounds(52, 63, 151, 50);
+		btnmyProfile.setBounds(52, 113, 151, 50);
 		frame.getContentPane().add(btnmyProfile);
 		
 		JButton btnallCloset = new JButton("모두의 옷장");
@@ -714,7 +710,7 @@ public class user_tab {
 				frame.dispose();
 			}
 		});
-		btnallCloset.setBounds(52, 123, 151, 50);
+		btnallCloset.setBounds(52, 173, 151, 50);
 		frame.getContentPane().add(btnallCloset);
 		
 		JButton btnmyCloset = new JButton("나의 옷장");
@@ -724,7 +720,7 @@ public class user_tab {
 				frame.dispose();
 			}
 		});
-		btnmyCloset.setBounds(52, 183, 151, 50);
+		btnmyCloset.setBounds(52, 233, 151, 50);
 		frame.getContentPane().add(btnmyCloset);
 		
 		JButton btnNotice = new JButton("공지사항");
@@ -734,7 +730,7 @@ public class user_tab {
 				frame.dispose();
 			}
 		});
-		btnNotice.setBounds(52, 303, 151, 50);
+		btnNotice.setBounds(52, 353, 151, 50);
 		frame.getContentPane().add(btnNotice);
 		
 		JButton btnInquiry = new JButton("1:1 문의");
@@ -744,7 +740,7 @@ public class user_tab {
 				frame.dispose();
 			}
 		});
-		btnInquiry.setBounds(52, 363, 151, 50);
+		btnInquiry.setBounds(52, 413, 151, 50);
 		frame.getContentPane().add(btnInquiry);
 		
 		JButton btnlogOut = new JButton("로그아웃");
@@ -759,12 +755,12 @@ public class user_tab {
 				Login.main(null);
 			}
 		});
-		btnlogOut.setBounds(86, 423, 117, 29);
+		btnlogOut.setBounds(86, 72, 117, 29);
 		frame.getContentPane().add(btnlogOut);
 		
 		JLabel lblUsername = new JLabel("");
 		lblUsername.setText(ShareVar.userName+" 님 환영합니다!");
-		lblUsername.setBounds(62, 35, 151, 16);
+		lblUsername.setBounds(52, 50, 151, 16);
 		frame.getContentPane().add(lblUsername);
 		
 		JButton btnPreset = new JButton("스타일링");
@@ -774,7 +770,13 @@ public class user_tab {
 				frame.dispose();
 			}
 		});
-		btnPreset.setBounds(52, 243, 151, 50);
+		btnPreset.setBounds(52, 293, 151, 50);
 		frame.getContentPane().add(btnPreset);
+		
+		JLabel lblNewLabel = new JLabel("내 프로필");
+		lblNewLabel.setBounds(247, 29, 97, 26);
+		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 }

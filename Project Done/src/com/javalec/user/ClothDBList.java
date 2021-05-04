@@ -73,7 +73,7 @@ public class ClothDBList {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 477, 299);
+		frame.setBounds(100, 100, 460, 569);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {

@@ -28,6 +28,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class QueryMain {
 /*
@@ -43,6 +45,7 @@ public class QueryMain {
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JButton btnQuery;
 	private JButton btnMain;
+	private JLabel lblMainLabel;
 
 	/**
 	 * Launch the application.
@@ -87,12 +90,13 @@ public class QueryMain {
 					AdminCheck();
 				}
 			});
-		frame.setBounds(100, 100, 928, 568);
+		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getScrollPane());
 		frame.getContentPane().add(getBtnQuery());
 		frame.getContentPane().add(getBtnMain());
+		frame.getContentPane().add(getLblMainLabel());
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -237,8 +241,17 @@ public class QueryMain {
 					}
 				}
 			});
-			btnMain.setBounds(12, 22, 97, 23);
+			btnMain.setBounds(160, 25, 97, 23);
 		}
 		return btnMain;
+	}
+	private JLabel getLblMainLabel() {
+		if (lblMainLabel == null) {
+			lblMainLabel = new JLabel("1 : 1 문의");
+			lblMainLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMainLabel.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblMainLabel.setBounds(33, 22, 130, 26);
+		}
+		return lblMainLabel;
 	}
 }

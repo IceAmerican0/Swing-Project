@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Font;
 
 public class NoticeMain {
 	
@@ -39,6 +40,7 @@ public class NoticeMain {
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
 	private JButton btnMain;
+	private JLabel lblMainLabel;
 	
 	/**
 	 * Launch the application.
@@ -83,12 +85,13 @@ public class NoticeMain {
 				AdminCheck();
 			}
 		});
-		frame.setBounds(100, 100, 928, 568);
+		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getBtnNotice());
 		frame.getContentPane().add(getScrollPane());
 		frame.getContentPane().add(getBtnMain());
+		frame.getContentPane().add(getLblMainLabel());
 		frame.setLocationRelativeTo(null);
 	}
 	private JButton getBtnNotice() {
@@ -223,8 +226,17 @@ public class NoticeMain {
 					}
 				}
 			});
-			btnMain.setBounds(32, 22, 97, 23);
+			btnMain.setBounds(160, 25, 97, 23);
 		}
 		return btnMain;
+	}
+	private JLabel getLblMainLabel() {
+		if (lblMainLabel == null) {
+			lblMainLabel = new JLabel("공지사항");
+			lblMainLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMainLabel.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblMainLabel.setBounds(33, 22, 130, 26);
+		}
+		return lblMainLabel;
 	}
 }

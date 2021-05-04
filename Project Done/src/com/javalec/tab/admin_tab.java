@@ -52,6 +52,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JTabbedPane;
+import java.awt.Font;
 
 
 
@@ -133,13 +134,13 @@ public class admin_tab extends JFrame{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 650);
+		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(250, 63, 925, 537);
+		layeredPane.setBounds(250, 63, 600, 400);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -147,44 +148,39 @@ public class admin_tab extends JFrame{
 		layeredPane.add(admin, "name_10014477907462");
 		admin.setLayout(null);
 		
-		JLabel lblprofile = new JLabel("관리자 프로필");
-		lblprofile.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprofile.setBounds(6, 6, 97, 26);
-		admin.add(lblprofile);
-		
 		JLabel lblname = new JLabel("이름 :");
 		lblname.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblname.setBounds(560, 95, 61, 16);
+		lblname.setBounds(34, 61, 61, 16);
 		admin.add(lblname);
 		
 		JLabel lblid = new JLabel("아이디 :");
 		lblid.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblid.setBounds(560, 129, 61, 16);
+		lblid.setBounds(34, 95, 61, 16);
 		admin.add(lblid);
 		
 		JLabel lblemail = new JLabel("이메일 :");
 		lblemail.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblemail.setBounds(560, 163, 61, 16);
+		lblemail.setBounds(34, 129, 61, 16);
 		admin.add(lblemail);
 		
 		tfname = new JTextField();
 		tfname.setEditable(false);
 		tfname.setColumns(10);
-		tfname.setBounds(632, 91, 208, 26);
+		tfname.setBounds(106, 57, 208, 26);
 		admin.add(tfname);
 		tfname.setText(ShareVar.userName); // jy : 추가
 		
 		tfid = new JTextField();
 		tfid.setEditable(false);
 		tfid.setColumns(10);
-		tfid.setBounds(633, 124, 207, 26);
+		tfid.setBounds(107, 90, 207, 26);
 		admin.add(tfid);
 		tfid.setText(ShareVar.nowId); // jy : 추가
 		
 		tfemail = new JTextField();
 		tfemail.setEditable(false);
 		tfemail.setColumns(10);
-		tfemail.setBounds(633, 158, 207, 26);
+		tfemail.setBounds(107, 124, 207, 26);
 		admin.add(tfemail);
 		tfemail.setText(ShareVar.userEmail);
 		
@@ -194,7 +190,7 @@ public class admin_tab extends JFrame{
 				ChangePassword.main(null); // jy : 추가
 			}
 		});
-		btnchangepw.setBounds(635, 257, 117, 29);
+		btnchangepw.setBounds(109, 223, 117, 29);
 		admin.add(btnchangepw);
 		
 		member = new JPanel();
@@ -443,6 +439,12 @@ public class admin_tab extends JFrame{
 		});
 		btnlogOut.setBounds(86, 435, 117, 29);
 		frame.getContentPane().add(btnlogOut);
+		
+		JLabel lblprofile = new JLabel("관리자 프로필");
+		lblprofile.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+		lblprofile.setBounds(247, 29, 130, 26);
+		frame.getContentPane().add(lblprofile);
+		lblprofile.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 	//-------------------------------------------- 이 부분 확인 필요
 	private JButton getbtnWrite_nt() {

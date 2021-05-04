@@ -33,12 +33,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.Font;
 
 public  class UpdateDocumentDB extends JFrame {
 
 	private final DefaultTableModel Outer_Table_dc = new DefaultTableModel();
 	private JFrame frame;
-	private JLabel lblmember;
 	private JScrollPane scrollPane_dc;
 	private JTextField textField;
 	private JButton btnLoad_dc;
@@ -49,6 +49,7 @@ public  class UpdateDocumentDB extends JFrame {
 	private JRadioButton rdbtnCommon;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnMain;
+	private JLabel lblmember;
 
 	/**
 	 * Launch the application.
@@ -87,7 +88,6 @@ public  class UpdateDocumentDB extends JFrame {
 		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLblmember());
 		frame.getContentPane().add(getScrollPane_dc());
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getBtnLoad_dc());
@@ -96,16 +96,8 @@ public  class UpdateDocumentDB extends JFrame {
 		frame.getContentPane().add(getRdbtnBlocked());
 		frame.getContentPane().add(getRdbtnNormal());
 		frame.getContentPane().add(getBtnMain());
+		frame.getContentPane().add(getLblmember_1());
 		frame.setLocationRelativeTo(null);
-	}
-
-	private JLabel getLblmember() {
-		if (lblmember == null) {
-			lblmember = new JLabel("게시글 관리");
-			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 10, 104, 36);
-		}
-		return lblmember;
 	}
 	private JScrollPane getScrollPane_dc() {
 		if (scrollPane_dc == null) {
@@ -119,7 +111,7 @@ public  class UpdateDocumentDB extends JFrame {
 		if (textField == null) {
 			textField = new JTextField();
 			textField.setColumns(10);
-			textField.setBounds(641, 16, 208, 26);
+			textField.setBounds(641, 26, 208, 26);
 		}
 		return textField;
 	}
@@ -131,7 +123,7 @@ public  class UpdateDocumentDB extends JFrame {
 					ConditionQuery();
 				}
 			});
-			btnLoad_dc.setBounds(853, 15, 65, 29);
+			btnLoad_dc.setBounds(853, 25, 65, 29);
 		}
 		return btnLoad_dc;
 	}
@@ -139,7 +131,7 @@ public  class UpdateDocumentDB extends JFrame {
 		if (cbtitle_dc == null) {
 			cbtitle_dc = new JComboBox();
 			cbtitle_dc.setModel(new DefaultComboBoxModel(new String[] {"제목", "작성자", "제목+내용"}));
-			cbtitle_dc.setBounds(531, 16, 98, 27);
+			cbtitle_dc.setBounds(531, 26, 98, 27);
 		}
 		return cbtitle_dc;
 	}
@@ -175,7 +167,7 @@ public  class UpdateDocumentDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnAll);
-			rdbtnAll.setBounds(286, 18, 55, 23);
+			rdbtnAll.setBounds(286, 25, 55, 23);
 		}
 		return rdbtnAll;
 	}
@@ -188,7 +180,7 @@ public  class UpdateDocumentDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnBlocked);
-			rdbtnBlocked.setBounds(353, 18, 86, 23);
+			rdbtnBlocked.setBounds(353, 25, 86, 23);
 		}
 		return rdbtnBlocked;
 	}
@@ -201,7 +193,7 @@ public  class UpdateDocumentDB extends JFrame {
 				}
 			});
 			buttonGroup.add(rdbtnCommon);
-			rdbtnCommon.setBounds(440, 18, 79, 23);
+			rdbtnCommon.setBounds(440, 25, 79, 23);
 		}
 		return rdbtnCommon;
 	}
@@ -350,8 +342,17 @@ public  class UpdateDocumentDB extends JFrame {
 					}
 				}
 			});
-			btnMain.setBounds(133, 17, 97, 23);
+			btnMain.setBounds(160, 25, 97, 24);
 		}
 		return btnMain;
+	}
+	private JLabel getLblmember_1() {
+		if (lblmember == null) {
+			lblmember = new JLabel("게시글 관리");
+			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
+			lblmember.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblmember.setBounds(33, 22, 130, 26);
+		}
+		return lblmember;
 	}
 }
