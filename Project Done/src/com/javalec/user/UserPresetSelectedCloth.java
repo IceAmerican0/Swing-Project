@@ -90,7 +90,7 @@ public class UserPresetSelectedCloth {
 				SearchAction();
 			}
 		});
-		frame.setBounds(100, 100, 460, 569);
+		frame.setBounds(100, 100, 460, 510);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTfClothname());
@@ -118,7 +118,7 @@ public class UserPresetSelectedCloth {
 		if (ClothData == null) {
 			ClothData = new JLabel((Icon) null);
 			ClothData.setHorizontalAlignment(SwingConstants.CENTER);
-			ClothData.setBounds(6, 103, 426, 298);
+			ClothData.setBounds(18, 104, 426, 298);
 		}
 		return ClothData;
 	}
@@ -134,8 +134,11 @@ public class UserPresetSelectedCloth {
 			btnOK = new JButton("확인");
 			btnOK.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frame.dispose();
+					System.out.println(ShareVar.filename +"/"+ ShareVar.HatImg);
 					ImgChk();
+//					ShareVar.filename = 0;
+					System.out.println(ShareVar.filename +"/"+ ShareVar.HatImg);
+					frame.dispose();
 				}
 			});
 			btnOK.setBounds(127, 428, 81, 29);

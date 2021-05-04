@@ -109,7 +109,7 @@ public  class MyClothListForDoc extends JFrame {
 	private JScrollPane getScrollPane_cth() {
 		if (scrollPane_cth == null) {
 			scrollPane_cth = new JScrollPane();
-			scrollPane_cth.setBounds(6, 54, 913, 477);
+			scrollPane_cth.setBounds(6, 54, 675, 477);
 			scrollPane_cth.setViewportView(getInner_Table_cth());
 		}
 		return scrollPane_cth;

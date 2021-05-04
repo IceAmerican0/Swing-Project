@@ -34,12 +34,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.Font;
 
 public  class DocumentForAll extends JFrame {
 
 	private final DefaultTableModel Outer_Table_dc = new DefaultTableModel();
 	private JFrame frame;
-	private JLabel lbltitle;
 	private JScrollPane scrollPane_dc;
 	private JTextField textField;
 	private JButton btnLoad_dc;
@@ -50,6 +50,7 @@ public  class DocumentForAll extends JFrame {
 	private JRadioButton rdbtnLiked;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnMain;
+	private JLabel lblmember;
 
 	/**
 	 * Launch the application.
@@ -89,7 +90,6 @@ public  class DocumentForAll extends JFrame {
 		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLbltitle());
 		frame.getContentPane().add(getScrollPane_dc());
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getBtnLoad_dc());
@@ -105,8 +105,9 @@ public  class DocumentForAll extends JFrame {
 				InsertDocument.main(null);
 			}
 		});
-		btnMain_1.setBounds(242, 17, 97, 23);
+		btnMain_1.setBounds(265, 27, 97, 23);
 		frame.getContentPane().add(btnMain_1);
+		frame.getContentPane().add(getLblmember());
 		
 //		JButton btnMain_2 = new JButton("글 수정");
 //		btnMain_2.addActionListener(new ActionListener() {
@@ -117,15 +118,6 @@ public  class DocumentForAll extends JFrame {
 //		btnMain_2.setBounds(351, 17, 97, 23);
 //		frame.getContentPane().add(btnMain_2);
 		frame.setLocationRelativeTo(null);
-	}
-
-	private JLabel getLbltitle() {
-		if (lbltitle == null) {
-			lbltitle = new JLabel("모두의 옷장");
-			lbltitle.setHorizontalAlignment(SwingConstants.CENTER);
-			lbltitle.setBounds(6, 10, 104, 36);
-		}
-		return lbltitle;
 	}
 	private JScrollPane getScrollPane_dc() {
 		if (scrollPane_dc == null) {
@@ -139,7 +131,7 @@ public  class DocumentForAll extends JFrame {
 		if (textField == null) {
 			textField = new JTextField();
 			textField.setColumns(10);
-			textField.setBounds(641, 16, 208, 26);
+			textField.setBounds(638, 25, 208, 26);
 		}
 		return textField;
 	}
@@ -151,7 +143,7 @@ public  class DocumentForAll extends JFrame {
 					ConditionQuery();
 				}
 			});
-			btnLoad_dc.setBounds(853, 15, 65, 29);
+			btnLoad_dc.setBounds(850, 24, 65, 29);
 		}
 		return btnLoad_dc;
 	}
@@ -159,7 +151,7 @@ public  class DocumentForAll extends JFrame {
 		if (cbtitle_dc == null) {
 			cbtitle_dc = new JComboBox();
 			cbtitle_dc.setModel(new DefaultComboBoxModel(new String[] {"제목", "작성자", "제목+내용"}));
-			cbtitle_dc.setBounds(531, 16, 98, 27);
+			cbtitle_dc.setBounds(528, 25, 98, 27);
 		}
 		return cbtitle_dc;
 	}
@@ -435,8 +427,17 @@ public  class DocumentForAll extends JFrame {
 					}
 				}
 			});
-			btnMain.setBounds(133, 17, 97, 23);
+			btnMain.setBounds(170, 27, 97, 23);
 		}
 		return btnMain;
+	}
+	private JLabel getLblmember() {
+		if (lblmember == null) {
+			lblmember = new JLabel("모두의 옷장");
+			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
+			lblmember.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblmember.setBounds(19, 21, 130, 26);
+		}
+		return lblmember;
 	}
 }

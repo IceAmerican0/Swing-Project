@@ -35,12 +35,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.Font;
 
 public  class MyClothList extends JFrame {
 
 	private final DefaultTableModel Outer_Table_cth = new DefaultTableModel();
 	private JFrame frame;
-	private JLabel lblmember;
 	private JScrollPane scrollPane_cth;
 	private JTextField textField;
 	private JButton btnLoad_cth;
@@ -49,6 +49,7 @@ public  class MyClothList extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnMain;
 	private JButton btnAdd;
+	private JLabel lblmember;
 
 	/**
 	 * Launch the application.
@@ -88,23 +89,14 @@ public  class MyClothList extends JFrame {
 		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLblmember());
 		frame.getContentPane().add(getScrollPane_cth());
 		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getBtnLoad_cth());
 		frame.getContentPane().add(getCbtitle_cth());
 		frame.getContentPane().add(getBtnMain());
 		frame.getContentPane().add(getBtnAdd());
+		frame.getContentPane().add(getLblmember_1());
 		frame.setLocationRelativeTo(null);
-	}
-
-	private JLabel getLblmember() {
-		if (lblmember == null) {
-			lblmember = new JLabel("나의 옷장");
-			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
-			lblmember.setBounds(6, 10, 104, 36);
-		}
-		return lblmember;
 	}
 	private JScrollPane getScrollPane_cth() {
 		if (scrollPane_cth == null) {
@@ -118,7 +110,7 @@ public  class MyClothList extends JFrame {
 		if (textField == null) {
 			textField = new JTextField();
 			textField.setColumns(10);
-			textField.setBounds(641, 16, 208, 26);
+			textField.setBounds(641, 25, 208, 26);
 		}
 		return textField;
 	}
@@ -130,7 +122,7 @@ public  class MyClothList extends JFrame {
 					ConditionQuery();
 				}
 			});
-			btnLoad_cth.setBounds(853, 15, 65, 29);
+			btnLoad_cth.setBounds(853, 24, 65, 29);
 		}
 		return btnLoad_cth;
 	}
@@ -143,7 +135,7 @@ public  class MyClothList extends JFrame {
 				}
 			});
 			cbtitle_cth.setModel(new DefaultComboBoxModel(new String[] {"ALL", "상의", "하의", "모자", "신발", "가방", "원피스", "아우터"}));
-			cbtitle_cth.setBounds(531, 16, 98, 27);
+			cbtitle_cth.setBounds(531, 25, 98, 27);
 		}
 		return cbtitle_cth;
 	}
@@ -301,7 +293,7 @@ public  class MyClothList extends JFrame {
 					}
 				}
 			});
-			btnMain.setBounds(133, 17, 97, 23);
+			btnMain.setBounds(151, 27, 97, 23);
 		}
 		return btnMain;
 	}
@@ -314,8 +306,17 @@ public  class MyClothList extends JFrame {
 					frame.dispose();
 				}
 			});
-			btnAdd.setBounds(247, 17, 97, 23);
+			btnAdd.setBounds(247, 27, 97, 23);
 		}
 		return btnAdd;
+	}
+	private JLabel getLblmember_1() {
+		if (lblmember == null) {
+			lblmember = new JLabel("나의 옷장");
+			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
+			lblmember.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblmember.setBounds(17, 24, 130, 26);
+		}
+		return lblmember;
 	}
 }

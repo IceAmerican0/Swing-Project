@@ -16,16 +16,17 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Font;
 
 public class UserPreset {
 
 	private JFrame frame;
-	private JLabel lblNewLabel_9;
 	private JLabel lblhat;
 	private JLabel lbltop;
 	private JLabel lblpants;
@@ -34,6 +35,7 @@ public class UserPreset {
 	private JLabel lblouter;
 	private JLabel lblbag;
 	private JButton btnMain;
+	private JLabel lblmember;
 
 	/**
 	 * Launch the application.
@@ -72,7 +74,6 @@ public class UserPreset {
 		frame.setBounds(100, 100, 930, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(getLblNewLabel_9());
 		frame.getContentPane().add(getLblhat());
 		frame.getContentPane().add(getLbltop());
 		frame.getContentPane().add(getLblpants());
@@ -81,15 +82,8 @@ public class UserPreset {
 		frame.getContentPane().add(getLblouter());
 		frame.getContentPane().add(getLblbag());
 		frame.getContentPane().add(getBtnMain());
+		frame.getContentPane().add(getLblmember());
 		frame.setLocationRelativeTo(null);
-	}
-	private JLabel getLblNewLabel_9() {
-		if (lblNewLabel_9 == null) {
-			lblNewLabel_9 = new JLabel("프리셋");
-			lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_9.setBounds(29, 26, 87, 39);
-		}
-		return lblNewLabel_9;
 	}
 	private JLabel getLblhat() {
 		if (lblhat == null) {
@@ -99,7 +93,7 @@ public class UserPreset {
 				public void mouseClicked(MouseEvent e) {
 					ShareVar.cloth="모자";
 					MyPresetList.main(null);
-					ImgChk();
+					frame.dispose();
 				}
 			});
 			lblhat.setOpaque(true);
@@ -182,7 +176,7 @@ public class UserPreset {
 			lblonepiece.setOpaque(true);
 			lblonepiece.setHorizontalAlignment(SwingConstants.CENTER);
 			lblonepiece.setBackground(Color.LIGHT_GRAY);
-			lblonepiece.setBounds(181, 136, 125, 307);
+			lblonepiece.setBounds(128, 136, 178, 307);
 		}
 		return lblonepiece;
 	}
@@ -200,7 +194,7 @@ public class UserPreset {
 			lblouter.setOpaque(true);
 			lblouter.setHorizontalAlignment(SwingConstants.CENTER);
 			lblouter.setBackground(Color.LIGHT_GRAY);
-			lblouter.setBounds(492, 136, 141, 250);
+			lblouter.setBounds(492, 136, 153, 275);
 		}
 		return lblouter;
 	}
@@ -218,7 +212,7 @@ public class UserPreset {
 			lblbag.setOpaque(true);
 			lblbag.setHorizontalAlignment(SwingConstants.CENTER);
 			lblbag.setBackground(Color.LIGHT_GRAY);
-			lblbag.setBounds(645, 136, 125, 120);
+			lblbag.setBounds(657, 201, 125, 120);
 		}
 		return lblbag;
 	}
@@ -231,7 +225,7 @@ public class UserPreset {
 					frame.dispose();
 				}
 			});
-			btnMain.setBounds(128, 34, 97, 23);
+			btnMain.setBounds(128, 29, 97, 23);
 		}
 		return btnMain;
 	}
@@ -254,61 +248,92 @@ public class UserPreset {
 		
 	
 
+//		if(!(ShareVar.HatImg==0)) {
+//			String filePath = Integer.toString(ShareVar.HatImg);
+//			ImageIcon ii = new ImageIcon(filePath);
+//			Image image = ii.getImage().getScaledInstance(lblhat.getWidth(), lblhat.getHeight(), Image.SCALE_SMOOTH);
+//			
+//			lblhat.setIcon(new ImageIcon(image));
+//			
+//		}
 		if(!(ShareVar.HatImg==0)) {
 			String filePath = Integer.toString(ShareVar.HatImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblhat.getWidth(), lblhat.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblhat.setIcon(new ImageIcon(image));
+			lblhat.setIcon(new ImageIcon(filePath));
+			lblhat.setHorizontalAlignment(SwingConstants.CENTER);
+			File file = new File(filePath);
+			file.delete();
+//			  String filePath = Integer.toString(ShareVar.HatImg);
+//			  ImageIcon icon = new ImageIcon(filePath);
+//			  Image scaleImage = icon.getImage();
+//			  lblhat.setIcon(new ImageIcon(scaleImage));
+//			  lblhat.setHorizontalAlignment(SwingConstants.CENTER);
+//			  File file = new File(filePath);
+//			  file.delete();
 			
 		}
 		if(!(ShareVar.OuterImg==0)) {
 			String filePath = Integer.toString(ShareVar.OuterImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblouter.getWidth(), lblouter.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblouter.setIcon(new ImageIcon(image));
+			 lblouter.setIcon(new ImageIcon(filePath));
+			 lblouter.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
+//			String filePath = Integer.toString(ShareVar.OuterImg);
+//			ImageIcon icon = new ImageIcon(filePath);
+//			Image scaleImage = icon.getImage().getScaledInstance(lblhat.getWidth(), lblhat.getHeight(),Image.SCALE_DEFAULT);
+//			lblouter.setIcon(new ImageIcon(scaleImage));
+//			lblouter.setHorizontalAlignment(SwingConstants.CENTER);
+//			File file = new File(filePath);
+//			file.delete();
 			
 		}
 		if(!(ShareVar.TopImg==0)) {
 			String filePath = Integer.toString(ShareVar.TopImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lbltop.getWidth(), lbltop.getHeight(), Image.SCALE_SMOOTH);
-			
-			lbltop.setIcon(new ImageIcon(image));
+			 lbltop.setIcon(new ImageIcon(filePath));
+			 lbltop.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
 			
 		}
 		if(!(ShareVar.BottomImg==0)) {
 			String filePath = Integer.toString(ShareVar.BottomImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblpants.getWidth(), lblpants.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblpants.setIcon(new ImageIcon(image));
+			 lblpants.setIcon(new ImageIcon(filePath));
+			 lblpants.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
 			
 		}
 		if(!(ShareVar.BagImg==0)) {
 			String filePath = Integer.toString(ShareVar.BagImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblbag.getWidth(), lblbag.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblbag.setIcon(new ImageIcon(image));
+			 lblbag.setIcon(new ImageIcon(filePath));
+			 lblbag.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
 			
 		}
 		if(!(ShareVar.ShoesImg==0)) {
 			String filePath = Integer.toString(ShareVar.ShoesImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblshoes.getWidth(), lblshoes.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblshoes.setIcon(new ImageIcon(image));
+			 lblshoes.setIcon(new ImageIcon(filePath));
+			 lblshoes.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
 			
 		}
 		if(!(ShareVar.OnepieceImg==0)) {
 			String filePath = Integer.toString(ShareVar.OnepieceImg);
-			ImageIcon ii = new ImageIcon(filePath);
-			Image image = ii.getImage().getScaledInstance(lblonepiece.getWidth(), lblonepiece.getHeight(), Image.SCALE_SMOOTH);
-			
-			lblonepiece.setIcon(new ImageIcon(image));
+			 lblonepiece.setIcon(new ImageIcon(filePath));
+			 lblonepiece.setHorizontalAlignment(SwingConstants.CENTER);
+			 File file = new File(filePath);
+			 file.delete();
 			
 		}
+	}
+	private JLabel getLblmember() {
+		if (lblmember == null) {
+			lblmember = new JLabel("스타일링");
+			lblmember.setHorizontalAlignment(SwingConstants.CENTER);
+			lblmember.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+			lblmember.setBounds(6, 26, 130, 26);
+		}
+		return lblmember;
 	}
 }
