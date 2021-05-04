@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class UserPreset {
 
@@ -65,10 +67,16 @@ public class UserPreset {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+		});
 		frame.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				ImgChk();
+				
 			}
 		});
 		frame.setBounds(100, 100, 930, 570);
@@ -93,7 +101,7 @@ public class UserPreset {
 				public void mouseClicked(MouseEvent e) {
 					ShareVar.cloth="모자";
 					MyPresetList.main(null);
-					frame.dispose();
+					ImgChk();
 				}
 			});
 			lblhat.setOpaque(true);
@@ -221,8 +229,8 @@ public class UserPreset {
 			btnMain = new JButton("메인으로");
 			btnMain.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					user_tab.main(null);
 					frame.dispose();
+					user_tab.main(null);
 				}
 			});
 			btnMain.setBounds(128, 29, 97, 23);
@@ -257,18 +265,19 @@ public class UserPreset {
 //			
 //		}
 		if(!(ShareVar.HatImg==0)) {
-			String filePath = Integer.toString(ShareVar.HatImg);
-			lblhat.setIcon(new ImageIcon(filePath));
-			lblhat.setHorizontalAlignment(SwingConstants.CENTER);
-			File file = new File(filePath);
-			file.delete();
-//			  String filePath = Integer.toString(ShareVar.HatImg);
-//			  ImageIcon icon = new ImageIcon(filePath);
-//			  Image scaleImage = icon.getImage();
-//			  lblhat.setIcon(new ImageIcon(scaleImage));
-//			  lblhat.setHorizontalAlignment(SwingConstants.CENTER);
-//			  File file = new File(filePath);
-//			  file.delete();
+//			String filePath = Integer.toString(ShareVar.HatImg);
+//			lblhat.setIcon(new ImageIcon(filePath));
+//			lblhat.setHorizontalAlignment(SwingConstants.CENTER);
+//			File file = new File(filePath);
+//			file.delete();
+			  String filePath = Integer.toString(ShareVar.HatImg);
+			  ImageIcon icon = new ImageIcon(filePath);
+			  Image scaleImage = icon.getImage();
+			  scaleImage.getScaledInstance(lblhat.getWidth(), lblhat.getHeight(),Image.SCALE_DEFAULT);
+			  lblhat.setIcon(new ImageIcon(scaleImage));
+			  lblhat.setHorizontalAlignment(SwingConstants.CENTER);
+			  File file = new File(filePath);
+			  file.delete();
 			
 		}
 		if(!(ShareVar.OuterImg==0)) {

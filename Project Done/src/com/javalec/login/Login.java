@@ -82,7 +82,7 @@ public class Login {
 	private JTextField getTfId() {
 		if (tfId == null) {
 			tfId = new JTextField();
-			tfId.setBounds(88, 105, 145, 26);
+			tfId.setBounds(101, 109, 145, 28);
 			tfId.setColumns(10);
 		}
 		return tfId;
@@ -95,7 +95,7 @@ public class Login {
 					LoginMethod();
 				}				
 			});
-			btnLogin.setBounds(245, 105, 104, 64);
+			btnLogin.setBounds(259, 104, 104, 64);
 		}
 		return btnLogin;
 	}
@@ -108,7 +108,7 @@ public class Login {
 					FindId.main(null);
 				}
 			});
-			btnFindid.setBounds(156, 181, 92, 29);
+			btnFindid.setBounds(170, 180, 92, 29);
 		}
 		return btnFindid;
 	}
@@ -121,7 +121,7 @@ public class Login {
 					FindPassword.main(null);
 				}
 			});
-			btnFindpw.setBounds(255, 181, 121, 29);
+			btnFindpw.setBounds(259, 180, 104, 29);
 		}
 		return btnFindpw;
 	}
@@ -134,7 +134,7 @@ public class Login {
 					UserRegister.main(null);
 				}
 			});
-			btnNewuser.setBounds(56, 181, 88, 29);
+			btnNewuser.setBounds(87, 180, 88, 29);
 		}
 		return btnNewuser;
 	}
@@ -142,7 +142,7 @@ public class Login {
 	private JPasswordField getPassword() {
 		if (Password == null) {
 			Password = new JPasswordField();
-			Password.setBounds(88, 148, 145, 21);
+			Password.setBounds(101, 139, 145, 28);
 		}
 		return Password;
 	}
@@ -192,8 +192,8 @@ public class Login {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("오늘 뭐 입지?");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel.setBounds(98, 22, 231, 71);
+			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 21));
+			lblNewLabel.setBounds(114, 37, 231, 56);
 		}
 		return lblNewLabel;
 	}

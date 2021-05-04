@@ -236,7 +236,6 @@ public  class MyPresetList extends JFrame {
 			btnBack.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.dispose();
-					UserPreset.main(null);
 				}
 			});
 			btnBack.setBounds(133, 28, 97, 23);
